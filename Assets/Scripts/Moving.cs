@@ -20,5 +20,13 @@ public class Moving : MonoBehaviour {
 			transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
 		}
 		
+		if (Input.GetKey(KeyCode.DownArrow)) {
+			transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+		}
+		
+		if (Input.GetKey(KeyCode.UpArrow)) {
+			transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+		}
+		
 	}
 }

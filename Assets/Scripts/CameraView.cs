@@ -8,14 +8,19 @@ public class CameraView : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		setNewPos();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		transform.LookAt(target);
+	void Update () {		
+		setNewPos();
 		
+		transform.LookAt(target);
+	}
+	
+	void setNewPos () {
 		Vector3 pos = target.transform.position;
-		Vector3 camPos = new Vector3(pos.x, pos.y, pos.z + distance);
+		Vector3 camPos = new Vector3(pos.x, pos.y + distance*0.33f, pos.z + distance*0.6f);
 		transform.position = camPos;
 	}
 }
