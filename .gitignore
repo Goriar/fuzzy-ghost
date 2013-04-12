@@ -5,7 +5,10 @@
 Temp/
 obj/
 *.svd
- 
+*.sln
+*.csproj
+*.pidb 
+
 Library/*
 !Library/*.asset
  
