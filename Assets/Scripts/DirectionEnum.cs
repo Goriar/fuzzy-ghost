@@ -2,7 +2,10 @@ using System;
 
 public enum DirectionEnum
 {
-	LEFT = 0,
-	RIGHT = 1
+	NONE = 0,
+	LEFT = 1,
+	RIGHT = 2,
+	FORE = 3,
+	BACK = 4
 }
 

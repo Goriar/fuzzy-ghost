@@ -9,6 +9,7 @@ public class Moving : MonoBehaviour {
 	public DirectionEnum viewDirection;			// saves the direction the object is facing			
 	public bool switchBack;						// is true, when object can switch layer backward
 	public bool switchFore;						// is true, when object can switch layer forward
+	public DirectionEnum moveDirection;
 	
 	// Use this for initialization
 	void Start () {
@@ -16,20 +17,39 @@ public class Moving : MonoBehaviour {
 		layer = LayerEnum.FRONT;
 		houseLevel = HouseLevelEnum.LOWER;
 		viewDirection = DirectionEnum.LEFT;
-		
+		moveDirection = DirectionEnum.NONE;
+	}
+	
+	public void moveLeft () {
+		moveDirection = DirectionEnum.LEFT;
+		viewDirection = DirectionEnum.LEFT;
+	}
+	
+	
+	public void moveRight () {
+		moveDirection = DirectionEnum.RIGHT;
+		viewDirection = DirectionEnum.RIGHT;
+	}
+	
+	public void stopMoving () {
+		moveDirection = DirectionEnum.NONE;
+	}
+	
+	public void goToPoint () {
+	}
+	
+	public void goToObect (GameObject o) {
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 				
-		if (Input.GetKey(KeyCode.LeftArrow)) {
+		if (moveDirection == DirectionEnum.LEFT) {
 			transform.Translate(Vector3.left * moveSpeed * Time.fixedDeltaTime);
-			viewDirection = DirectionEnum.LEFT;
 		}
 		
-		if (Input.GetKey(KeyCode.RightArrow)) {
+		if (moveDirection == DirectionEnum.RIGHT) {
 			transform.Translate(Vector3.right * moveSpeed * Time.fixedDeltaTime);
-			viewDirection = DirectionEnum.RIGHT;
 		}
 		
 		if (Input.GetKey(KeyCode.UpArrow)) {
