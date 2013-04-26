@@ -20,7 +20,7 @@ public class CameraView : MonoBehaviour {
 	
 	void setNewPos () {
 		Vector3 pos = target.transform.position;
-		Vector3 camPos = new Vector3(pos.x, pos.y + distance*0.05f, pos.z + distance*0.15f);
+		Vector3 camPos = new Vector3(pos.x, pos.y + distance*0.075f, pos.z + distance*0.2f);
 		transform.position = camPos;
 	}
 }

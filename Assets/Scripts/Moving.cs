@@ -3,51 +3,20 @@ using System.Collections;
 
 public class Moving : MonoBehaviour {
 	
-	public float moveSpeed;
-	public LayerEnum layer;
-	public HouseLevelEnum houseLevel;
-	public DirectionEnum viewDirection;
+	public float moveSpeed;						// holds the speed the objects moves every update in m/s
+	public LayerEnum layer;						// hold the layer the object is in
+	public HouseLevelEnum houseLevel;			// holds the level, the object is in
+	public DirectionEnum viewDirection;			// saves the direction the object is facing			
+	public bool switchBack;						// is true, when object can switch layer backward
+	public bool switchFore;						// is true, when object can switch layer forward
 	
 	// Use this for initialization
 	void Start () {
 		moveSpeed = 2f;
-		layer = LayerEnum.MID;
+		layer = LayerEnum.FRONT;
 		houseLevel = HouseLevelEnum.LOWER;
 		viewDirection = DirectionEnum.LEFT;
 		
-		setLayer();
-		setHouseLevel();
-	}
-	
-	private void setLayer () {
-		switch (layer) {
-		case LayerEnum.FRONT:
-			transform.position = new Vector3(transform.position.x, transform.position.y, GameObject.FindWithTag("layer_front").transform.localPosition.z);		
-			break;
-		case LayerEnum.MID:
-			transform.position = new Vector3(transform.position.x, transform.position.y, GameObject.FindWithTag("layer_mid").transform.localPosition.z);		
-			break;
-		case LayerEnum.BACK:
-			transform.position = new Vector3(transform.position.x, transform.position.y, GameObject.FindWithTag("layer_back").transform.localPosition.z);		
-			break;
-		}
-	}
-	
-	private void setHouseLevel () {
-		switch (houseLevel) {
-		case HouseLevelEnum.CELLAR:
-			transform.position = new Vector3(transform.position.x, GameObject.FindWithTag("house_attic").transform.localPosition.y, transform.position.y);		
-			break;
-		case HouseLevelEnum.LOWER:
-			transform.position = new Vector3(transform.position.x, GameObject.FindWithTag("house_lower").transform.localPosition.y, transform.position.y);		
-			break;
-		case HouseLevelEnum.UPPER:
-			transform.position = new Vector3(transform.position.x, GameObject.FindWithTag("house_upper").transform.localPosition.y, transform.position.y);		
-			break;
-		case HouseLevelEnum.ATTIC:
-			transform.position = new Vector3(transform.position.x, GameObject.FindWithTag("house_attic").transform.localPosition.y, transform.position.y);		
-			break;
-		}
 	}
 	
 	// Update is called once per frame
@@ -64,26 +33,30 @@ public class Moving : MonoBehaviour {
 		}
 		
 		if (Input.GetKey(KeyCode.UpArrow)) {
-			LayerSwitch layerSwitch = GetComponent<LayerSwitch>();
-			switch (layer) {
-			case LayerEnum.FRONT:
-				layerSwitch.switchLayers(LayerEnum.MID);
-				break;
-			case LayerEnum.MID:
-				layerSwitch.switchLayers(LayerEnum.BACK);
-				break;
+			if (switchBack) {
+				LayerSwitch layerSwitch = GetComponent<LayerSwitch>();
+				switch (layer) {
+				case LayerEnum.FRONT:
+					layerSwitch.switchLayers(LayerEnum.MID);
+					break;
+				case LayerEnum.MID:
+					layerSwitch.switchLayers(LayerEnum.BACK);
+					break;
+				}
 			}
 		}
 		
 		if (Input.GetKey(KeyCode.DownArrow)) {
-			LayerSwitch layerSwitch = GetComponent<LayerSwitch>();
-			switch (layer) {
-			case LayerEnum.BACK:
-				layerSwitch.switchLayers(LayerEnum.MID);
-				break;
-			case LayerEnum.MID:
-				layerSwitch.switchLayers(LayerEnum.FRONT);
-				break;
+			if (switchFore) {
+				LayerSwitch layerSwitch = GetComponent<LayerSwitch>();
+				switch (layer) {
+				case LayerEnum.BACK:
+					layerSwitch.switchLayers(LayerEnum.MID);
+					break;
+				case LayerEnum.MID:
+					layerSwitch.switchLayers(LayerEnum.FRONT);
+					break;
+				}
 			}
 		}
 		
