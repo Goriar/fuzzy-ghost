@@ -43,7 +43,7 @@ public class ObjectInteraction : MonoBehaviour {
 	void OnGUI(){
 	
 		if(showMenu){
-			if(target.tag == "Interactable" || target.tag == "Player"){
+			if(target.GetComponent("Interactable") != null){
 				Interactable interact = (Interactable)target.GetComponent("Interactable");
 				string[] buttons = interact.getButtonTexts();
 				GUI.Box(new Rect(posX,posY,100,150),"Test");
