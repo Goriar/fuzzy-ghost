@@ -5,15 +5,17 @@ public class InteractionTypes
 	public enum Type{
 		NONE,TEST,STAIRS_UP,STAIRS_DOWN
 	}
-		
-	private Type type;
-	private string[] buttons;
+	
+	private Type type;				//Bestimmt den Typ des Objekts
+	
+	private string[] buttons;		//Text der Buttons
 
 		
 	public InteractionTypes (Type t)
 	{
 		type = t;
-			
+		
+		//Je nach Typ den Text der Buttons bestimmen
 		switch(type){
 		case Type.TEST:
 			buttons = new string[3];
@@ -43,20 +45,21 @@ public class InteractionTypes
 		return buttons;
 	}
 		
+	//Führt Aktion aus. Der Index muss -1 werden, damit die Aktion beendet wird.
 	public void doSomething(ref int index, float startTime){
 		
-		//Going Upstairs
+		//Die Treppe Rauf gehen
 		if(type==Type.STAIRS_UP){
 			if(index == 0){
 				
 				Stairs.goUpstairs(ref index,startTime);			
 			}	
 			else{
-				index = -1;
+				index = -1;  //Wird benötigt, falls Exit gedrückt wird
 			}
 		}
 		
-		//Going Downstairs
+		//Die Treppe runter gehen
 		if(type==Type.STAIRS_DOWN){
 			if(index == 0){
 				

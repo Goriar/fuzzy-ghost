@@ -3,9 +3,12 @@ using System.Collections;
 
 public class Stairs {
 	
-	private static float workTime;
-	private static float workIndex = 0;
+	private static float workTime;			//Wird benötigt, wenn ein Wegpunkt erreicht wird
 	
+	private static float workIndex = 0;		//Wird benötigt, um zu bestimmen welcher Wegpunkt als nächstes angesteuert wird
+	
+	//Nach Oben gehen. !!Namen der Wegpunkte sind fest vorgegeben!!
+	//Wenn Aktion beendet wird index auf -1 gesetzt
 	public static void goUpstairs(ref int index,float startTime){
 		
 		GameObject player = GameObject.Find("Player");
@@ -28,10 +31,12 @@ public class Stairs {
 		Vector3 bot = stairBot.transform.position;
 		
 		float journeyLength = Vector3.Distance(bot,up);
-		float distCovered = (Time.time - workTime) * 2.0f;
+		float distCovered = (Time.time - workTime) * 2.0f;S
 		float fracJourney = distCovered/journeyLength;
 		player.transform.position = Vector3.Lerp(bot,up,fracJourney);
-
+		
+		//Wenn Endposition erreicht wurde, wird die Aktion beendet, ansonsten werden
+		//die Variabeln auf die nächste Position gesetzt
 		if(player.transform.position.Equals(up)){
 			workIndex++;
 			workTime = Time.time;
@@ -42,6 +47,8 @@ public class Stairs {
 		}
 	}
 	
+	//Selbe wie oben, nur dass die Wegpunkte anders rum sind
+	//Wenn Aktion beendet wird index auf -1 gesetzt
 	public static void goDownstairs(ref int index, float startTime){
 		
 		 GameObject player = GameObject.Find("Player");
