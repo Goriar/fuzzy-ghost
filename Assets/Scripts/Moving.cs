@@ -3,58 +3,129 @@ using System.Collections;
 
 public class Moving : MonoBehaviour {
 	
-	public float moveSpeed;						// holds the speed the objects moves every update in m/s
-	public LayerEnum layer;						// hold the layer the object is in
-	public HouseLevelEnum houseLevel;			// holds the level, the object is in
-	public DirectionEnum viewDirection;			// saves the direction the object is facing			
-	public bool switchBack;						// is true, when object can switch layer backward
-	public bool switchFore;						// is true, when object can switch layer forward
-	public DirectionEnum moveDirection;
+	public float moveSpeed;						// Bewegungs-Geschwindigkeit des Objekts in m/s
 	
-	// Use this for initialization
+	public LayerEnum layer;						// Beinhaltet die Ebene, in der sich das Objekt befindet
+	public HouseLevelEnum houseLevel;			// Beinhaltet die Ebene, in der sich das Objekt befindet
+	
+	public DirectionEnum viewDirection;			// Richtung, in der das Objekt schaut			
+	public DirectionEnum moveDirection;			// Bewegungsrichtung (dient zum Updaten je FixedUpdate)
+	
+	public bool switchBack;						// wahr, wenn Objekt Ebene nach hinten wechseln kann (bei Tür)
+	public bool switchFore;						// wahr wenn Objekt Ebene nach vorne wechseln kann (bei Tür)
+	
+	// Lerp spezifische Attribute
+	public bool activeLerp;						// Wahr, wenn aktuell eine Lerp ausgeführt wird
+	public GameObject walkPath;					// aktueller Pfad (Trigger), auf dem Objekt gerade geht
+	private float lerpStartTime;				// Startzeit des Lerps
+	private Vector3 lerpFrom;					// Startposition des Lerps
+	public Vector3 lerpTo;						// Endposition des Lerps
+	private float lerpLength;					// Physikalische Länge des Lerps
+	
+	///
+	/// Use this for initialization
+	/// 
 	void Start () {
-		moveSpeed = 2f;
-		layer = LayerEnum.FRONT;
-		houseLevel = HouseLevelEnum.LOWER;
-		viewDirection = DirectionEnum.LEFT;
-		moveDirection = DirectionEnum.NONE;
+		moveSpeed = 2f; // 2 m/s Bewegungsgeschw.
+		layer = LayerEnum.FRONT; // ist in vorderster Ebene
+		houseLevel = HouseLevelEnum.LOWER; // Erdgeschoss
+		viewDirection = DirectionEnum.LEFT; // schaut nach links
+		moveDirection = DirectionEnum.NONE; // keine Bewegung am Anfang
 	}
 	
+	///
+	/// Bewegung und Blickrichtung links
+	/// 
 	public void moveLeft () {
 		moveDirection = DirectionEnum.LEFT;
 		viewDirection = DirectionEnum.LEFT;
+		activeLerp = false; // bricht automatisierte Bewerung ab
 	}
 	
 	
+	///
+	/// Bewegung und Blickrichtung rechts
+	/// 
 	public void moveRight () {
 		moveDirection = DirectionEnum.RIGHT;
 		viewDirection = DirectionEnum.RIGHT;
+		activeLerp = false; // bricht automatisierte Bewegung ab
 	}
 	
+	///
+	/// Stopt die Bewegung
+	/// 
 	public void stopMoving () {
 		moveDirection = DirectionEnum.NONE;
 	}
-	
-	public void goToPoint () {
+		
+	/// 
+	/// Bewegung zu Punkt x
+	/// 
+	public void goToX (float x) {
+		
+		// Wenn x links von Objekt, blicke links, wenn rechts von Objekt, rechts
+		if (x < transform.position.x) {
+			viewDirection = DirectionEnum.LEFT;
+		}
+		if (x > transform.position.x) {
+			viewDirection = DirectionEnum.RIGHT;
+		}
+		
+		// Setze notwendige Werte für Lerp
+		lerpFrom = new Vector3(transform.position.x, transform.position.y, transform.position.z); // Lerp von aktueller Position
+		lerpTo = new Vector3(x, transform.position.y, transform.position.z); // Lerp zu neuer X Pos, andere Achsen bleiben gleich
+		lerpStartTime = Time.time; // Startzeit = aktuelle Zeit
+		lerpLength = Vector3.Distance(lerpFrom, lerpTo);
+		activeLerp = true; // aktiviert Lerp
 	}
 	
-	public void goToObect (GameObject o) {
+	///
+	/// Obsolet oder hauen wir das Ganze hier rein, damit Bewegung immer zusammen gehört?
+	/// @param o GameObjekt, zu dem bewegt werden soll
+	/// 
+	public void goToObject (GameObject o) {
 	}
 	
-	// Update is called once per frame
+	/// 
+	/// führt Lerp aus, wenn gerade ein Lerp aktiv ist (activeLerp == true)
+	/// Wird dauerhaft von FixedUpdate aufgerufen
+	/// 
+	private void doLerp () {
+		if (activeLerp) {
+			float distCovered = (Time.time - lerpStartTime) * moveSpeed; // schon absolvierte Distanz
+        	float fracJourney = distCovered / lerpLength; // Fortschritt des Lerp von 0 bis 1
+        	transform.position = Vector3.Lerp(lerpFrom, lerpTo, fracJourney); // setze Position neu mittels Lerp
+			
+			// Deaktiviere Lerp, wenn Startpos = endpos	
+			if (transform.position.x == lerpTo.x && transform.position.y == lerpTo.y && transform.position.z == lerpTo.z) {
+				activeLerp = false;
+			}
+		}
+	}
+	
+	/// 
+	/// Fixed Update für Eingaben bzw. Physik
+	/// 
 	void FixedUpdate () {
-				
+		
+		// Wenn Bewegung nach links update nach links mit Geschwindigkeit
 		if (moveDirection == DirectionEnum.LEFT) {
 			transform.Translate(Vector3.left * moveSpeed * Time.fixedDeltaTime);
 		}
 		
+		// Wenn Bewegung nach rechts, update nach rechts mit Geschwindigkeit
 		if (moveDirection == DirectionEnum.RIGHT) {
 			transform.Translate(Vector3.right * moveSpeed * Time.fixedDeltaTime);
 		}
 		
+		// Muss noch geändert werden!
+		// Layer Switch bei Pfeil nach oben
 		if (Input.GetKey(KeyCode.UpArrow)) {
+			// Wenn Objekt nach hinten gehen kann, dann ...
 			if (switchBack) {
 				LayerSwitch layerSwitch = GetComponent<LayerSwitch>();
+				// Layer switch je nach aktueller Layer
 				switch (layer) {
 				case LayerEnum.FRONT:
 					layerSwitch.switchLayers(LayerEnum.MID);
@@ -66,9 +137,14 @@ public class Moving : MonoBehaviour {
 			}
 		}
 		
+		
+		// Muss noch geändert werden!
+		// Layer Switch bei Pfeil nach 
 		if (Input.GetKey(KeyCode.DownArrow)) {
+			// Wenn Objekt nach vorne gehen kann, dann ...
 			if (switchFore) {
 				LayerSwitch layerSwitch = GetComponent<LayerSwitch>();
+				// Layer switch je nach aktueller Layer
 				switch (layer) {
 				case LayerEnum.BACK:
 					layerSwitch.switchLayers(LayerEnum.MID);
@@ -79,6 +155,9 @@ public class Moving : MonoBehaviour {
 				}
 			}
 		}
+		
+		
+		doLerp(); // Führt Lerp aus, falls aktiv
 		
 	}
 }
