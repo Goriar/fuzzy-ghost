@@ -3,10 +3,13 @@ using System.Collections;
 
 public class CameraView : MonoBehaviour {
 	
-	public Transform target;
-	public float distance = 10f;
+	public Transform target;				// Ziel der Kamera
+	public float distance = 10f;			// Distanz der Kamera vom Spieler
+	private float layerVisibilityTime;		// Dauer des hide/show lerps für die Layer
 	
-	// Use this for initialization
+	///
+	/// Use this for initialization
+	///
 	void Start () {
 		setNewPos();
 	}
@@ -17,7 +20,7 @@ public class CameraView : MonoBehaviour {
 		setNewPos();
 		transform.LookAt(target);
 	}
-	
+		
 	// Setzt neue Position für die Kamera abhängig vom Target Objekt
 	void setNewPos () {
 		Vector3 pos = target.transform.position; // Aktuelle Target Position

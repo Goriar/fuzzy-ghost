@@ -28,13 +28,13 @@ public class LayerSwitch : MonoBehaviour {
 		float zPos = 0f; 
 		switch (layer) {
 		case LayerEnum.FRONT:
-			zPos = GameObject.FindWithTag("layer_front").transform.localPosition.z;		
+			zPos = ObjectRegister.getLayer("layer_front").transform.localPosition.z;	
 			break;
 		case LayerEnum.MID:
-			zPos = GameObject.FindWithTag("layer_mid").transform.localPosition.z;		
+			zPos = ObjectRegister.getLayer("layer_mid").transform.localPosition.z;		
 			break;
 		case LayerEnum.BACK:
-			zPos = GameObject.FindWithTag("layer_back").transform.localPosition.z;		
+			zPos = ObjectRegister.getLayer("layer_back").transform.localPosition.z;		
 			break;
 		}
 		
@@ -44,6 +44,28 @@ public class LayerSwitch : MonoBehaviour {
 		
 		// set journey length with the 2 positions
 		journeyLength = Vector3.Distance(startPos, endPos);
+		
+		// Wenn Objekt von Kamera verfolgt wird, blende ggf. Layers aus / blende sie ein
+		if (Camera.main.GetComponent<CameraView>().target == transform) {
+			switch (layer) {
+			case LayerEnum.FRONT:
+				ObjectRegister.getLayer("layer_front").SetActive(true);
+				ObjectRegister.getLayer("layer_front").BroadcastMessage("showLayer");		
+				break;
+			case LayerEnum.MID:
+				ObjectRegister.getLayer("layer_mid").SetActive(true);
+				ObjectRegister.getLayer("layer_mid").BroadcastMessage("showLayer");
+				ObjectRegister.getLayer("layer_front").BroadcastMessage("hideLayer");
+				break;
+			case LayerEnum.BACK:
+				ObjectRegister.getLayer("layer_back").SetActive(true);
+				ObjectRegister.getLayer("layer_back").BroadcastMessage("show");
+				ObjectRegister.getLayer("layer_mid").BroadcastMessage("hide");
+				ObjectRegister.getLayer("layer_front").BroadcastMessage("hide");
+				break;
+			}
+		}
+		
 		active = true;
 	}
 	

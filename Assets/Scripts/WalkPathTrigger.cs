@@ -9,7 +9,6 @@ public class WalkPathTrigger : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other) {
-		Debug.Log("blub");
 		other.gameObject.GetComponent<Moving>().walkPath = gameObject;
 	}
 	
