@@ -31,7 +31,8 @@ public class ObjectInteraction : MonoBehaviour {
 						target = hit.collider.gameObject;
 					}
 				}
-				showMenu = true;
+				if(target!=null)
+					showMenu = true;
 			}
 		}
 		else{

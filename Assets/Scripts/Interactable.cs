@@ -26,12 +26,12 @@ public class Interactable : MonoBehaviour
 			Vector3 playerPos = player.transform.position;
 			Vector3 ObjectPos = this.transform.position;
 			
-			if(playerPos.z > ObjectPos.z+1 || playerPos.z < ObjectPos.z-1){
-				if(ObjectPos.z > playerPos.z){
-					player.transform.Translate(Vector3.back * 10f *Time.deltaTime);
+			if(playerPos.x > ObjectPos.x+0.4 || playerPos.x < ObjectPos.x-0.4){
+				if(ObjectPos.x > playerPos.x){
+					player.transform.Translate(Vector3.right * 2f *Time.deltaTime);
 				}
 				else{
-					player.transform.Translate(Vector3.forward * 10f *Time.deltaTime);
+					player.transform.Translate(Vector3.left * 2f *Time.deltaTime);
 				}
 			}
 			else{
