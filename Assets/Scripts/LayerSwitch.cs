@@ -59,9 +59,9 @@ public class LayerSwitch : MonoBehaviour {
 				break;
 			case LayerEnum.BACK:
 				ObjectRegister.getLayer("layer_back").SetActive(true);
-				ObjectRegister.getLayer("layer_back").BroadcastMessage("show");
-				ObjectRegister.getLayer("layer_mid").BroadcastMessage("hide");
-				ObjectRegister.getLayer("layer_front").BroadcastMessage("hide");
+				ObjectRegister.getLayer("layer_back").BroadcastMessage("showLayer");
+				ObjectRegister.getLayer("layer_mid").BroadcastMessage("hideLayer");
+				ObjectRegister.getLayer("layer_front").BroadcastMessage("hideLayer");
 				break;
 			}
 		}

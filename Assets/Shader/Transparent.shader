@@ -8,7 +8,7 @@ SubShader {
 Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
 LOD 200
 
-ZWrite on
+ZWrite off
 
 CGPROGRAM
 #pragma surface surf Lambert alpha

@@ -31,7 +31,7 @@ public class Stairs {
 		Vector3 bot = stairBot.transform.position;
 		
 		float journeyLength = Vector3.Distance(bot,up);
-		float distCovered = (Time.time - workTime) * 2.0f;S
+		float distCovered = (Time.time - workTime) * 2.0f;
 		float fracJourney = distCovered/journeyLength;
 		player.transform.position = Vector3.Lerp(bot,up,fracJourney);
 		
