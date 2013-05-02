@@ -1,0 +1,120 @@
+fileFormatVersion: 2
+guid: d28298f22f06bc444ac22054ab6803bd
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: FrontLowerBeams
+    100004: FrontLowerDiningCeiling
+    100006: FrontLowerDiningFloor
+    100008: FrontLowerDiningWall
+    100010: FrontLowerDoorFrameLeft
+    100012: FrontLowerDoorFrameRight
+    100014: FrontLowerKitchenCeiling
+    100016: FrontLowerKitchenFloor
+    100018: FrontLowerKitchenWall
+    100020: FrontLowerStoreCeiling
+    100022: FrontLowerStoreFloor
+    100024: FrontLowerStoreWall
+    400000: //RootNode
+    400002: FrontLowerBeams
+    400004: FrontLowerDiningCeiling
+    400006: FrontLowerDiningFloor
+    400008: FrontLowerDiningWall
+    400010: FrontLowerDoorFrameLeft
+    400012: FrontLowerDoorFrameRight
+    400014: FrontLowerKitchenCeiling
+    400016: FrontLowerKitchenFloor
+    400018: FrontLowerKitchenWall
+    400020: FrontLowerStoreCeiling
+    400022: FrontLowerStoreFloor
+    400024: FrontLowerStoreWall
+    2300000: FrontLowerBeams
+    2300002: FrontLowerDiningCeiling
+    2300004: FrontLowerDiningFloor
+    2300006: FrontLowerDiningWall
+    2300008: FrontLowerDoorFrameLeft
+    2300010: FrontLowerDoorFrameRight
+    2300012: FrontLowerKitchenCeiling
+    2300014: FrontLowerKitchenFloor
+    2300016: FrontLowerKitchenWall
+    2300018: FrontLowerStoreCeiling
+    2300020: FrontLowerStoreFloor
+    2300022: FrontLowerStoreWall
+    3300000: FrontLowerBeams
+    3300002: FrontLowerDiningCeiling
+    3300004: FrontLowerDiningFloor
+    3300006: FrontLowerDiningWall
+    3300008: FrontLowerDoorFrameLeft
+    3300010: FrontLowerDoorFrameRight
+    3300012: FrontLowerKitchenCeiling
+    3300014: FrontLowerKitchenFloor
+    3300016: FrontLowerKitchenWall
+    3300018: FrontLowerStoreCeiling
+    3300020: FrontLowerStoreFloor
+    3300022: FrontLowerStoreWall
+    4300000: FrontLowerDiningFloor
+    4300002: FrontLowerDiningWall
+    4300004: FrontLowerKitchenWall
+    4300006: FrontLowerKitchenFloor
+    4300008: FrontLowerStoreWall
+    4300010: FrontLowerStoreFloor
+    4300012: FrontLowerBeams
+    4300014: FrontLowerDiningCeiling
+    4300016: FrontLowerKitchenCeiling
+    4300018: FrontLowerStoreCeiling
+    4300020: FrontLowerDoorFrameLeft
+    4300022: FrontLowerDoorFrameRight
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 2
+  userData: 

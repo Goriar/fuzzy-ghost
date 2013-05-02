@@ -1,0 +1,100 @@
+fileFormatVersion: 2
+guid: 9aacd7b644da70946b717bacfb443be0
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: MidLLowerDoorFrameDining
+    100002: //RootNode
+    100004: MidLowerBeams
+    100006: MidLowerCorridorCeiling
+    100008: MidLowerCorridorFloor
+    100010: MidLowerCorridorWall
+    100012: MidLowerDoorFrameEntrance
+    100014: MidLowerDoorFrameKitchen
+    100016: MidLowerStair
+    400000: MidLLowerDoorFrameDining
+    400002: //RootNode
+    400004: MidLowerBeams
+    400006: MidLowerCorridorCeiling
+    400008: MidLowerCorridorFloor
+    400010: MidLowerCorridorWall
+    400012: MidLowerDoorFrameEntrance
+    400014: MidLowerDoorFrameKitchen
+    400016: MidLowerStair
+    2300000: MidLLowerDoorFrameDining
+    2300002: MidLowerBeams
+    2300004: MidLowerCorridorCeiling
+    2300006: MidLowerCorridorFloor
+    2300008: MidLowerCorridorWall
+    2300010: MidLowerDoorFrameEntrance
+    2300012: MidLowerDoorFrameKitchen
+    2300014: MidLowerStair
+    3300000: MidLLowerDoorFrameDining
+    3300002: MidLowerBeams
+    3300004: MidLowerCorridorCeiling
+    3300006: MidLowerCorridorFloor
+    3300008: MidLowerCorridorWall
+    3300010: MidLowerDoorFrameEntrance
+    3300012: MidLowerDoorFrameKitchen
+    3300014: MidLowerStair
+    4300000: MidLowerCorridorFloor
+    4300002: MidLowerCorridorWall
+    4300004: MidLowerStair
+    4300006: MidLowerBeams
+    4300008: MidLowerCorridorCeiling
+    4300010: MidLLowerDoorFrameDining
+    4300012: MidLowerDoorFrameKitchen
+    4300014: MidLowerDoorFrameEntrance
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 2
+  userData: 
