@@ -5,6 +5,8 @@ Project("{63906E73-BF71-86DE-CB9E-866750077954}") = "fuzzy-ghost", "Assembly-CSh
 EndProject
 Project("{63906E73-BF71-86DE-CB9E-866750077954}") = "fuzzy-ghost", "Assembly-CSharp.csproj", "{7EF28DAA-72EC-1716-AC99-1C12375E7962}"
 EndProject
+Project("{63906E73-BF71-86DE-CB9E-866750077954}") = "fuzzy-ghost", "Assembly-CSharp-Editor.csproj", "{E54A2247-D831-8759-580E-DF9C243CB8BA}"
+EndProject
 Project("{63906E73-BF71-86DE-CB9E-866750077954}") = "fuzzy-ghost", "Assembly-UnityScript-firstpass.unityproj", "{88CABBA5-E3FD-371D-C233-2FE9C076EEC7}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{7EF28DAA-72EC-1716-AC99-1C12375E7962}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EF28DAA-72EC-1716-AC99-1C12375E7962}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EF28DAA-72EC-1716-AC99-1C12375E7962}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E54A2247-D831-8759-580E-DF9C243CB8BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E54A2247-D831-8759-580E-DF9C243CB8BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E54A2247-D831-8759-580E-DF9C243CB8BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E54A2247-D831-8759-580E-DF9C243CB8BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{88CABBA5-E3FD-371D-C233-2FE9C076EEC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88CABBA5-E3FD-371D-C233-2FE9C076EEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88CABBA5-E3FD-371D-C233-2FE9C076EEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																															GlobalSection(MonoDevelopProperties) = preSolution
+																																																	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
