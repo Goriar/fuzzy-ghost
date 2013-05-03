@@ -10,6 +10,7 @@ public class Moving : MonoBehaviour {
 	
 	public DirectionEnum viewDirection;			// Richtung, in der das Objekt schaut			
 	public DirectionEnum moveDirection;			// Bewegungsrichtung (dient zum Updaten je FixedUpdate)
+	public bool execMovement;					// Bestimmt, ob der Charakter um einen Zug bewegt werden soll (Keyboard / Controller Eingabe)
 	
 	public bool switchBack;						// wahr, wenn Objekt Ebene nach hinten wechseln kann (bei Tür)
 	public bool switchFore;						// wahr wenn Objekt Ebene nach vorne wechseln kann (bei Tür)
@@ -34,29 +35,52 @@ public class Moving : MonoBehaviour {
 	}
 	
 	///
-	/// Bewegung und Blickrichtung links
-	/// 
-	public void moveLeft () {
-		moveDirection = DirectionEnum.LEFT;
-		viewDirection = DirectionEnum.LEFT;
+	/// Führt Bewegung nach links aus
+	///
+	public void execMoveLeft () {
+		moveLeft();
+		execMovement = true;
 		activeLerp = false; // bricht automatisierte Bewerung ab
-	}
-	
+	}	
 	
 	///
-	/// Bewegung und Blickrichtung rechts
+	/// Setzt Direction Bool Werte und Animation
 	/// 
-	public void moveRight () {
+	private void moveLeft () {
+		moveDirection = DirectionEnum.LEFT;
+		viewDirection = DirectionEnum.LEFT;
+		BroadcastMessage("playAnimation", "move");
+	}
+	
+	///
+	/// Führt Bewegung nach rechts aus
+	///
+	public void execMoveRight () {
+		moveRight();
+		execMovement = true;
+		activeLerp = false; // bricht automatisierte Bewegung ab
+	}	
+	
+	///
+	/// Setzt Direction Bool Werte und Animation
+	/// 
+	private void moveRight () {
 		moveDirection = DirectionEnum.RIGHT;
 		viewDirection = DirectionEnum.RIGHT;
-		activeLerp = false; // bricht automatisierte Bewegung ab
+		BroadcastMessage("playAnimation", "move");
 	}
+	
+	
 	
 	///
 	/// Stopt die Bewegung
 	/// 
 	public void stopMoving () {
-		moveDirection = DirectionEnum.NONE;
+		if (!activeLerp) {
+			execMovement = false;
+			moveDirection = DirectionEnum.NONE;
+			BroadcastMessage("stopAnimation");
+		}	
 	}
 		
 	/// 
@@ -65,11 +89,15 @@ public class Moving : MonoBehaviour {
 	public void goToX (float x) {
 		
 		// Wenn x links von Objekt, blicke links, wenn rechts von Objekt, rechts
-		if (x < transform.position.x) {
-			viewDirection = DirectionEnum.LEFT;
-		}
 		if (x > transform.position.x) {
+			viewDirection = DirectionEnum.LEFT;
+			moveDirection = DirectionEnum.LEFT;
+			moveLeft();
+		}
+		if (x < transform.position.x) {
 			viewDirection = DirectionEnum.RIGHT;
+			moveDirection = DirectionEnum.RIGHT;
+			moveRight();
 		}
 		
 		// Setze notwendige Werte für Lerp
@@ -100,6 +128,7 @@ public class Moving : MonoBehaviour {
 			// Deaktiviere Lerp, wenn Startpos = endpos	
 			if (transform.position.x == lerpTo.x && transform.position.y == lerpTo.y && transform.position.z == lerpTo.z) {
 				activeLerp = false;
+				stopMoving();
 			}
 		}
 	}
@@ -110,12 +139,12 @@ public class Moving : MonoBehaviour {
 	void FixedUpdate () {
 		
 		// Wenn Bewegung nach links update nach links mit Geschwindigkeit
-		if (moveDirection == DirectionEnum.LEFT) {
+		if (execMovement && moveDirection == DirectionEnum.LEFT) {
 			transform.Translate(Vector3.left * moveSpeed * Time.fixedDeltaTime);
 		}
 		
 		// Wenn Bewegung nach rechts, update nach rechts mit Geschwindigkeit
-		if (moveDirection == DirectionEnum.RIGHT) {
+		if (execMovement && moveDirection == DirectionEnum.RIGHT) {
 			transform.Translate(Vector3.right * moveSpeed * Time.fixedDeltaTime);
 		}
 		

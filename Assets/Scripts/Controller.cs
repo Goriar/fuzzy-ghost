@@ -32,11 +32,11 @@ public class Controller : MonoBehaviour {
 			
 			// Wenn Ray Objekt getroffen hat
 			if(Physics.Raycast(ray,out hit)){
-				GameObject target = hit.collider.gameObject; // getroffenes Objekt
+				Vector3 target = hit.point; // getroffenes Objekt
 				// Wenn Objekt aktuell begehter Pfad ist
-				if (target == moving.walkPath) {
-					moving.goToX(hit.point.x);
-				}	
+				//if (target == moving.walkPath) {
+					moving.goToX(target.x);
+				//}
 			}
 		}
 	}
@@ -44,11 +44,11 @@ public class Controller : MonoBehaviour {
 	void FixedUpdate () {
 		// Bewegung links bei Pfeil links
 		if (Input.GetKey(KeyCode.LeftArrow)) {
-			moving.moveLeft();
+			moving.execMoveLeft();
 		}		
 		// Bewegung rechts bei Pfeil rechts
 		else if (Input.GetKey(KeyCode.RightArrow)) {
-			moving.moveRight();
+			moving.execMoveRight();
 		}
 		// Stopt Bewegung, wenn keiner der beiden Pfeile gedrückt wird
 		else {
