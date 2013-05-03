@@ -17,7 +17,6 @@ public class Moving : MonoBehaviour {
 	
 	// Lerp spezifische Attribute
 	public bool activeLerp;						// Wahr, wenn aktuell eine Lerp ausgeführt wird
-	public GameObject walkPath;					// aktueller Pfad (Trigger), auf dem Objekt gerade geht
 	private float lerpStartTime;				// Startzeit des Lerps
 	private Vector3 lerpFrom;					// Startposition des Lerps
 	public Vector3 lerpTo;						// Endposition des Lerps
