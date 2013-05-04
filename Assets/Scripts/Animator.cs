@@ -9,7 +9,7 @@ public class Animator : MonoBehaviour {
 	public void playAnimation (string _name) {
 		
 		if (_name != currentAnimationName) {
-		
+			
 			SpriteAnimation[] sprites = gameObject.GetComponents<SpriteAnimation>();
 		
 			// Stopt aktuelle Animation
@@ -21,11 +21,16 @@ public class Animator : MonoBehaviour {
 				if (sprite.name == _name) {
 					currentAnimation = sprite;
 					currentAnimationName = _name;
+					currentAnimation.play();
 					break;
 				}
 			}
-			
-			currentAnimation.play();
+		}
+	}
+	
+	public void stopAnimation (string _name) {
+		if (currentAnimationName == _name) {
+			stopAnimation();
 		}
 	}
 	

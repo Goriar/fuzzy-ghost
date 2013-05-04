@@ -8,7 +8,7 @@ public class SpriteAnimation : MonoBehaviour {
 	
 	public string name = "Animation";
 	
-	public Material blockMaterial;
+	private Material blockMaterial;
 	public Texture blockTexture;
 	
 	public bool isPlaying;						// gibt an, ob die Animation abgespielt wird
@@ -85,7 +85,7 @@ public class SpriteAnimation : MonoBehaviour {
 				} else {
 					_currentFrame = _totalFrames; // stop at the last frame
 					animationComplete = true;
-					
+					BroadcastMessage("stopAnimation", name);
 					break; // stopt Schleife
 				}
 			}	
@@ -98,6 +98,10 @@ public class SpriteAnimation : MonoBehaviour {
 				break;
 			}	
 		}
+	}
+	
+	public float getDuration () {
+		return _totalFrames * AnimationDeltaTime;
 	}
 	
 	void Awake () {

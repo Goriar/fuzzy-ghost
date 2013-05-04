@@ -15,6 +15,9 @@ public class Moving : MonoBehaviour {
 	public bool switchBack;						// wahr, wenn Objekt Ebene nach hinten wechseln kann (bei Tür)
 	public bool switchFore;						// wahr wenn Objekt Ebene nach vorne wechseln kann (bei Tür)
 	
+	private float lastIdleAnimation;			// Zeitpunkt der letzten Idle Animation
+	public float minIdleAnimationInverval = 8f;	// Minimale Dauer zwischen zwei Idle Animationen  
+	
 	// Lerp spezifische Attribute
 	public bool activeLerp;						// Wahr, wenn aktuell eine Lerp ausgeführt wird
 	private float lerpStartTime;				// Startzeit des Lerps
@@ -78,7 +81,7 @@ public class Moving : MonoBehaviour {
 		if (!activeLerp) {
 			execMovement = false;
 			moveDirection = DirectionEnum.NONE;
-			BroadcastMessage("stopAnimation");
+			BroadcastMessage("stopAnimation", "move");
 		}	
 	}
 		
@@ -186,6 +189,15 @@ public class Moving : MonoBehaviour {
 		
 		
 		doLerp(); // Führt Lerp aus, falls aktiv
+		
+		// Idle Animation ausführen, wenn Objekt steht und Animation noch nicht so lange her war (Min Idle Interval)
+		if (moveDirection == DirectionEnum.NONE && Time.time > (lastIdleAnimation + minIdleAnimationInverval)) {
+			int idleRand = Random.Range(0,200); // Random Abspielen der Idle Animation
+			if (idleRand == 0) {
+				lastIdleAnimation = Time.time;
+				BroadcastMessage("playAnimation", "idle");
+			}
+		}
 		
 	}
 }

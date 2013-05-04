@@ -6,13 +6,13 @@ public class Hide : MonoBehaviour {
 	// Attributes
 	private Component[] renderers; // Renderer (Texturen)
 	
-	// Layer Hide Optionen
-	private bool lerpActive;				// aktiv, wenn Änderung in Sichtbarkeit der Layer
-	private float lerpTo;					// neue Sichtbarkeit
-	private float lerpStartTime;			// Startzeit des Lerps
-	private float lerpDuration;				// Dauer des Lerps
-	private bool deactivateObject;			// Wenn true, wird Objekt deaktiviert, wenn Visibility = 0
-		
+	public void makeTransparent (float duration) {
+		Hashtable ht = new Hashtable();
+		ht.Add("alpha", 0.3);
+		ht.Add("time", duration);
+		iTween.FadeTo(gameObject, ht);
+	}
+	
 	/// 
 	/// Zeigt das Objekt komplett
 	/// Ist von aussen per Message benutzbar

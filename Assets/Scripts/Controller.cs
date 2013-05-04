@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour {
 	void Start () {
 		// Starte mit Player Objekt, das steuerbar ist
 		moving = GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>();
+		BroadcastMessage("makeTransparent", 1);
 	}
 	
 	
@@ -49,12 +50,13 @@ public class Controller : MonoBehaviour {
 		// Bewegung rechts bei Pfeil rechts
 		else if (Input.GetKey(KeyCode.RightArrow)) {
 			moving.execMoveRight();
-		}
-		// Stopt Bewegung, wenn keiner der beiden Pfeile gedrückt wird
+		} 
+		// Stopt Bewegung, wenn keine Pfeiltasten gedrückt wurden
 		else {
 			moving.stopMoving();
 		}
 		
+				
 		goToMouseClick(); // Checkt Klick zum Bewegen
 	}
 }
