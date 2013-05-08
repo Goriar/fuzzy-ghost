@@ -5,6 +5,11 @@ public class Animator : MonoBehaviour {
 	
 	private string currentAnimationName;
 	private SpriteAnimation currentAnimation;
+	private Texture defaultTexture;
+	
+	void Start () {
+		defaultTexture = renderer.material.mainTexture;
+	}
 	
 	public void playAnimation (string _name) {
 		
@@ -39,6 +44,13 @@ public class Animator : MonoBehaviour {
 			currentAnimation.stop();
 			currentAnimation = null;
 			currentAnimationName = "";
+			renderer.material.mainTexture = defaultTexture;
+			renderer.material.mainTextureOffset = new Vector2(0,0);
+			if (gameObject.GetComponent<Moving>().viewDirection == DirectionEnum.RIGHT) {
+				renderer.material.mainTextureScale = new Vector2(-1,1);
+			} else {
+				renderer.material.mainTextureScale = new Vector2(1,1);
+			}
 		}
 	}
 	

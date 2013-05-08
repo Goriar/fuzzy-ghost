@@ -36,10 +36,10 @@ public class SpriteAnimation : MonoBehaviour {
 				isPlaying = true;
 				animationComplete = false;
 				blockMaterial.mainTexture = blockTexture;
-				
-				StartCoroutine(Draw());
-				
+								
 				if (!startedRoutine) {
+					StopCoroutine("Draw");
+					StartCoroutine("Draw");
 					startedRoutine = true;
 				}
 			}
@@ -49,6 +49,7 @@ public class SpriteAnimation : MonoBehaviour {
 	public void stop () {
 		isPlaying = false;
 		active = false;
+		startedRoutine = false;
 		_currentFrame = 1;
 	}
 	
