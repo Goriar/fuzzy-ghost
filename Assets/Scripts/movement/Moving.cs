@@ -106,6 +106,11 @@ public class Moving : MonoBehaviour {
 		}
 	}
 	
+	public void startLayerSwitch (Door door) {
+		usableDoor = door;
+		startLayerSwitch();
+	}
+	
 	///
 	/// aktiviert Ebenewechsel
 	/// @param layer Ebene, auf die gewechselt werden soll
@@ -151,19 +156,13 @@ public class Moving : MonoBehaviour {
 			if (Camera.main.GetComponent<CameraView>().target == transform) {
 				switch (layer) {
 					case LayerEnum.FRONT:
-						ObjectRegister.getLayer("layer_front").SetActive(true);
-						ObjectRegister.getLayer("layer_front").BroadcastMessage("showLayer");		
+						ObjectRegister.getLayer("layer_front").GetComponent<Layer>().changeVisibilityByDependence();
 						break;
 					case LayerEnum.MID:
-						ObjectRegister.getLayer("layer_mid").SetActive(true);
-						ObjectRegister.getLayer("layer_mid").BroadcastMessage("showLayer");
-						ObjectRegister.getLayer("layer_front").BroadcastMessage("hideLayer");
+						ObjectRegister.getLayer("layer_mid").GetComponent<Layer>().changeVisibilityByDependence();
 						break;
 					case LayerEnum.BACK:
-						ObjectRegister.getLayer("layer_back").SetActive(true);
-						ObjectRegister.getLayer("layer_back").BroadcastMessage("showLayer");
-						ObjectRegister.getLayer("layer_mid").BroadcastMessage("hideLayer");
-						ObjectRegister.getLayer("layer_front").BroadcastMessage("hideLayer");
+						ObjectRegister.getLayer("layer_back").GetComponent<Layer>().changeVisibilityByDependence();
 						break;
 				}
 			}	
@@ -171,6 +170,10 @@ public class Moving : MonoBehaviour {
 	}
 	
 	public void stopLayerSwitch () {
+		usableDoor.close();
+		if (usableDoor.otherSide != null) {
+			usableDoor.otherSide.close();
+		}
 		unlockMovement();
 		viewDirection = DirectionEnum.LEFT;
 		BroadcastMessage("stopAnimation", "moveFore");

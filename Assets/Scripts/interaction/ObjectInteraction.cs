@@ -60,6 +60,7 @@ public class ObjectInteraction : MonoBehaviour {
 				GUI.Box(new Rect(posX,posY,100,150),"Test");
 				for(int i=0; i<buttons.Length; i++){
 					if(GUI.Button(new Rect(posX+5,posY+25+i*25,90,30),buttons[i])){
+						target.BroadcastMessage("interact", buttons[i]);
 						interact.doSomething(i);
 						showMenu = false;
 						count = 0.5f;

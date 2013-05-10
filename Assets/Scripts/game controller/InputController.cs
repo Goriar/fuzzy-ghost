@@ -9,7 +9,7 @@ public class InputController : MonoBehaviour {
 	private Moving moving;
 	
 	private float lastMouseDown;
-	public bool mousePressed;
+	private float mousePressedTime;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,7 +17,7 @@ public class InputController : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player");
 		moving = player.GetComponent<Moving>();
 		moving.controller = this;
-		BroadcastMessage("makeTransparent", 1);
+		player.BroadcastMessage("makeTransparent", 1);
 	}
 	
 	///
@@ -50,21 +50,18 @@ public class InputController : MonoBehaviour {
 		
 		if (Input.GetMouseButtonDown(0)) {
 			lastMouseDown = Time.time;
-			mousePressed = true;
 		}
 		
-		float mousePressedTime = 0;
-		if (mousePressed) {
+		if (Input.GetMouseButton(0)) {
 			mousePressedTime = Time.time - lastMouseDown;
 		}
 		
-		if(mousePressed && mousePressedTime > 0.5f) {
-			//Debug.Log("maus lange gedrückt");
+		if(Input.GetMouseButton(0) && mousePressedTime > 0.5f) {
+			// Debug.Log("maus lange gedrückt");
 		}
 		
 		if (Input.GetMouseButtonUp(0)) {
-			mousePressed = false;
-			// Gehe nur, wenn Klick (down+up unter 1 Sek.)
+			// Gehe nur, wenn Klick (down+up unter 0.5 Sek.)
 			if (mousePressedTime < 0.5f) {
 				// Ray Cast von Kamera aus zur Mausposition
 				RaycastHit hit = new RaycastHit();
@@ -95,16 +92,24 @@ public class InputController : MonoBehaviour {
 				moving.stopMoving();
 			}
 			
+			// TESTCODE START
+			if (Input.GetKeyDown(KeyCode.Space)) {
+				player.BroadcastMessage("show", 1);
+			} else if (Input.GetKeyUp  (KeyCode.Space)) {
+				player.BroadcastMessage("makeTransparent", 1);
+			}
+			// TESTCODE END
+			
 			// Layer Switch nur, wenn Tür in Nähe ist
 			if (moving.usableDoor != null) {
 				// Layer Switch bei Pfeil nach oben
-				if (Input.GetKey(KeyCode.UpArrow) && moving.usableDoor.switchDirection == DirectionEnum.BACK) {
-					moving.startLayerSwitch();
+				if (Input.GetKeyDown(KeyCode.UpArrow) && moving.usableDoor.switchDirection == DirectionEnum.BACK) {
+					moving.usableDoor.use();
 				}
 				
 				// Layer Switch bei Pfeil nach unten
-				if (Input.GetKey(KeyCode.DownArrow) && moving.usableDoor.switchDirection == DirectionEnum.FORE) {
-					moving.startLayerSwitch();
+				if (Input.GetKeyDown(KeyCode.DownArrow) && moving.usableDoor.switchDirection == DirectionEnum.FORE) {
+					moving.usableDoor.use();
 				}
 			}
 			

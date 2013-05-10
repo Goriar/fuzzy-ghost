@@ -18,6 +18,7 @@ public class Interactable : MonoBehaviour
 	{
 		interaction = new InteractionTypes(type);
 		action = -1;
+		playerArrivedAtTarget = true;
 	}
 	
 	// Update is called once per frame
@@ -27,7 +28,7 @@ public class Interactable : MonoBehaviour
 		if(Input.anyKey && !playerArrivedAtTarget){
 			action = -1;
 		}
-		
+		/*
 		//Falls der Spieler nicht beim Objekt ist, wird er zu ihm bewegt. (Gegebenenfalls in Moving verschieben)
 		if(!playerArrivedAtTarget && action>=0){
 			GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -46,7 +47,7 @@ public class Interactable : MonoBehaviour
 				playerArrivedAtTarget = true;
 				startTime = Time.time;
 			}
-		}	
+		}	*/
 		if(action >= 0 && playerArrivedAtTarget){
 		interaction.doSomething(ref action,startTime);
 		}

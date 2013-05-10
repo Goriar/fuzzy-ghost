@@ -1,0 +1,79 @@
+//Somehow achieves an effect similar to this:
+//#define BlendOverlayf(base, blend)    (base < 0.5 ? (2.0 * base * blend) : (1.0 - 2.0 * (1.0 - base) * (1.0 - blend)))
+ 
+Shader "Photoshop/Overlay" 
+{
+    Properties 
+    {
+    	_Color ("Main Color", Color) = (1,1,1,1)
+       _MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
+    }
+ 
+    SubShader
+    {
+       Tags {"Queue"="Transparent+1" "IgnoreProjector"="True" "RenderType"="Transparent"}
+       ZWrite Off Lighting Off Cull Off Fog { Mode Off } Blend DstColor SrcColor
+       LOD 110
+ 
+       Pass 
+       {
+         CGPROGRAM
+// Upgrade NOTE: excluded shader from DX11 and Xbox360; has structs without semantics (struct v2f_vct members uv_MainTex)
+#pragma exclude_renderers d3d11 xbox360
+         #pragma vertex vert_vct
+         #pragma fragment frag_mult 
+         #pragma fragmentoption ARB_precision_hint_fastest
+         #include "UnityCG.cginc"
+ 
+         sampler2D _MainTex;
+         float4 _MainTex_ST;
+         fixed4 _Color;
+ 
+ 		struct Input {
+			float2 uv_MainTex;
+		};
+ 
+         struct vin_vct 
+         {
+          float2 uv_MainTex;
+          float4 vertex : POSITION;
+          float4 color : COLOR;
+          float2 texcoord : TEXCOORD0;
+         };
+ 
+         struct v2f_vct
+         {
+          float2 uv_MainTex;
+          float4 vertex : POSITION;
+          fixed4 color : COLOR;
+          half2 texcoord : TEXCOORD0;
+         };
+ 
+         v2f_vct vert_vct(vin_vct v)
+         {
+          v2f_vct o;
+          o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+          o.color = v.color;
+          o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
+          return o;
+         }
+ 
+         float4 frag_mult(v2f_vct i) : COLOR
+         {
+          float4 tex = tex2D(_MainTex, i.texcoord) * _Color;
+ 
+          float4 final;          
+          final.rgb = i.color.rgb * tex.rgb * 2;
+          final.a = i.color.a * tex.a;
+          return lerp(float4(0.5f,0.5f,0.5f,0.5f), final, final.a);
+ 
+         }
+          
+         ENDCG
+ 
+       }
+ 
+ 
+    }
+ 
+}

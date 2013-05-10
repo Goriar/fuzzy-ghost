@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractionTypes
 {
 	public enum Type{
-		NONE,TEST,STAIRS_UP,STAIRS_DOWN
+		NONE,TEST,USE,STAIRS_UP,STAIRS_DOWN
 	}
 	
 	private Type type;				//Bestimmt den Typ des Objekts
@@ -22,6 +22,11 @@ public class InteractionTypes
 			buttons[0] = "Lol";
 			buttons[1] = "Trolol";
 			buttons[2] = "Exit";
+			break;
+		case Type.USE:
+			buttons = new string[2];
+			buttons[0] = "Use";
+			buttons[1] = "Exit";
 			break;
 		case Type.STAIRS_UP:
 			buttons = new string[2];
@@ -48,6 +53,16 @@ public class InteractionTypes
 	//Führt Aktion aus. Der Index muss -1 werden, damit die Aktion beendet wird.
 	public void doSomething(ref int index, float startTime){
 		
+		//Objekt benutzen
+		if(type==Type.USE){
+			if(index == 0){
+							
+			}	
+			else{
+				index = -1;
+			}
+		}
+		
 		//Die Treppe Rauf gehen
 		if(type==Type.STAIRS_UP){
 			if(index == 0){
@@ -69,7 +84,7 @@ public class InteractionTypes
 				index = -1;
 			}
 		}
-		
+				
 		if(type==Type.TEST||type==Type.NONE){
 			index = -1;
 		}
