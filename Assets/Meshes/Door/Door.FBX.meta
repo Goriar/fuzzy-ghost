@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6b73a4364ad9ae94bb4de66e5ef8f0c0
+guid: 8451d7ac0f63f1d418745282c762bd9c
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -7,7 +7,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Teapot
+    4300000: Door
     9500000: //RootNode
   materials:
     importMaterials: 1
