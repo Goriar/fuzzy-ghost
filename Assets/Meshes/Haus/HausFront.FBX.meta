@@ -28,6 +28,8 @@ ModelImporter:
     100044: FrontUpperWorkFloor
     100046: FrontUpperWorkWall
     100048: //RootNode
+    100050: FrontBeams
+    100052: FrontLowerDoorFrame
     400000: FrontLowerBeams
     400002: FrontLowerDiningCeiling
     400004: FrontLowerDiningFloor
@@ -53,6 +55,8 @@ ModelImporter:
     400044: FrontUpperWorkFloor
     400046: FrontUpperWorkWall
     400048: //RootNode
+    400050: FrontBeams
+    400052: FrontLowerDoorFrame
     2300000: FrontLowerBeams
     2300002: FrontLowerDiningCeiling
     2300004: FrontLowerDiningFloor
@@ -77,6 +81,8 @@ ModelImporter:
     2300042: FrontUpperWorkCeiling
     2300044: FrontUpperWorkFloor
     2300046: FrontUpperWorkWall
+    2300048: FrontBeams
+    2300050: FrontLowerDoorFrame
     3300000: FrontLowerBeams
     3300002: FrontLowerDiningCeiling
     3300004: FrontLowerDiningFloor
@@ -101,6 +107,8 @@ ModelImporter:
     3300042: FrontUpperWorkCeiling
     3300044: FrontUpperWorkFloor
     3300046: FrontUpperWorkWall
+    3300048: FrontBeams
+    3300050: FrontLowerDoorFrame
     4300000: FrontLowerDiningFloor
     4300002: FrontLowerDiningWall
     4300004: FrontLowerKitchenWall
@@ -125,6 +133,8 @@ ModelImporter:
     4300042: FrontLowerDoorFrameRight
     4300044: FrontRoof
     4300046: FrontRoofWall
+    4300048: FrontBeams
+    4300050: FrontLowerDoorFrame
     9500000: //RootNode
   materials:
     importMaterials: 1

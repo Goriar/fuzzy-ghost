@@ -38,6 +38,9 @@ ModelImporter:
     100064: BackUpperWindowFrame
     100066: BackWoodBeams
     100068: //RootNode
+    100070: BackBeams
+    100072: BackDoorFrame
+    100074: BackWindowFrame
     400000: BackAtticFloor
     400002: BackAtticWall
     400004: BackLowerBathWall
@@ -73,6 +76,9 @@ ModelImporter:
     400064: BackUpperWindowFrame
     400066: BackWoodBeams
     400068: //RootNode
+    400070: BackBeams
+    400072: BackDoorFrame
+    400074: BackWindowFrame
     2300000: BackAtticFloor
     2300002: BackAtticWall
     2300004: BackLowerBathWall
@@ -107,6 +113,9 @@ ModelImporter:
     2300062: BackUpperTwinsWall
     2300064: BackUpperWindowFrame
     2300066: BackWoodBeams
+    2300068: BackBeams
+    2300070: BackDoorFrame
+    2300072: BackWindowFrame
     3300000: BackAtticFloor
     3300002: BackAtticWall
     3300004: BackLowerBathWall
@@ -141,6 +150,9 @@ ModelImporter:
     3300062: BackUpperTwinsWall
     3300064: BackUpperWindowFrame
     3300066: BackWoodBeams
+    3300068: BackBeams
+    3300070: BackDoorFrame
+    3300072: BackWindowFrame
     4300000: BackLowerBathWall
     4300002: BackUpperBathFloor
     4300004: BackUpperBathWall
@@ -175,6 +187,9 @@ ModelImporter:
     4300062: BackRoof
     4300064: BackRoofWall
     4300066: BackAtticWall
+    4300068: BackBeams
+    4300070: BackDoorFrame
+    4300072: BackWindowFrame
     9500000: //RootNode
   materials:
     importMaterials: 1
