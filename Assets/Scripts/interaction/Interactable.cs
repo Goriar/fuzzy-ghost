@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Interactable : MonoBehaviour
 {
-	private InteractionTypes interaction; 		//Objekt vom Typ InteractionTypes in dem die Aktionen gespeichert sind
+	private InteractionTypes[] interaction; 	//Objekt vom Typ InteractionTypes in dem die Aktionen gespeichert sind
 	
-	public InteractionTypes.Type type;			//Enum mit dem das Objekt identifiziert wird
+	public InteractionTypes.Type[] types;		// Interkationstypen des Objekts
 	
 	private int action;							//Index der die Aktion bestimmt, -1 wenn keine Aktion
 	
@@ -16,7 +16,10 @@ public class Interactable : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		interaction = new InteractionTypes(type);
+		interaction = new InteractionTypes[types.Length];
+		for (int i = 0; i < types.Length; i++) {
+			interaction[i] = new InteractionTypes(types[i]);
+		}
 		action = -1;
 		playerArrivedAtTarget = true;
 	}
@@ -49,7 +52,7 @@ public class Interactable : MonoBehaviour
 			}
 		}	*/
 		if(action >= 0 && playerArrivedAtTarget){
-		interaction.doSomething(ref action,startTime);
+		//interaction.doSomething(ref action,startTime);
 		}
 		else{
 			playerArrivedAtTarget = false;
@@ -58,13 +61,21 @@ public class Interactable : MonoBehaviour
 	
 	//Ermittelt den Text der Buttons
 	public string[] getButtonTexts(){
-		return interaction.getButtonTexts();
+		
+		string[] output = new string[types.Length+1];
+		for (int i = 0; i < types.Length; i++) {
+			output[i] = interaction[i].getButtonText();
+		}
+		output[types.Length] = "Exit";
+		return output;
 	}
 	
 	//Wird aufgerufen sobald eine Aktion ausgeführt werden soll
 	public void doSomething(int index){
-		action = index;
-		startTime = Time.time;
+		if (index == types.Length) {
+			return;
+		}
+		this.BroadcastMessage(interaction[index].getMethod());
 	}
 	
 }

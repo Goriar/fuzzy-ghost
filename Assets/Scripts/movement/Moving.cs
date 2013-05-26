@@ -16,6 +16,8 @@ public class Moving : MonoBehaviour {
 	
 	public Door usableDoor;							// aktuell benutzbare Tür (in greifbarer Nähe)
 	
+	public bool movementExecuted = true;			// gibt an, ob die Bewegung vollendet wurde
+	
 	private bool locked;							// Bestimm, ob Bewegung ausgeführt werden kann
 	
 	private float lastIdleAnimation;				// Zeitpunkt der letzten Idle Animation
@@ -201,7 +203,7 @@ public class Moving : MonoBehaviour {
 	/// @param x X-Achsen Position, auf die gegangen werden soll
 	/// 
 	public void goToX (float x) {
-		
+		movementExecuted = false;
 		// Wenn x links von Objekt, blicke links, wenn rechts von Objekt, rechts
 		if (x > transform.position.x) {
 			viewDirection = DirectionEnum.LEFT;
@@ -251,6 +253,7 @@ public class Moving : MonoBehaviour {
 				if (goToCallback != null) {
 					goToCallback();
 					goToCallback = null;
+					movementExecuted = true;
 				}
 			}
 		}
