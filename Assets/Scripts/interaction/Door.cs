@@ -6,6 +6,7 @@ public class Door : MonoBehaviour {
 	public DirectionEnum switchDirection;
 	public LayerEnum switchTo;
 	public Door otherSide;
+	public RoomInventory[] connectedRooms = new RoomInventory[2];
 	
 	void interact (string action) {
 		if (action == "Use") {
@@ -35,6 +36,15 @@ public class Door : MonoBehaviour {
 	
 	public void use () {
 		Moving movingComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>();
+		movingComp.goToCallback += this.open;
+		if (otherSide != null) {
+			movingComp.goToCallback += otherSide.open;
+		}
+		movingComp.startLayerSwitch(this);
+	}
+	
+	public void use (GameObject character) {
+		Moving movingComp = character.GetComponent<Moving>();
 		movingComp.goToCallback += this.open;
 		if (otherSide != null) {
 			movingComp.goToCallback += otherSide.open;
