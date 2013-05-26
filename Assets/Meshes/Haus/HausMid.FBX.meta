@@ -31,6 +31,11 @@ ModelImporter:
     100050: MidWoodBeams
     100052: MidBeams
     100054: MidDoorFrames
+    100056: MidDoorFrame
+    100058: MidLowerStair002
+    100060: MidLowerStair003
+    100062: MidStairGelaender
+    100064: MidStairWall
     400000: //RootNode
     400002: MidAtticBeams
     400004: MidAtticCeiling
@@ -59,6 +64,11 @@ ModelImporter:
     400050: MidWoodBeams
     400052: MidBeams
     400054: MidDoorFrames
+    400056: MidDoorFrame
+    400058: MidLowerStair002
+    400060: MidLowerStair003
+    400062: MidStairGelaender
+    400064: MidStairWall
     2300000: MidAtticBeams
     2300002: MidAtticCeiling
     2300004: MidAtticFloor
@@ -86,6 +96,11 @@ ModelImporter:
     2300048: MidWoodBeams
     2300050: MidBeams
     2300052: MidDoorFrames
+    2300054: MidDoorFrame
+    2300056: MidLowerStair002
+    2300058: MidLowerStair003
+    2300060: MidStairGelaender
+    2300062: MidStairWall
     3300000: MidAtticBeams
     3300002: MidAtticCeiling
     3300004: MidAtticFloor
@@ -113,6 +128,11 @@ ModelImporter:
     3300048: MidWoodBeams
     3300050: MidBeams
     3300052: MidDoorFrames
+    3300054: MidDoorFrame
+    3300056: MidLowerStair002
+    3300058: MidLowerStair003
+    3300060: MidStairGelaender
+    3300062: MidStairWall
     4300000: MidAtticFloor
     4300002: MidAtticWall
     4300004: MidUpperCorridorWall
@@ -140,6 +160,11 @@ ModelImporter:
     4300048: MidAtticCeiling
     4300050: MidBeams
     4300052: MidDoorFrames
+    4300054: MidDoorFrame
+    4300056: MidLowerStair002
+    4300058: MidLowerStair003
+    4300060: MidStairWall
+    4300062: MidStairGelaender
     9500000: //RootNode
   materials:
     importMaterials: 1
