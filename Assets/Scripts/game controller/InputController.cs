@@ -92,6 +92,11 @@ public class InputController : MonoBehaviour {
 				moving.stopMoving();
 			}
 			
+			// Drop Item
+			if (Input.GetKey(KeyCode.I)) {
+				moving.GetComponent<Inventory>().dropItem();
+			}		
+			
 			// TESTCODE START
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				player.BroadcastMessage("show", 1);

@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour {
 	public void takeItem(GameObject item) {
 		if (currentItem == null) {
 			currentItem = item;
+			currentItem.GetComponent<Item>().wasTaken = true;
+			currentItem.SetActive(false);
 		}
 	}
 	
@@ -19,7 +21,10 @@ public class Inventory : MonoBehaviour {
 	
 	public void dropItem() {
 		if (currentItem != null) {
-			// Drop Code here
+			currentItem.transform.position = gameObject.transform.position;
+			currentItem.GetComponent<Item>().currentLayer = gameObject.GetComponent<Moving>().layer;
+			currentItem.SetActive(true);
+			currentItem = null;
 		}
 	}
 	

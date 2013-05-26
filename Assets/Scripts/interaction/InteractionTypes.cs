@@ -3,12 +3,19 @@ using UnityEngine;
 public class InteractionTypes
 {
 	public enum Type{
-		NONE,TEST,USE,STAIRS_UP,STAIRS_DOWN
+		NONE,USE,OPEN,TAKE,STAIRS_UP,STAIRS_DOWN
+	}
+	
+	public struct TypeButton {
+		public Texture texture;
+		public string name;
+		public string methodName;
+		public string infoText;
 	}
 	
 	private Type type;				//Bestimmt den Typ des Objekts
 	
-	private string[] buttons;		//Text der Buttons
+	private TypeButton button;		//Eigenschaften des Buttons
 
 		
 	public InteractionTypes (Type t)
@@ -17,77 +24,47 @@ public class InteractionTypes
 		
 		//Je nach Typ den Text der Buttons bestimmen
 		switch(type){
-		case Type.TEST:
-			buttons = new string[3];
-			buttons[0] = "Lol";
-			buttons[1] = "Trolol";
-			buttons[2] = "Exit";
-			break;
 		case Type.USE:
-			buttons = new string[2];
-			buttons[0] = "Use";
-			buttons[1] = "Exit";
+			button = new TypeButton();
+			button.name = "use";
+			button.methodName = "use";
+			button.infoText = "Benutze Objekt";
+			break;
+		case Type.OPEN:
+			button = new TypeButton();
+			button.name = "open";
+			button.methodName = "use";
+			button.infoText = "Öffne Objekt";
+			break;
+		case Type.TAKE:
+			button = new TypeButton();
+			button.name = "take";
+			button.methodName = "take";
+			button.infoText = "Nimm Objekt";
 			break;
 		case Type.STAIRS_UP:
-			buttons = new string[2];
-			buttons[0] = "Go up";
-			buttons[1] = "Exit";
+			button = new TypeButton();
+			button.name = "stairs_up";
+			button.methodName = "stairsUp";
+			button.infoText = "Gehe nach oben";
 			break;
 		case Type.STAIRS_DOWN:
-			buttons = new string[2];
-			buttons[0] = "Go Down";
-			buttons[1] = "Exit";
+			button = new TypeButton();
+			button.name = "stairs_down";
+			button.methodName = "stairsDown";
+			button.infoText = "Gehe nach unten";
 			break;
 		default:
-			buttons = new string[2];
-			buttons[0] = "MISSING";
-			buttons[1] = "Exit";
 			break;
 		}
 	}
 	
-	public string[] getButtonTexts(){
-		return buttons;
+	public string getButtonText(){
+		return button.infoText;
 	}
-		
-	//Führt Aktion aus. Der Index muss -1 werden, damit die Aktion beendet wird.
-	public void doSomething(ref int index, float startTime){
-		
-		//Objekt benutzen
-		if(type==Type.USE){
-			if(index == 0){
-							
-			}	
-			else{
-				index = -1;
-			}
-		}
-		
-		//Die Treppe Rauf gehen
-		if(type==Type.STAIRS_UP){
-			if(index == 0){
-				
-				Stairs.goUpstairs(ref index,startTime);			
-			}	
-			else{
-				index = -1;  //Wird benötigt, falls Exit gedrückt wird
-			}
-		}
-		
-		//Die Treppe runter gehen
-		if(type==Type.STAIRS_DOWN){
-			if(index == 0){
-				
-				Stairs.goDownstairs(ref index,startTime);				
-			}	
-			else{
-				index = -1;
-			}
-		}
-				
-		if(type==Type.TEST||type==Type.NONE){
-			index = -1;
-		}
+	
+	public string getMethod() {
+		return button.methodName;
 	}
 
 		
