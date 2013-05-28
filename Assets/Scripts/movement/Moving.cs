@@ -17,6 +17,7 @@ public class Moving : MonoBehaviour {
 	public Door usableDoor;							// aktuell benutzbare Tür (in greifbarer Nähe)
 	
 	public bool movementExecuted = true;			// gibt an, ob die Bewegung vollendet wurde
+	public bool finishedAction = true; 				// für AI
 	
 	private bool locked;							// Bestimm, ob Bewegung ausgeführt werden kann
 	
@@ -118,6 +119,7 @@ public class Moving : MonoBehaviour {
 	/// @param layer Ebene, auf die gewechselt werden soll
 	/// 
 	public void startLayerSwitch (LayerEnum layer, DirectionEnum direction) {
+		finishedAction =false;
 		if (!locked) {
 			// Bewegung blockieren während Objekt Ebene wechselt
 			lockMovement();
@@ -180,6 +182,7 @@ public class Moving : MonoBehaviour {
 		viewDirection = DirectionEnum.LEFT;
 		BroadcastMessage("stopAnimation", "moveFore");
 		BroadcastMessage("stopAnimation", "moveBack");
+		finishedAction = true;
 	}
 		
 	///
@@ -204,6 +207,7 @@ public class Moving : MonoBehaviour {
 	/// 
 	public void goToX (float x) {
 		movementExecuted = false;
+		finishedAction = false;
 		// Wenn x links von Objekt, blicke links, wenn rechts von Objekt, rechts
 		if (x > transform.position.x) {
 			viewDirection = DirectionEnum.LEFT;
@@ -250,6 +254,7 @@ public class Moving : MonoBehaviour {
 			if (transform.position.x == lerpTo.x && transform.position.y == lerpTo.y && transform.position.z == lerpTo.z) {
 				activeLerp = false;
 				stopMoving();
+				finishedAction = true;
 				if (goToCallback != null) {
 					goToCallback();
 					goToCallback = null;

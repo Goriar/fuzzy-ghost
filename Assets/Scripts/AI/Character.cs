@@ -7,13 +7,14 @@ public class Character : MonoBehaviour
 	Moving movingComponent;
 	public RoomInventory currentLocation;
 	public GameObject objectOfInterest;
-	private ArrayList characterPath;
+	private GameObject[] characterPath;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		stateMachine = new StateMachine(GameObject.FindGameObjectWithTag("Player"),this);
-		characterPath = new ArrayList();
+		characterPath = new GameObject[0];
+		movingComponent = this.gameObject.GetComponent<Moving>();
 	}
 	
 	// Update is called once per frame
@@ -50,20 +51,60 @@ public class Character : MonoBehaviour
 		return false;
 	}
 	
+	public GameObject[] getCharacterPath()
+	{
+		return characterPath;	
+	}
+	
+	public GameObject popNextTarget()
+	{
+		GameObject obj = characterPath[0];
+		GameObject[] newCharacterPath = new GameObject[characterPath.Length-1];
+		for(int i = 0; i < newCharacterPath.Length; ++i)
+		{
+			newCharacterPath[i] = characterPath[i+1];	
+		}
+		characterPath = newCharacterPath;
+		return obj;
+	}
+	
+	private void addToPath(GameObject obj)
+	{
+		GameObject[] newCharacterPath = new GameObject[characterPath.Length+1];
+		for(int i = 0; i < characterPath.Length; ++i)
+		{
+			newCharacterPath[i] = characterPath[i];	
+		}
+		newCharacterPath[newCharacterPath.Length-1] = obj;
+		characterPath = newCharacterPath;
+	}
+	
+	public Moving getMovingComponent()
+	{
+		return movingComponent;
+	}
+	
 	public void setCharacterPath()
 	{
-		characterPath = new ArrayList();
+		characterPath = new GameObject[0];
 		if(currentLocation.containsObject(objectOfInterest))
-			characterPath.Add(objectOfInterest);
+			addToPath(objectOfInterest);
 		else
 		{
-			RoomInventory mainFloor = this.getMainFloorNeighbour();
-			GameObject door = currentLocation.getDoorToRoom(mainFloor);
-			characterPath.Add(door);
+			RoomInventory mainFloor = null;
+			GameObject door = null;
+			if(!currentLocation.isMainFloor){
+				mainFloor = this.getMainFloorNeighbour();
+				door = currentLocation.getDoorToRoom(mainFloor);
+				addToPath(door);
+			}
+			else{
+				mainFloor = currentLocation;	
+			}
 			
 			if(mainFloor.containsObject(objectOfInterest))
 			{
-				characterPath.Add(objectOfInterest);
+				addToPath(objectOfInterest);
 				return;
 			}
 			
@@ -75,9 +116,12 @@ public class Character : MonoBehaviour
 			}
 			
 			door = mainFloor.getDoorToRoom(nextRoom);
-			characterPath.Add(door);
-			characterPath.Add(objectOfInterest);
+			addToPath(door);
+			addToPath(objectOfInterest);
 			
+		
+			
+			/*
 			for(int i = 0; i < characterPath.Capacity; ++i)
 			{
 				movingComponent.goToCallback += movingComponent.goToObject((GameObject)characterPath.ToArray()[i]);
@@ -86,6 +130,7 @@ public class Character : MonoBehaviour
 				if(d!=null)
 					movingComponent.goToCallback += d.use;
 			}
+			*/
 		}
 	}
 	

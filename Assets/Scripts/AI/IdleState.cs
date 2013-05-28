@@ -17,7 +17,7 @@ using UnityEngine;
 		
 		public override void updateAI(){
 			idleTime+=Time.deltaTime;
-			if(idleTime > 10.0){
+			if(idleTime > 5.0){
 				this.stateMachine.changeState(new WanderState(stateMachine));
 			}
 		}

@@ -8,14 +8,13 @@ public class StateMachine
 	AIState currentState;
 	private GameObject player;
 	private Character enemy;
-	HouseInventory house;
 	
 	public StateMachine (GameObject player, Character enemy)
 	{
 		this.player = player;
 		this.enemy = enemy;
-		house = new HouseInventory();
 		currentState = new IdleState(this);
+		currentState.enterState();
 	
 	}
 	
@@ -28,6 +27,7 @@ public class StateMachine
 	{
 		currentState.exitState();
 		currentState = state;
+		currentState.enterState();
 	}
 	
 	public GameObject Player{
