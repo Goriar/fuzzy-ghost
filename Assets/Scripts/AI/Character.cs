@@ -115,11 +115,32 @@ public class Character : MonoBehaviour
 					nextRoom = room;
 			}
 			
+			if(nextRoom == null){
+				addToPath(mainFloor.stairs);
+				Stairs stairs = mainFloor.stairs.GetComponent<Stairs>();
+				if(mainFloor.Equals(stairs.lowerMainFloor))
+					mainFloor = stairs.upperMainFloor;
+				else
+					mainFloor = stairs.lowerMainFloor;
+				
+				if(mainFloor.containsObject(objectOfInterest))
+				{
+					addToPath(objectOfInterest);
+					return;
+				}
+				
+				foreach(RoomInventory room in mainFloor.getNeighbouringRooms())
+				{
+					if(roomContainsObject(room,objectOfInterest))
+						nextRoom = room;
+				}
+			}
+			
 			door = mainFloor.getDoorToRoom(nextRoom);
 			addToPath(door);
 			addToPath(objectOfInterest);
 			
-		
+			
 			
 			/*
 			for(int i = 0; i < characterPath.Capacity; ++i)
