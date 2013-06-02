@@ -46,9 +46,9 @@ public class Door : MonoBehaviour {
 	public void use (Moving movComp) {
 		Debug.Log("use!");
 		Moving movingComp = movComp;
-		movingComp.goToCallback += this.open;
+		this.open();
 		if (otherSide != null) {
-			movingComp.goToCallback += otherSide.open;
+			otherSide.open();
 		}
 		movingComp.startLayerSwitch(this);
 	}

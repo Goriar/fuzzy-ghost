@@ -12,6 +12,12 @@ public class Stairs : MonoBehaviour{
 	
 	public RoomInventory lowerMainFloor, upperMainFloor;
 	public int level = 1;
+
+	
+	void Update(){
+		
+		
+	}
 	
 	//Nach Oben gehen. !!Namen der Wegpunkte sind fest vorgegeben!!
 	//Wenn Aktion beendet wird index auf -1 gesetzt
@@ -59,40 +65,24 @@ public class Stairs : MonoBehaviour{
 	
 	public void goUpstairs(){
 		
-		GameObject player = GameObject.Find("Player");
+	GameObject player = GameObject.Find("Player");
 		
-		Transform path1 = GameObject.Find("StairsBottom").transform;
-		Transform[] path2 = {GameObject.Find("StairsMid1").transform,GameObject.Find("StairsMid2").transform,GameObject.Find("StairsTop").transform};
-		Hashtable table = new Hashtable();
-		table.Add("position",path1);
-		table.Add("time",2.0f);
-		table.Add("easetype", "easeOutSine");
-		table.Add("oncomplete","execMoveLeft");
+		Transform[] path1 = {GameObject.Find("StairsBottom").transform, GameObject.Find("StairsMid1").transform};
+		Transform[] path2 = {GameObject.Find("StairsMid2").transform,GameObject.Find("StairsTop").transform};
 		
-		iTween.MoveTo(player,table);
-		table.Remove("position");
-		table.Remove("oncomplete");
-		table.Add("path",path2);
-		iTween.MoveTo(player,table);
+		iTween.MoveTo(player,iTween.Hash("path",path1,"time",1.5f,"oncomplete","execMoveLeft","easetype","easeoutsine"));
+
+		iTween.MoveTo(player,iTween.Hash("path",path2,"time",1.5f,"delay",1.6f,"easetype","easeinoutsine"));
 	}
 	
 	public void goUpstairs(GameObject npc){
 		
-		
-		
-		Transform path1 = GameObject.Find("StairsBottom").transform;
-		Transform[] path2 = {GameObject.Find("StairsMid1").transform,GameObject.Find("StairsMid2").transform,GameObject.Find("StairsTop").transform};
-		Hashtable table = new Hashtable();
-		table.Add("position",path1);
-		table.Add("time",2.0f);
-		table.Add("easetype", "easeOutSine");
-		table.Add("oncomplete","execMoveLeft");
-		
-		iTween.MoveTo(npc,table);
-		table.Remove("position");
-		table.Remove("oncomplete");
-		table.Add("path",path2);
-		iTween.MoveTo(npc,table);
+		Moving movComp = npc.GetComponent<Moving>();
+		movComp.finishedAction = false;
+		Transform[] path = {GameObject.Find("StairsBottom").transform, GameObject.Find("StairsMid1").transform,
+							GameObject.Find("StairsMid2").transform,GameObject.Find("StairsTop").transform};
+
+		iTween.MoveTo(npc,iTween.Hash("path",path,"time",3.0f,"oncomplete","finishAction","oncompletetarget",gameObject,"oncompleteparams",movComp,"easetype","easeoutsine"));
 	}
 	
 	//Selbe wie oben, nur dass die Wegpunkte anders rum sind
@@ -138,39 +128,29 @@ public class Stairs : MonoBehaviour{
 	
 	public void goDownstairs(){
 		GameObject player = GameObject.Find("Player");
-		Transform path1 = GameObject.Find("StairsTop").transform;
-		Transform[] path2 = {GameObject.Find("StairsMid2").transform,GameObject.Find("StairsMid1").transform,
-							GameObject.Find("StairsBottom").transform};
-		 Hashtable table = new Hashtable();
-		 table.Add("position",path1);
-		 table.Add("time",3.0f);
-		 table.Add("easetype", "easeOutSine");
-		 
-		iTween.MoveTo(player,table);
-		table.Remove("position");
-		table.Remove("oncomplete");
-		table.Add("path",path2);
-		iTween.MoveTo(player,table);
+		
+		Transform[] path1 = {GameObject.Find("StairsTop").transform, GameObject.Find("StairsMid2").transform};
+		Transform[] path2 = {GameObject.Find("StairsMid1").transform,GameObject.Find("StairsBottom").transform};
+		
+		iTween.MoveTo(player,iTween.Hash("path",path1,"time",1.5f,"oncomplete","execMoveLeft","easetype","easeoutsine"));
+
+		iTween.MoveTo(player,iTween.Hash("path",path2,"time",1.5f,"delay",1.6f,"easetype","easeinoutsine"));
 	}
 	
 	public void goDownstairs(GameObject npc){
-
-		Transform path1 = GameObject.Find("StairsTop").transform;
-		Transform[] path2 = {GameObject.Find("StairsMid2").transform,GameObject.Find("StairsMid1").transform,
-							GameObject.Find("StairsBottom").transform};
-		 Hashtable table = new Hashtable();
-		 table.Add("position",path1);
-		 table.Add("time",3.0f);
-		 table.Add("easetype", "easeOutSine");
-		 
-		iTween.MoveTo(npc,table);
-		table.Remove("position");
-		table.Remove("oncomplete");
-		table.Add("path",path2);
-		iTween.MoveTo(npc,table);
-	}
-	
-	
 		
+		Moving movComp = npc.GetComponent<Moving>();
+		movComp.finishedAction = false;
+		Transform[] path = {GameObject.Find("StairsTop").transform, GameObject.Find("StairsMid2").transform,GameObject.Find("StairsMid1").transform,GameObject.Find("StairsBottom").transform};
+		
+
+		iTween.MoveTo(npc,iTween.Hash("path",path,"time",3.0f,"oncomplete","finishAction","oncompletetarget",gameObject,"oncompleteparams",movComp, "easetype","easeoutsine"));
+	}
+
+	public void finishAction(Moving movComp){
+			movComp.finishedAction = true;
+		}
+
+	
 	
 }

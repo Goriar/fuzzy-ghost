@@ -19,6 +19,7 @@ public class WanderState : AIState
 	}
 	
 	public override void updateAI(){
+		
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
 			stateMachine.changeState(new IdleState(stateMachine));
 		}
@@ -34,7 +35,7 @@ public class WanderState : AIState
 					}
 					
 					movingComoponent.goToObject(nextTarget);
-					
+					Debug.Log("moving to");
 				} 
 				else
 				{
@@ -60,7 +61,7 @@ public class WanderState : AIState
 						}
 						else{
 							stairs.goDownstairs(stateMachine.Enemy.gameObject);
-							stateMachine.Enemy.currentLocation = stairs.upperMainFloor;
+							stateMachine.Enemy.currentLocation = stairs.lowerMainFloor;
 						}
 						movingToTransition = false;
 					}
