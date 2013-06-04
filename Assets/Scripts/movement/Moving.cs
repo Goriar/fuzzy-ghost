@@ -199,33 +199,44 @@ public class Moving : MonoBehaviour {
 		locked = false;
 	}
 		
-	
+	public void deactivateLerp(){
+		activeLerp = false;
+				stopMoving();
+				finishedAction = true;
+				if (goToCallback != null) {
+					goToCallback();
+					goToCallback = null;
+					movementExecuted = true;
+				}
+	}
 	
 	/// 
 	/// Bewegung zu Punkt x
 	/// @param x X-Achsen Position, auf die gegangen werden soll
 	/// 
 	public void goToX (float x) {
-		movementExecuted = false;
-		finishedAction = false;
-		// Wenn x links von Objekt, blicke links, wenn rechts von Objekt, rechts
-		if (x > transform.position.x) {
-			viewDirection = DirectionEnum.LEFT;
-			moveDirection = DirectionEnum.LEFT;
-			moveLeft();
-		}
-		if (x < transform.position.x) {
-			viewDirection = DirectionEnum.RIGHT;
-			moveDirection = DirectionEnum.RIGHT;
-			moveRight();
-		}
 		
-		// Setze notwendige Werte für Lerp
-		lerpFrom = new Vector3(transform.position.x, transform.position.y, transform.position.z); // Lerp von aktueller Position
-		lerpTo = new Vector3(x, transform.position.y, transform.position.z); // Lerp zu neuer X Pos, andere Achsen bleiben gleich
-		lerpStartTime = Time.time; // Startzeit = aktuelle Zeit
-		lerpLength = Vector3.Distance(lerpFrom, lerpTo);
-		activeLerp = true; // aktiviert Lerp	
+			movementExecuted = false;
+			finishedAction = false;
+			// Wenn x links von Objekt, blicke links, wenn rechts von Objekt, rechts
+			if (x > transform.position.x) {
+				viewDirection = DirectionEnum.LEFT;
+				moveDirection = DirectionEnum.LEFT;
+				moveLeft();
+			}
+			if (x < transform.position.x) {
+				viewDirection = DirectionEnum.RIGHT;
+				moveDirection = DirectionEnum.RIGHT;
+				moveRight();
+			}
+			
+			// Setze notwendige Werte für Lerp
+			lerpFrom = new Vector3(transform.position.x, transform.position.y, transform.position.z); // Lerp von aktueller Position
+			lerpTo = new Vector3(x, transform.position.y, transform.position.z); // Lerp zu neuer X Pos, andere Achsen bleiben gleich
+			lerpStartTime = Time.time; // Startzeit = aktuelle Zeit
+			lerpLength = Vector3.Distance(lerpFrom, lerpTo);
+			activeLerp = true; // aktiviert Lerp	
+		
 	}
 	
 	///

@@ -12,10 +12,17 @@ public class Character : MonoBehaviour
 	public float [] objectOfInterestValues;
 	public GameObject[] characterPath;
 	
+	private bool enemyDetected;
+	public bool EnemyDetected{get;set;}
+	
+	private float scareLevel;				// Aktuelles Erschreckfortschritt
+	
+	public float superstitionFactor;		// Aberglaube Faktor (von 0 bis 2)
+	
 	// Use this for initialization
 	void Start ()
 	{
-		stateMachine = new StateMachine(GameObject.FindGameObjectWithTag("Player"),this);
+		stateMachine = new StateMachine(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(),this);
 		characterPath = new GameObject[0];
 		movingComponent = this.gameObject.GetComponent<Moving>();
 		
@@ -31,6 +38,11 @@ public class Character : MonoBehaviour
 			objectOfInterestValues[i] = Random.value;
 		}
 		
+		scareLevel = 0;
+		// Setze Aberglaubefaktor auf Grenzen, falls unter-/überschritten
+		superstitionFactor = (superstitionFactor > 2f) ? 2f : superstitionFactor;
+		superstitionFactor = (superstitionFactor < 0f) ? 0f : superstitionFactor;
+		
 	}
 	
 	// Update is called once per frame
@@ -38,6 +50,10 @@ public class Character : MonoBehaviour
 	{
 		stateMachine.stateUpdate();
 		updateObjectOfInterestList();
+	}
+	
+	public void scare (float scareAddition) {
+		scareLevel += scareAddition*superstitionFactor;
 	}
 	
 	public RoomInventory getCurrentLocation()
@@ -107,6 +123,11 @@ public class Character : MonoBehaviour
 		{
 			objectOfInterestValues[i] += Time.deltaTime * Random.value;
 		}
+	}
+	
+	public void resetCurrentValue()
+	{
+		currentValue = 0;
 	}
 	
 	private void addToPath(GameObject obj)

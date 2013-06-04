@@ -6,15 +6,21 @@ using UnityEngine;
 public class StateMachine
 {
 	AIState currentState;
-	private GameObject player;
+	AIState[] stateList;
+	private Player player;
 	private Character enemy;
 	
-	public StateMachine (GameObject player, Character enemy)
+	public StateMachine (Player player, Character enemy)
 	{
 		this.player = player;
 		this.enemy = enemy;
 		currentState = new IdleState(this);
 		currentState.enterState();
+		
+		stateList = new AIState[3];
+		stateList[(int)StateType.IDLE_STATE] = new IdleState(this);
+		stateList[(int)StateType.WANDER_STATE] = new WanderState(this);
+		stateList[(int)StateType.ENEMY_DETECTED_STATE] = new EnemyDetectedState(this);
 	
 	}
 	
@@ -23,14 +29,14 @@ public class StateMachine
 		currentState.updateAI();
 	}
 	
-	public void changeState(AIState state)
+	public void changeState(StateType state)
 	{
 		currentState.exitState();
-		currentState = state;
+		currentState = stateList[(int)state];
 		currentState.enterState();
 	}
 	
-	public GameObject Player{
+	public Player Player{
 		get{ return player;}
 		set{ player = value;}
 	}

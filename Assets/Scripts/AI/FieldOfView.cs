@@ -44,7 +44,15 @@ public class FieldOfView : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other){
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
-			Debug.Log("Enemy Detected!");	
+			Character ch = npc.GetComponent<Character>();
+			ch.EnemyDetected = true;
+		}
+	}
+	
+	void OnTriggerExit(Collider other){
+		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
+			Character ch = npc.GetComponent<Character>();
+			ch.EnemyDetected = false;
 		}
 	}
 }
