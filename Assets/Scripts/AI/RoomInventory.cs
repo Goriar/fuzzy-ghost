@@ -5,6 +5,7 @@ public class RoomInventory : MonoBehaviour {
 
 	public GameObject[] objects;
 	public RoomInventory[] neighbouringRooms;
+	public GameObject stairs;
 	private string roomName;
 	public bool isMainFloor;
 	public int level;   //Stockwerk, von 1..3
@@ -50,6 +51,7 @@ public class RoomInventory : MonoBehaviour {
 		foreach(GameObject g in objects)
 		{
 			Door door = g.GetComponent<Door>();
+			Stairs stairs =g.GetComponent<Stairs>();
 			if(door != null)
 			{
 				for(int i = 0; i < door.connectedRooms.Length; ++i)
@@ -58,6 +60,7 @@ public class RoomInventory : MonoBehaviour {
 						return g;
 				}
 			}
+			
 		}
 		
 		return null;

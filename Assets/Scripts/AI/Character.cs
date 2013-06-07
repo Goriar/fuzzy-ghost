@@ -6,20 +6,54 @@ public class Character : MonoBehaviour
 	StateMachine stateMachine;
 	Moving movingComponent;
 	public RoomInventory currentLocation;
-	public GameObject objectOfInterest;
-	private ArrayList characterPath;
+	public GameObject[] objectsOfInterest;
+	public GameObject currentObjectOfInterest;
+	public float currentValue;
+	public float [] objectOfInterestValues;
+	public GameObject[] characterPath;
+	
+	private bool enemyDetected;
+	public bool EnemyDetected{get;set;}
+	
+	private float scareLevel;				// Aktuelles Erschreckfortschritt
+	
+	public float superstitionFactor;		// Aberglaube Faktor (von 0 bis 2)
 	
 	// Use this for initialization
 	void Start ()
 	{
-		stateMachine = new StateMachine(GameObject.FindGameObjectWithTag("Player"),this);
-		characterPath = new ArrayList();
+		stateMachine = new StateMachine(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(),this);
+		characterPath = new GameObject[0];
+		movingComponent = this.gameObject.GetComponent<Moving>();
+		
+		if(objectsOfInterest.Length == 0)
+			Debug.LogError("KEINE OBJEKTE ANGEGEBEN FÜR: "+this.ToString());
+		
+		currentValue = 0;
+		currentObjectOfInterest = null;
+		
+		objectOfInterestValues = new float[objectsOfInterest.Length];
+		for(int i = 0; i < objectOfInterestValues.Length; ++i)
+		{
+			objectOfInterestValues[i] = Random.value;
+		}
+		
+		scareLevel = 0;
+		// Setze Aberglaubefaktor auf Grenzen, falls unter-/überschritten
+		superstitionFactor = (superstitionFactor > 2f) ? 2f : superstitionFactor;
+		superstitionFactor = (superstitionFactor < 0f) ? 0f : superstitionFactor;
+		
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		stateMachine.stateUpdate();
+		updateObjectOfInterestList();
+	}
+	
+	public void scare (float scareAddition) {
+		scareLevel += scareAddition*superstitionFactor;
 	}
 	
 	public RoomInventory getCurrentLocation()
@@ -39,6 +73,7 @@ public class Character : MonoBehaviour
 		return null;
 	}
 	
+	
 	bool roomContainsObject(RoomInventory room, GameObject obj)
 	{
 		foreach(GameObject g in room.objects)
@@ -50,34 +85,127 @@ public class Character : MonoBehaviour
 		return false;
 	}
 	
+	public GameObject[] getCharacterPath()
+	{
+		return characterPath;	
+	}
+	
+	public GameObject popNextTarget()
+	{
+		GameObject obj = characterPath[0];
+		GameObject[] newCharacterPath = new GameObject[characterPath.Length-1];
+		for(int i = 0; i < newCharacterPath.Length; ++i)
+		{
+			newCharacterPath[i] = characterPath[i+1];	
+		}
+		characterPath = newCharacterPath;
+		return obj;
+	}
+	
+	protected void assignNextObjectOfInterest()
+	{
+		int changedIndex = 0;
+		for(int i = 0; i < objectsOfInterest.Length; ++i)
+		{
+			if(currentValue < objectOfInterestValues[i])
+			{
+				currentValue = objectOfInterestValues[i];
+				currentObjectOfInterest = objectsOfInterest[i];
+				changedIndex = i;
+			}
+		}
+		objectOfInterestValues[changedIndex] = 0;
+	}
+	
+	protected void updateObjectOfInterestList()
+	{
+		for(int i = 0; i < objectOfInterestValues.Length; ++i)
+		{
+			objectOfInterestValues[i] += Time.deltaTime * Random.value;
+		}
+	}
+	
+	public void resetCurrentValue()
+	{
+		currentValue = 0;
+	}
+	
+	private void addToPath(GameObject obj)
+	{
+		GameObject[] newCharacterPath = new GameObject[characterPath.Length+1];
+		for(int i = 0; i < characterPath.Length; ++i)
+		{
+			newCharacterPath[i] = characterPath[i];	
+		}
+		newCharacterPath[newCharacterPath.Length-1] = obj;
+		characterPath = newCharacterPath;
+	}
+	
+	public Moving getMovingComponent()
+	{
+		return movingComponent;
+	}
+	
 	public void setCharacterPath()
 	{
-		characterPath = new ArrayList();
-		if(currentLocation.containsObject(objectOfInterest))
-			characterPath.Add(objectOfInterest);
+		characterPath = new GameObject[0];
+		assignNextObjectOfInterest();
+		if(currentLocation.containsObject(currentObjectOfInterest))
+			addToPath(currentObjectOfInterest);
 		else
 		{
-			RoomInventory mainFloor = this.getMainFloorNeighbour();
-			GameObject door = currentLocation.getDoorToRoom(mainFloor);
-			characterPath.Add(door);
+			RoomInventory mainFloor = null;
+			GameObject door = null;
+			if(!currentLocation.isMainFloor){
+				mainFloor = this.getMainFloorNeighbour();
+				door = currentLocation.getDoorToRoom(mainFloor);
+				addToPath(door);
+			}
+			else{
+				mainFloor = currentLocation;	
+			}
 			
-			if(mainFloor.containsObject(objectOfInterest))
+			if(mainFloor.containsObject(currentObjectOfInterest))
 			{
-				characterPath.Add(objectOfInterest);
+				addToPath(currentObjectOfInterest);
 				return;
 			}
 			
 			RoomInventory nextRoom = null;
 			foreach(RoomInventory room in mainFloor.getNeighbouringRooms())
 			{
-				if(roomContainsObject(room,objectOfInterest))
+				if(roomContainsObject(room,currentObjectOfInterest))
 					nextRoom = room;
 			}
 			
-			door = mainFloor.getDoorToRoom(nextRoom);
-			characterPath.Add(door);
-			characterPath.Add(objectOfInterest);
+			if(nextRoom == null){
+				addToPath(mainFloor.stairs);
+				Stairs stairs = mainFloor.stairs.GetComponent<Stairs>();
+				if(mainFloor.Equals(stairs.lowerMainFloor))
+					mainFloor = stairs.upperMainFloor;
+				else
+					mainFloor = stairs.lowerMainFloor;
+				
+				if(mainFloor.containsObject(currentObjectOfInterest))
+				{
+					addToPath(currentObjectOfInterest);
+					return;
+				}
+				
+				foreach(RoomInventory room in mainFloor.getNeighbouringRooms())
+				{
+					if(roomContainsObject(room,currentObjectOfInterest))
+						nextRoom = room;
+				}
+			}
 			
+			door = mainFloor.getDoorToRoom(nextRoom);
+			addToPath(door);
+			addToPath(currentObjectOfInterest);
+			
+			
+			
+			/*
 			for(int i = 0; i < characterPath.Capacity; ++i)
 			{
 				//movingComponent.goToCallback += movingComponent.goToObject((GameObject)characterPath.ToArray()[i]);
@@ -86,7 +214,39 @@ public class Character : MonoBehaviour
 				//if(d!=null)
 					//movingComponent.goToCallback += d.use;
 			}
+			*/
 		}
+	}
+	
+	public void playerDetected(){
+		
+		/*
+		RaycastHit hit = new RaycastHit();
+		Vector3 pos1 = this.gameObject.transform.position;
+		pos1.x+=2.0f;
+		Vector3 pos2 = this.gameObject.transform.position;
+		pos2.x-=2.0f;
+		Ray ray1 = new Ray(gameObject.transform.position,pos1);
+		Ray ray2 = new Ray(gameObject.transform.position,pos2);
+		
+		if(Physics.Raycast(ray1, out hit))
+		{
+			if(hit.collider.gameObject.CompareTag("Player"))
+				return true;
+		}
+		
+		if(Physics.Raycast(ray2, out hit))
+		{
+			if(hit.collider.gameObject.CompareTag("Player"))
+				return true;
+		}
+		
+		return false;
+		
+		*/
+		
+		
+
 	}
 	
 }

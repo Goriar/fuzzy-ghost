@@ -43,13 +43,15 @@ public class Door : MonoBehaviour {
 		movingComp.startLayerSwitch(this);
 	}
 	
-	public void use (GameObject character) {
-		Moving movingComp = character.GetComponent<Moving>();
-		movingComp.goToCallback += this.open;
+	public void use (Moving movComp) {
+		Debug.Log("use!");
+		Moving movingComp = movComp;
+		this.open();
 		if (otherSide != null) {
-			movingComp.goToCallback += otherSide.open;
+			otherSide.open();
 		}
 		movingComp.startLayerSwitch(this);
 	}
+	
 	
 }
