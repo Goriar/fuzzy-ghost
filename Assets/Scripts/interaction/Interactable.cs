@@ -75,7 +75,7 @@ public class Interactable : MonoBehaviour
 		if (index == types.Length) {
 			return;
 		}
-		this.BroadcastMessage(interaction[index].getMethod());
+		this.BroadcastMessage(interaction[index].getMethod(), GameObject.FindGameObjectWithTag("Player"));
 	}
 	
 }

@@ -80,11 +80,11 @@ public class Character : MonoBehaviour
 			
 			for(int i = 0; i < characterPath.Capacity; ++i)
 			{
-				movingComponent.goToCallback += movingComponent.goToObject((GameObject)characterPath.ToArray()[i]);
-				GameObject g = (GameOject)characterPath.ToArray()[i];
-				Door d = g.GetComponent<Door>();
-				if(d!=null)
-					movingComponent.goToCallback += d.use;
+				//movingComponent.goToCallback += movingComponent.goToObject((GameObject)characterPath.ToArray()[i]);
+				//GameObject g = (GameOject)characterPath.ToArray()[i];
+				//Door d = g.GetComponent<Door>();
+				//if(d!=null)
+					//movingComponent.goToCallback += d.use;
 			}
 		}
 	}
