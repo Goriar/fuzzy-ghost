@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-	public float Health;
+	public float health;
+	private bool visible;
 
 	// Use this for initialization
 	void Start ()
@@ -11,6 +12,20 @@ public class Player : MonoBehaviour
 		Health = 100f;
 	}
 	
+	public void showPlayer () {
+		BroadcastMessage("show", 1f);
+		visible = true;
+	}
+	
+	public void hidePlayer () {
+		BroadcastMessage("makeTransparent", 1f);
+		visible = false;
+	}
+	
+	public bool canBeSeen () {
+		return visible;
+	}
+		
 	// Update is called once per frame
 	void Update ()
 	{
