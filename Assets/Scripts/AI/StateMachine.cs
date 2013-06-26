@@ -17,10 +17,11 @@ public class StateMachine
 		currentState = new IdleState(this);
 		currentState.enterState();
 		
-		stateList = new AIState[3];
+		stateList = new AIState[4];
 		stateList[(int)StateType.IDLE_STATE] = new IdleState(this);
 		stateList[(int)StateType.WANDER_STATE] = new WanderState(this);
 		stateList[(int)StateType.ENEMY_DETECTED_STATE] = new EnemyDetectedState(this);
+		stateList[(int)StateType.TALKING_STATE] = new TalkingState(this);
 	
 	}
 	

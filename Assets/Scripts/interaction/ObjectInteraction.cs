@@ -63,6 +63,7 @@ public class ObjectInteraction : MonoBehaviour {
 						interact.doSomething(i);
 						showMenu = false;
 						count = 0.5f;
+					
 					}
 				}
 				

@@ -47,12 +47,29 @@ public class FieldOfView : MonoBehaviour {
 			Character ch = npc.GetComponent<Character>();
 			ch.EnemyDetected = true;
 		}
+		if(other.gameObject.GetComponent<Character>()!=null){
+			Debug.Log("detected npc");
+			Character thisNpc = npc.GetComponent<Character>();
+			Character otherNpc = other.gameObject.GetComponent<Character>();
+			thisNpc.npcDetected =true;
+			otherNpc.npcDetected = true;
+			thisNpc.chatPartner = otherNpc;
+			otherNpc.chatPartner = thisNpc;
+		}
 	}
 	
 	void OnTriggerExit(Collider other){
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
 			Character ch = npc.GetComponent<Character>();
 			ch.EnemyDetected = false;
+		}
+		if(other.gameObject.GetComponent<Character>()!=null){
+			Character thisNpc = npc.GetComponent<Character>();
+			Character otherNpc = other.gameObject.GetComponent<Character>();
+			thisNpc.npcDetected =false;
+			otherNpc.npcDetected = false;
+			thisNpc.chatPartner = null;
+			otherNpc.chatPartner = null;
 		}
 	}
 }

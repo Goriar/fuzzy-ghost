@@ -27,6 +27,11 @@ public class WanderState : AIState
 				stateMachine.changeState(StateType.IDLE_STATE);
 			}
 			else{
+				if(stateMachine.Enemy.npcDetected && stateMachine.Enemy.readyToTalk){
+					stateMachine.changeState(StateType.TALKING_STATE);
+					stateMachine.Enemy.chatPartner.stateMachine.changeState(StateType.TALKING_STATE);
+				}
+					
 				if(movingComoponent.finishedAction)
 				{
 					Debug.Log ("new action");
@@ -51,7 +56,7 @@ public class WanderState : AIState
 								if(!door.connectedRooms[i].Equals(stateMachine.Enemy.currentLocation)){
 									stateMachine.Enemy.currentLocation = door.connectedRooms[i];
 									break;
-									Debug.Log("fuck");
+									
 								}
 							}
 							movingToTransition = false;

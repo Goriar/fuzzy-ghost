@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Character : MonoBehaviour
 {
-	StateMachine stateMachine;
+	public StateMachine stateMachine{get;set;}
 	Moving movingComponent;
 	public RoomInventory currentLocation;
 	public GameObject[] objectsOfInterest;
@@ -12,12 +12,19 @@ public class Character : MonoBehaviour
 	public float [] objectOfInterestValues;
 	public GameObject[] characterPath;
 	
+	
 	private bool enemyDetected;
 	public bool EnemyDetected{get;set;}
 	
 	private float scareLevel;				// Aktuelles Erschreckfortschritt
 	
 	public float superstitionFactor;		// Aberglaube Faktor (von 0 bis 2)
+	
+	public bool readyToTalk;
+	public bool talking;
+	public bool npcDetected;
+	public string currentThingsToSay;
+	public Character chatPartner;
 	
 	// Use this for initialization
 	void Start ()
@@ -43,6 +50,9 @@ public class Character : MonoBehaviour
 		superstitionFactor = (superstitionFactor > 2f) ? 2f : superstitionFactor;
 		superstitionFactor = (superstitionFactor < 0f) ? 0f : superstitionFactor;
 		
+		readyToTalk = true;
+		talking = false;
+		currentThingsToSay = "Kacka in die Hose machen";
 	}
 	
 	// Update is called once per frame
