@@ -16,24 +16,28 @@ public class Player : MonoBehaviour
 		Health = 100f;
 	}
 	
+	/// 
+	/// Macht Spieler sichtbar
+	///
 	public void showPlayer () {
 		BroadcastMessage("show", 1f);
 		visible = true;
 	}
 	
+	/// 
+	/// Macht Spieler unsichtbar
+	///
 	public void hidePlayer () {
 		BroadcastMessage("makeTransparent", 1f);
 		visible = false;
 	}
 	
+	/// 
+	/// Gibt true zurück, wenn Spieler sichtbar ist
+	///
 	public bool canBeSeen () {
 		return visible;
 	}
-		
-	// Update is called once per frame
-	void Update ()
-	{
 	
-	}
 }
 
