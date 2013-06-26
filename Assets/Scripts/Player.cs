@@ -3,13 +3,12 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-<<<<<<< HEAD
+
 	public float health;
 	private bool visible;
-=======
-	public float Health;
+
 	public RoomInventory currentLocation;
->>>>>>> Dialog Anfang etc
+
 
 	// Use this for initialization
 	void Start ()
