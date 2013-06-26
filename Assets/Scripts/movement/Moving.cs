@@ -275,6 +275,20 @@ public class Moving : MonoBehaviour {
 		}
 	}
 		
+	public void faceLeft(){
+		viewDirection = DirectionEnum.LEFT;
+		moveDirection = DirectionEnum.LEFT;
+		BroadcastMessage("playAnimation", "move");	
+		BroadcastMessage("playAnimation", "idle");
+	}
+	
+	public void faceRight(){
+		viewDirection = DirectionEnum.RIGHT;
+		moveDirection = DirectionEnum.RIGHT;
+		BroadcastMessage("playAnimation", "move");
+		BroadcastMessage("playAnimation", "idle");
+	}
+	
 	/// 
 	/// Fixed Update für Eingaben bzw. Physik
 	/// 

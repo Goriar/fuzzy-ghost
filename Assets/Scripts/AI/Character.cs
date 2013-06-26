@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using System.Xml;
 
 public class Character : MonoBehaviour
 {
+	public string name;
+	
 	public StateMachine stateMachine{get;set;}
 	Moving movingComponent;
 	public RoomInventory currentLocation;
@@ -23,8 +26,13 @@ public class Character : MonoBehaviour
 	public bool readyToTalk;
 	public bool talking;
 	public bool npcDetected;
-	public string currentThingsToSay;
+ 	string[] currentThingsToSay;
 	public Character chatPartner;
+	XmlDocument xml;
+	
+	public float dialogueTime;
+	
+	
 	
 	// Use this for initialization
 	void Start ()
@@ -45,14 +53,31 @@ public class Character : MonoBehaviour
 			objectOfInterestValues[i] = Random.value;
 		}
 		
-		scareLevel = 0;
+		scareLevel = 0.0f;
 		// Setze Aberglaubefaktor auf Grenzen, falls unter-/überschritten
 		superstitionFactor = (superstitionFactor > 2f) ? 2f : superstitionFactor;
 		superstitionFactor = (superstitionFactor < 0f) ? 0f : superstitionFactor;
 		
 		readyToTalk = true;
 		talking = false;
-		currentThingsToSay = "Kacka in die Hose machen";
+		dialogueTime = 0.0f;
+		
+		xml = new XmlDocument();
+		xml.Load(".\\Assets\\Scripts\\AI\\ThingsToSay.xml");
+		XmlNode node;
+		XmlNodeList nlist = xml.GetElementsByTagName(name);
+		if(nlist.Count == 0){
+			node = xml.GetElementsByTagName("TestCharacter")[0];
+		} else {
+			node = nlist[0];
+		}
+		
+		currentThingsToSay = new string[node.ChildNodes.Count];
+		for(int i = 0; i < currentThingsToSay.Length; ++i){
+			currentThingsToSay[i] = node.ChildNodes[i].InnerText;
+		}
+		
+		
 	}
 	
 	// Update is called once per frame
@@ -60,10 +85,24 @@ public class Character : MonoBehaviour
 	{
 		stateMachine.stateUpdate();
 		updateObjectOfInterestList();
+		dialogueTime += Time.deltaTime;
+		if(dialogueTime >20.0f){
+			readyToTalk = true;	
+		}
 	}
 	
 	public void scare (float scareAddition) {
 		scareLevel += scareAddition*superstitionFactor;
+	}
+	
+	public string getDialogue(){
+		if(scareLevel < 2.5f){
+			return currentThingsToSay[0];
+		} 
+		if(scareLevel < 7.5f){
+			return currentThingsToSay[1];
+		}
+		return currentThingsToSay[2];
 	}
 	
 	public RoomInventory getCurrentLocation()
@@ -228,36 +267,6 @@ public class Character : MonoBehaviour
 		}
 	}
 	
-	public void playerDetected(){
-		
-		/*
-		RaycastHit hit = new RaycastHit();
-		Vector3 pos1 = this.gameObject.transform.position;
-		pos1.x+=2.0f;
-		Vector3 pos2 = this.gameObject.transform.position;
-		pos2.x-=2.0f;
-		Ray ray1 = new Ray(gameObject.transform.position,pos1);
-		Ray ray2 = new Ray(gameObject.transform.position,pos2);
-		
-		if(Physics.Raycast(ray1, out hit))
-		{
-			if(hit.collider.gameObject.CompareTag("Player"))
-				return true;
-		}
-		
-		if(Physics.Raycast(ray2, out hit))
-		{
-			if(hit.collider.gameObject.CompareTag("Player"))
-				return true;
-		}
-		
-		return false;
-		
-		*/
-		
-		
-
-	}
 	
 }
 

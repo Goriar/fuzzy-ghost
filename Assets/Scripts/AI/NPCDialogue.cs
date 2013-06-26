@@ -22,6 +22,6 @@ public class NPCDialogue : MonoBehaviour {
 				Camera.mainCamera.WorldToScreenPoint(this.transform.position).y,
 				200,
 				200)
-				,character.currentThingsToSay);
+				,character.getDialogue());
 	}
 }

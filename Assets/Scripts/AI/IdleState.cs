@@ -4,22 +4,22 @@ using UnityEngine;
 
 	public class IdleState : AIState
 	{
-		private double idleTime;
+		private float idleTime;
 		
 		public IdleState (StateMachine stateMachine) : base(stateMachine)
 		{
-			idleTime = 0.0;
+			idleTime = 0.0f;
 		}
 		
 		public override void enterState(){
-			idleTime = 0.0;
+			idleTime = 0.0f;
 		}
 		
 		public override void updateAI(){
 		
 			if(!stateMachine.Enemy.EnemyDetected){
 				idleTime+=Time.deltaTime;
-				if(idleTime > 5.0){
+				if(idleTime > 5.0f){
 					this.stateMachine.changeState(StateType.WANDER_STATE);
 				}
 			}
@@ -29,7 +29,7 @@ using UnityEngine;
 		}
 		
 		public override void exitState(){
-			idleTime = 0.0;
+			idleTime = 0.0f;
 		}
 	}
 
