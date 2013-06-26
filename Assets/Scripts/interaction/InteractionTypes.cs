@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractionTypes
 {
 	public enum Type{
-		NONE,USE,OPEN,TAKE,STAIRS_UP,STAIRS_DOWN
+		NONE,USE,OPEN,TAKE,COMBINE,STAIRS_UP,STAIRS_DOWN
 	}
 	
 	public struct TypeButton {
@@ -41,6 +41,12 @@ public class InteractionTypes
 			button.name = "take";
 			button.methodName = "take";
 			button.infoText = "Nimm Objekt";
+			break;
+		case Type.COMBINE:
+			button = new TypeButton();
+			button.name = "combine";
+			button.methodName = "combine";
+			button.infoText = "Kombiniere Gegenstände";
 			break;
 		case Type.STAIRS_UP:
 			button = new TypeButton();

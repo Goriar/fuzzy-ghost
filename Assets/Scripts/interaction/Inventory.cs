@@ -37,6 +37,13 @@ public class Inventory : MonoBehaviour {
 	}
 	
 	///
+	/// Gibt aktuelles Item zurück
+	///
+	public Item getItem() {
+		return currentItem.GetComponent<Item>();
+	}
+	
+	///
 	/// Lasse Gegenstand fallen
 	/// Lässt aktuellen Gegenstand fallen
 	/// 
@@ -46,6 +53,13 @@ public class Inventory : MonoBehaviour {
 			currentItem.transform.position = gameObject.transform.position;
 			currentItem.GetComponent<Item>().currentLayer = gameObject.GetComponent<Moving>().layer;
 			currentItem.SetActive(true);
+			currentItem = null;
+		}
+	}
+	
+	public void removeItem() {
+		if (currentItem != null) {
+			BroadcastMessage("hidePlayer");
 			currentItem = null;
 		}
 	}

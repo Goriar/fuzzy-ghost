@@ -3,9 +3,13 @@ using System.Collections;
 
 public class Item : MonoBehaviour {
 	
+	public string internalName;						// Name des Gegenstands (für interne Verwendung)
+	public string name;								// sichtbarer Name des Gegenstands
 	public LayerEnum currentLayer;					// gibt aktuelle Layer des Objekts an
 	public Vector3 originalPosition;				// Ursprüngliche Position des Gegenstands
 	public bool wasTaken;							// gibt an, ob der Gegenstand genommen wurde, oder ob er an original Position liegt
+	public float scareFactor = 0;					// Erschreckfaktor als eigentlicher Gegenstand
+	public float combineScareFactor = 0;			// Erschrekfaktor, wenn er an anderen Gegenstand hängt
 	
 	public Item[] combinableItems;
 	private Item[] combinedItems;
@@ -29,6 +33,32 @@ public class Item : MonoBehaviour {
 		} else {
 			Moving movingComp = character.GetComponent<Moving>();
 			movingComp.goToObject(this.gameObject,this.take);
+		}
+	}
+	
+	void combine () {
+		Inventory playerInv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+		if(playerInv.hasItem()) {
+			int combineSlot = -1;
+			// Iteriere durch alle kombinierbaren Gegenstände und schaue, ob getragener Gegenstand kombinierbar ist
+			for (int i = 0; i < combinableItems.Length; i++) {
+				if (combinableItems[i].internalName == playerInv.getItem().internalName) {
+					// Wenn slot noch leer ist, füge Gegenstand hinzu
+					if (combinedItems[i] == null) {
+						combinedItems[i] = playerInv.getItem(); // legt Item in den Slot
+						foreach(CombinationSlot slot in this.GetComponentsInChildren<CombinationSlot>()) {
+							if (slot.slotNumber == i) {
+								playerInv.getItem().transform.parent = this.transform;
+								playerInv.getItem().transform.position = slot.transform.position;
+								playerInv.getItem().transform.rotation = slot.transform.rotation;
+								playerInv.getItem().gameObject.SetActive(true);
+							}
+						}
+						playerInv.removeItem(); // Lösche Item aus Inventar
+					}
+					break;
+				}
+			}
 		}
 	}
 	
