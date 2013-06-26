@@ -7,8 +7,12 @@ public class Item : MonoBehaviour {
 	public Vector3 originalPosition;				// Ursprüngliche Position des Gegenstands
 	public bool wasTaken;							// gibt an, ob der Gegenstand genommen wurde, oder ob er an original Position liegt
 	
+	public Item[] combinableItems;
+	private Item[] combinedItems;
+	
 	// Use this for initialization
 	void Start () {
+		combinedItems = new Item[combinableItems.Length];
 		originalPosition = transform.position;
 		wasTaken = false;
 	}

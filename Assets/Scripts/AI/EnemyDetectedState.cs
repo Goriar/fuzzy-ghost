@@ -22,7 +22,7 @@ public class EnemyDetectedState : AIState
 	{
 		if(npc.EnemyDetected)
 		{
-			player.Health -= 5 * Time.deltaTime;
+			player.health -= 5 * Time.deltaTime;
 			Debug.Log("Enemy Detected!");
 		}
 		else{
