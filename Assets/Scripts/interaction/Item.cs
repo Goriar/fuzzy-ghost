@@ -48,6 +48,7 @@ public class Item : MonoBehaviour {
 						combinedItems[i] = playerInv.getItem(); // legt Item in den Slot
 						foreach(CombinationSlot slot in this.GetComponentsInChildren<CombinationSlot>()) {
 							if (slot.slotNumber == i) {
+								playerInv.getItem().gameObject.GetComponent<Interactable>().enabled = false;
 								playerInv.getItem().transform.parent = this.transform;
 								playerInv.getItem().transform.position = slot.transform.position;
 								playerInv.getItem().transform.rotation = slot.transform.rotation;

@@ -54,7 +54,7 @@ public class ObjectInteraction : MonoBehaviour {
 		//Erstellt das Menü und führt Aktion aus, sobald der entsprechende Button gedrückt wurde
 		
 		if(showMenu){
-			if(target.GetComponent("Interactable") != null){
+			if(target.GetComponent("Interactable") != null && target.GetComponent<Interactable>().enabled){
 				Interactable interact = (Interactable)target.GetComponent("Interactable");
 				string[] buttons = interact.getButtonTexts();
 				GUI.Box(new Rect(posX,posY,100,150),"Test");
