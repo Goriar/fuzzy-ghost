@@ -73,5 +73,22 @@ public class Hide : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 	
+	/// 
+	/// Blendet Objekt aus und zerstört es
+	/// Ist von aussen per Message benutzbar
+	/// @param duration				Dauer des Ausblendvorgangs
+	/// 
+	public void fadeoutDestroy (float duration) {
+		Hashtable ht = new Hashtable();
+		ht.Add("alpha", 0);
+		ht.Add ("time", duration);
+		ht.Add("onComplete", "destroy");
+		iTween.FadeTo(gameObject, ht);
+	}
+	
+	private void destroy () {
+		Destroy(gameObject);
+	}
+	
 	
 }

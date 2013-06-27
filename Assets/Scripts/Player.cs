@@ -39,5 +39,16 @@ public class Player : MonoBehaviour
 		return visible;
 	}
 	
+	/// 
+	/// Zieht HP vom Spieler ab
+	/// Zieht die angebebene Menge HP vom Spieler ab
+	/// @param damage Schaden, der abgezogen werden soll
+	///
+	public void applyDamage (float damage) {
+		health -= Mathf.Abs(damage);
+		Debug.Log("Damage applied. New HP: " + health);
+		// TODO: Sende Event an GUI
+	}
+	
 }
 
