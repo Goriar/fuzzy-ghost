@@ -19,8 +19,8 @@ public class Character : MonoBehaviour
 	private bool enemyDetected;
 	public bool EnemyDetected{get;set;}
 	
-	private float scareLevel;				// Aktuelles Erschreckfortschritt
-	
+	public float maxScareLevel = 5;
+	public float scareLevel;				// Aktuelles Erschreckfortschritt
 	public float superstitionFactor;		// Aberglaube Faktor (von 0 bis 2)
 	
 	public bool readyToTalk;
@@ -50,7 +50,7 @@ public class Character : MonoBehaviour
 		objectOfInterestValues = new float[objectsOfInterest.Length];
 		for(int i = 0; i < objectOfInterestValues.Length; ++i)
 		{
-			objectOfInterestValues[i] = Random.value;
+			objectOfInterestValues[i] = Random.Range(0,10);
 		}
 		
 		scareLevel = 0.0f;
@@ -83,11 +83,17 @@ public class Character : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if(scareLevel>=maxScareLevel && stateMachine.getState() != StateType.FLEE_STATE){
+			stateMachine.changeState(StateType.FLEE_STATE);	
+		}
 		stateMachine.stateUpdate();
 		updateObjectOfInterestList();
 		dialogueTime += Time.deltaTime;
 		if(dialogueTime >20.0f){
-			readyToTalk = true;	
+			if(stateMachine.getState() != StateType.SCARED_STATE)
+				readyToTalk = true;	
+			else
+				readyToTalk = false;
 		}
 	}
 	
@@ -170,7 +176,7 @@ public class Character : MonoBehaviour
 	{
 		for(int i = 0; i < objectOfInterestValues.Length; ++i)
 		{
-			objectOfInterestValues[i] += Time.deltaTime * Random.value;
+			objectOfInterestValues[i] += Time.deltaTime * Random.Range(0,10);
 		}
 	}
 	
@@ -195,10 +201,16 @@ public class Character : MonoBehaviour
 		return movingComponent;
 	}
 	
-	public void setCharacterPath()
+	public void setCharacterPath(GameObject specificObject)
 	{
 		characterPath = new GameObject[0];
-		assignNextObjectOfInterest();
+		if(specificObject == null){
+			assignNextObjectOfInterest();
+		}
+		else{
+			currentObjectOfInterest = specificObject;
+		}
+			
 		if(currentLocation.containsObject(currentObjectOfInterest))
 			addToPath(currentObjectOfInterest);
 		else
@@ -251,19 +263,6 @@ public class Character : MonoBehaviour
 			door = mainFloor.getDoorToRoom(nextRoom);
 			addToPath(door);
 			addToPath(currentObjectOfInterest);
-			
-			
-			
-			/*
-			for(int i = 0; i < characterPath.Capacity; ++i)
-			{
-				//movingComponent.goToCallback += movingComponent.goToObject((GameObject)characterPath.ToArray()[i]);
-				//GameObject g = (GameOject)characterPath.ToArray()[i];
-				//Door d = g.GetComponent<Door>();
-				//if(d!=null)
-					//movingComponent.goToCallback += d.use;
-			}
-			*/
 		}
 	}
 	

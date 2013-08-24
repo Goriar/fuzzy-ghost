@@ -6,6 +6,7 @@ using UnityEngine;
 public class StateMachine
 {
 	AIState currentState;
+	StateType currentStateType;
 	AIState[] stateList;
 	private Player player;
 	private Character enemy;
@@ -15,13 +16,16 @@ public class StateMachine
 		this.player = player;
 		this.enemy = enemy;
 		currentState = new IdleState(this);
+		currentStateType = StateType.IDLE_STATE;
 		currentState.enterState();
 		
-		stateList = new AIState[4];
+		stateList = new AIState[6];
 		stateList[(int)StateType.IDLE_STATE] = new IdleState(this);
 		stateList[(int)StateType.WANDER_STATE] = new WanderState(this);
 		stateList[(int)StateType.ENEMY_DETECTED_STATE] = new EnemyDetectedState(this);
 		stateList[(int)StateType.TALKING_STATE] = new TalkingState(this);
+		stateList[(int)StateType.SCARED_STATE] = new ScaredState(this);
+		stateList[(int)StateType.FLEE_STATE] = new FleeState(this);
 	
 	}
 	
@@ -34,7 +38,12 @@ public class StateMachine
 	{
 		currentState.exitState();
 		currentState = stateList[(int)state];
+		currentStateType = state;
 		currentState.enterState();
+	}
+	
+	public StateType getState(){
+		return currentStateType;
 	}
 	
 	public Player Player{

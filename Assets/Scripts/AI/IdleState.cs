@@ -17,6 +17,7 @@ using UnityEngine;
 		
 		public override void updateAI(){
 		
+		
 			if(!stateMachine.Enemy.EnemyDetected){
 				idleTime+=Time.deltaTime;
 				if(idleTime > 5.0f){

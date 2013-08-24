@@ -44,7 +44,6 @@ public class Door : MonoBehaviour {
 	}
 	
 	public void use (Moving movComp) {
-		Debug.Log("use!");
 		Moving movingComp = movComp;
 		this.open();
 		if (otherSide != null) {

@@ -8,8 +8,10 @@ public class FieldOfView : MonoBehaviour {
 	private DirectionEnum viewDirection;
 	private float distance;
 	private float sizeDifference;
+	private Vector3 scale;
 	// Use this for initialization
 	void Start () {
+		scale = this.gameObject.transform.localScale;
 		npcMov = npc.GetComponent<Moving>();
 		viewDirection = DirectionEnum.LEFT;
 		distance = npc.transform.position.x - this.transform.position.x;
@@ -26,29 +28,47 @@ public class FieldOfView : MonoBehaviour {
 		if(viewDirection!=npcMov.viewDirection){
 		
 			viewDirection = npcMov.viewDirection;
-				if(viewDirection == DirectionEnum.LEFT){
-					Vector3 newPos = new Vector3(npc.transform.position.x+distance,
-												 npc.transform.position.y+sizeDifference,
-												 npc.transform.position.z);
-					this.gameObject.transform.position = newPos;
-				}
-				if(viewDirection == DirectionEnum.RIGHT){
-					Vector3 newPos = new Vector3(npc.transform.position.x-distance,
-												 npc.transform.position.y+sizeDifference,
-												 npc.transform.position.z);
-					this.gameObject.transform.position = newPos;
-				}
+			if(viewDirection == DirectionEnum.LEFT){
+				this.gameObject.transform.localScale = scale;
+				Vector3 newPos = new Vector3(npc.transform.position.x+distance,
+											 npc.transform.position.y+sizeDifference,
+											 npc.transform.position.z);
+				this.gameObject.transform.position = newPos;
+			}
+			if(viewDirection == DirectionEnum.RIGHT){
+				this.gameObject.transform.localScale = scale;
+				Vector3 newPos = new Vector3(npc.transform.position.x-distance,
+											 npc.transform.position.y+sizeDifference,
+											 npc.transform.position.z);
+				this.gameObject.transform.position = newPos;
+			}
+			if(viewDirection == DirectionEnum.FORE || 
+				viewDirection == DirectionEnum.BACK || 
+				viewDirection == DirectionEnum.NONE){
+			
+				this.gameObject.transform.localScale = new Vector3(0,0,0);
+			}
 			
 		}
 	}
 	
 	void OnTriggerEnter(Collider other){
-		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
+		Item item = other.GetComponent<Item>();
+		if(item != null){
+			if(item.scareFactor>0){
+				Character ch = npc.GetComponent<Character>();
+				ch.stateMachine.changeState(StateType.SCARED_STATE);
+				ch.scare(item.getScaryness());
+				Debug.Log("SCAAAAARED!");
+				return;
+			}
+		}
+		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))&& player.canBeSeen()){
 			Character ch = npc.GetComponent<Character>();
 			ch.EnemyDetected = true;
 		}
 		if(other.gameObject.GetComponent<Character>()!=null){
-			Debug.Log("detected npc");
 			Character thisNpc = npc.GetComponent<Character>();
 			Character otherNpc = other.gameObject.GetComponent<Character>();
 			thisNpc.npcDetected =true;
@@ -56,6 +76,7 @@ public class FieldOfView : MonoBehaviour {
 			thisNpc.chatPartner = otherNpc;
 			otherNpc.chatPartner = thisNpc;
 		}
+		
 	}
 	
 	void OnTriggerExit(Collider other){
@@ -72,4 +93,6 @@ public class FieldOfView : MonoBehaviour {
 			otherNpc.chatPartner = null;
 		}
 	}
+	
+	
 }

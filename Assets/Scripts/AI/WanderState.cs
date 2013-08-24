@@ -15,7 +15,7 @@ public class WanderState : AIState
 	
 	public override void enterState(){
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
-			stateMachine.Enemy.setCharacterPath();
+			stateMachine.Enemy.setCharacterPath(null);
 		}
 		movingComoponent = stateMachine.Enemy.getMovingComponent();
 	}
@@ -36,7 +36,6 @@ public class WanderState : AIState
 					
 				if(movingComoponent.finishedAction)
 				{
-					Debug.Log ("new action");
 					if(!movingToTransition){
 						nextTarget = stateMachine.Enemy.popNextTarget();
 						if(nextTarget.GetComponent<Door>()!=null || nextTarget.GetComponent<Stairs>()!=null)
@@ -44,12 +43,10 @@ public class WanderState : AIState
 							movingToTransition = true;
 						}
 						
-						movingComoponent.goToObject(nextTarget);
-						Debug.Log("moving to");
+						movingComoponent.goToObject(nextTarget);;
 					} 
 					else
 					{
-						Debug.Log("else case");
 						if(nextTarget.GetComponent<Door>()!=null){
 							Door door = nextTarget.GetComponent<Door>();
 							door.use(movingComoponent);
