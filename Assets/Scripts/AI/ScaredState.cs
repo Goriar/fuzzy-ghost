@@ -46,7 +46,6 @@ public class ScaredState : AIState
 		else {
 		if(movingComponent.finishedAction)
 		{
-			Debug.Log ("new action");
 			if(!movingToTransition){
 				nextTarget = stateMachine.Enemy.popNextTarget();
 				if(nextTarget.GetComponent<Door>()!=null || nextTarget.GetComponent<Stairs>()!=null)
@@ -55,11 +54,9 @@ public class ScaredState : AIState
 				}
 				
 				movingComponent.goToObject(nextTarget);
-				Debug.Log("moving to");
 			} 
 			else
 			{
-				Debug.Log("else case");
 				if(nextTarget.GetComponent<Door>()!=null){
 					Door door = nextTarget.GetComponent<Door>();
 					door.use(movingComponent);

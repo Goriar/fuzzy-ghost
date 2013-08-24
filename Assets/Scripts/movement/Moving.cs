@@ -138,9 +138,6 @@ public class Moving : MonoBehaviour {
 					break;
 			}
 			
-			Debug.Log (ObjectRegister.getLayer("layer_back").transform.localPosition);
-			Debug.Log (layer);
-			Debug.Log (zPos);
 		
 			// Bewege Objekt an neue Z-Position mit Geschwindigkeit moveSpeed
 			// (mal 0.5 -> ich sollte noch herausfinden, was für eine "Einheit" iTween für Speed benutzt)

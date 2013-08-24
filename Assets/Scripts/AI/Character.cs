@@ -20,7 +20,6 @@ public class Character : MonoBehaviour
 	public bool EnemyDetected{get;set;}
 	
 	private float scareLevel;				// Aktuelles Erschreckfortschritt
-	public bool isScared;
 	public float superstitionFactor;		// Aberglaube Faktor (von 0 bis 2)
 	
 	public bool readyToTalk;
