@@ -22,9 +22,6 @@ public class WanderState : AIState
 	
 	public override void updateAI(){
 		
-		if(stateMachine.Enemy.isScared){
-			stateMachine.changeState(StateType.SCARED_STATE);	
-		}
 		if(!stateMachine.Enemy.EnemyDetected){
 			if(stateMachine.Enemy.getCharacterPath().Length == 0){
 				stateMachine.changeState(StateType.IDLE_STATE);

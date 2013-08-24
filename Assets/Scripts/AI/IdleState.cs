@@ -17,9 +17,6 @@ using UnityEngine;
 		
 		public override void updateAI(){
 		
-			if(stateMachine.Enemy.isScared){
-				stateMachine.changeState(StateType.SCARED_STATE);	
-			}
 		
 			if(!stateMachine.Enemy.EnemyDetected){
 				idleTime+=Time.deltaTime;
