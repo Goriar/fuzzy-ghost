@@ -58,6 +58,7 @@ public class FieldOfView : MonoBehaviour {
 			if(item.scareFactor>0){
 				Character ch = npc.GetComponent<Character>();
 				ch.stateMachine.changeState(StateType.SCARED_STATE);
+				ch.scare(item.getScaryness());
 				Debug.Log("SCAAAAARED!");
 				return;
 			}

@@ -1,47 +1,36 @@
 using System;
 using UnityEngine;
 
-public class ScaredState : AIState
+
+public class FleeState : AIState
 {
-	Moving movingComponent;
-	private float idleTime;
-	bool movingToTransition;
+	 Moving movingComponent;
+	private bool movingToTransition;
 	private GameObject nextTarget;
-	private GameObject[] panicSpots;
+	private GameObject fleeSpot;
 	
-	public ScaredState (StateMachine sm) : base(sm)
+	public FleeState (StateMachine sm) : base(sm)
 	{
-		movingComponent = stateMachine.Enemy.getMovingComponent();
 		nextTarget = null;
-		panicSpots = GameObject.FindGameObjectsWithTag("panic_spot");
-	} 
-	
-	public override void enterState(){
-		GameObject target = null;
-		float bestDistance = 0f;
-		stateMachine.Enemy.getMovingComponent().deactivateLerp();
-		foreach(GameObject g in panicSpots){
-			Vector3 v = g.transform.position - stateMachine.Enemy.gameObject.transform.position;
-			if(v.magnitude > bestDistance){
-				target = g;
-				bestDistance = v.magnitude;
-			}
-		}
-		stateMachine.Enemy.setCharacterPath(target);
-		
-		movingComponent = stateMachine.Enemy.getMovingComponent();
-		idleTime = 0.0f;
-		movingToTransition = false;
+		fleeSpot = GameObject.FindGameObjectWithTag("flee_spot");
 	}
 	
-	public override void updateAI(){
+	public override void enterState ()
+	{
+		movingComponent = stateMachine.Enemy.getMovingComponent();
+		movingComponent.deactivateLerp();
+		stateMachine.Enemy.setCharacterPath(fleeSpot);
+	}
+	
+	public override void updateAI ()
+	{
 		
 		//Charakter hat Ort erreicht
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
-			idleTime+=Time.deltaTime;
-			if(idleTime>5.0f){
-				stateMachine.changeState(StateType.WANDER_STATE);
-			}	
+			Vector3 distance = stateMachine.Enemy.transform.position-fleeSpot.transform.position;
+			if(distance.magnitude<=0.5f){
+				stateMachine.Enemy.gameObject.SetActive(false);
+			}
 		} 
 		//Charakter bewegt sich zu einem Ort
 		else {
@@ -85,12 +74,12 @@ public class ScaredState : AIState
 				}
 			}
 		}
-	 }
 	}
+}
 	
-	public override void exitState(){
-		stateMachine.Enemy.resetCurrentValue();
-		idleTime =0.0f;
+	public override void exitState ()
+	{
+		//GameObject inactive
 	}
 }
 

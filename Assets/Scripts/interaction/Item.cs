@@ -25,6 +25,22 @@ public class Item : MonoBehaviour {
 		this.take (GameObject.FindGameObjectWithTag("Player"));
 	}
 	
+	public float getScaryness(){
+		float val = 0.0f;
+		foreach(Item i in combinedItems){
+			if(i != null){
+				val += i.combineScareFactor;	
+			}
+		}
+		if(val > 0.0f){
+			val+=combineScareFactor;	
+		} else {
+			val+=scareFactor;
+		}
+		return val;
+		
+	}
+	
 	void take (GameObject character) {
 		// Führe Aktion aus, wenn am Objekt
 		if (transform.position.x == character.transform.position.x) {
