@@ -62,13 +62,23 @@ public class Interactable : MonoBehaviour
 	//Ermittelt den Text der Buttons
 	public string[] getButtonTexts(){
 		
-		string[] output = new string[types.Length+1];
+		string[] output = new string[types.Length];
 		for (int i = 0; i < types.Length; i++) {
 			output[i] = interaction[i].getButtonText();
 		}
-		output[types.Length] = "Exit";
 		return output;
 	}
+	
+	//Ermittelt den Offset der Buttons
+	public float[] getButtonOffsets(){
+		
+		float[] output = new float[types.Length];
+		for (int i = 0; i < types.Length; i++) {
+			output[i] = interaction[i].getButtonOffset();
+		}
+		return output;
+	}
+	
 	
 	//Wird aufgerufen sobald eine Aktion ausgeführt werden soll
 	public void doSomething(int index){

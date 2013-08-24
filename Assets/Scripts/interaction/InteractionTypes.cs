@@ -11,12 +11,15 @@ public class InteractionTypes
 		public string name;
 		public string methodName;
 		public string infoText;
+		public int iconPos;
 	}
 	
 	private Type type;				//Bestimmt den Typ des Objekts
 	
 	private TypeButton button;		//Eigenschaften des Buttons
-
+	
+	private float OffsetWidth = 1f/10f;
+	
 		
 	public InteractionTypes (Type t)
 	{
@@ -29,36 +32,42 @@ public class InteractionTypes
 			button.name = "use";
 			button.methodName = "use";
 			button.infoText = "Benutze Objekt";
+			button.iconPos = 1;
 			break;
 		case Type.OPEN:
 			button = new TypeButton();
 			button.name = "open";
 			button.methodName = "use";
 			button.infoText = "Öffne Objekt";
+			button.iconPos = 0;
 			break;
 		case Type.TAKE:
 			button = new TypeButton();
 			button.name = "take";
 			button.methodName = "take";
 			button.infoText = "Nimm Objekt";
+			button.iconPos = 1;
 			break;
 		case Type.COMBINE:
 			button = new TypeButton();
 			button.name = "combine";
 			button.methodName = "combine";
 			button.infoText = "Kombiniere Gegenstände";
+			button.iconPos = 1;
 			break;
 		case Type.STAIRS_UP:
 			button = new TypeButton();
 			button.name = "stairs_up";
 			button.methodName = "stairsUp";
 			button.infoText = "Gehe nach oben";
+			button.iconPos = 1;
 			break;
 		case Type.STAIRS_DOWN:
 			button = new TypeButton();
 			button.name = "stairs_down";
 			button.methodName = "stairsDown";
 			button.infoText = "Gehe nach unten";
+			button.iconPos = 1;
 			break;
 		default:
 			break;
@@ -68,6 +77,11 @@ public class InteractionTypes
 	public string getButtonText(){
 		return button.infoText;
 	}
+	
+	public float getButtonOffset() {
+		return button.iconPos*OffsetWidth;
+	}
+	
 	
 	public string getMethod() {
 		return button.methodName;
