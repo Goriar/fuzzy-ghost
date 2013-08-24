@@ -43,7 +43,8 @@ public class FieldOfView : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other){
-		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
+		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))&& player.canBeSeen()){
 			Character ch = npc.GetComponent<Character>();
 			ch.EnemyDetected = true;
 		}
@@ -56,6 +57,15 @@ public class FieldOfView : MonoBehaviour {
 			thisNpc.chatPartner = otherNpc;
 			otherNpc.chatPartner = thisNpc;
 		}
+		Item item = other.GetComponent<Item>();
+		if(item != null){
+			if(item.scareFactor>0){
+				Character ch = npc.GetComponent<Character>();
+				ch.stateMachine.changeState(StateType.SCARED_STATE);
+				Debug.Log("SCAAAAARED!");
+			}
+		}
+		
 	}
 	
 	void OnTriggerExit(Collider other){

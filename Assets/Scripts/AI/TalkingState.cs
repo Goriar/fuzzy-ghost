@@ -30,6 +30,9 @@ public class TalkingState : AIState
 		
 	public override void updateAI(){
 	
+		if(stateMachine.Enemy.isScared){
+			stateMachine.changeState(StateType.SCARED_STATE);	
+		}
 		idleTime+=Time.deltaTime;
 		if(idleTime > 5.0f){
 			this.stateMachine.changeState(StateType.WANDER_STATE);
