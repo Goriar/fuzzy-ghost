@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 
 	public float health;
 	private bool visible;
+	
+	public float attentionToPlayer;
 
 	public RoomInventory currentLocation;
 
@@ -16,6 +18,10 @@ public class Player : MonoBehaviour
 		health = 100f;
 	}
 	
+	void Update ()
+	{
+		
+	}
 	/// 
 	/// Macht Spieler sichtbar
 	///

@@ -22,18 +22,11 @@ public class WanderState : AIState
 	
 	public override void updateAI(){
 		
-		if(!stateMachine.Enemy.EnemyDetected){
 			if(stateMachine.Enemy.getCharacterPath().Length == 0){
 				stateMachine.changeState(StateType.IDLE_STATE);
 				return;
 			}
-			else{
-				if(stateMachine.Enemy.npcDetected && stateMachine.Enemy.readyToTalk){
-					stateMachine.changeState(StateType.TALKING_STATE);
-					stateMachine.Enemy.chatPartner.stateMachine.changeState(StateType.TALKING_STATE);
-					return;
-				}
-					
+			else{	
 				if(movingComoponent.finishedAction)
 				{
 					if(!movingToTransition){
@@ -75,12 +68,6 @@ public class WanderState : AIState
 					}
 				}
 			}
-		}
-		else{
-			stateMachine.changeState(StateType.ENEMY_DETECTED_STATE);
-			return;
-		}
-	
 	}
 	
 	public override void exitState()

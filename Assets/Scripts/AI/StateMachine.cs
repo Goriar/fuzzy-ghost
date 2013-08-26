@@ -19,13 +19,21 @@ public class StateMachine
 		currentStateType = StateType.IDLE_STATE;
 		currentState.enterState();
 		
-		stateList = new AIState[6];
-		stateList[(int)StateType.IDLE_STATE] = new IdleState(this);
-		stateList[(int)StateType.WANDER_STATE] = new WanderState(this);
-		stateList[(int)StateType.ENEMY_DETECTED_STATE] = new EnemyDetectedState(this);
-		stateList[(int)StateType.TALKING_STATE] = new TalkingState(this);
-		stateList[(int)StateType.SCARED_STATE] = new ScaredState(this);
-		stateList[(int)StateType.FLEE_STATE] = new FleeState(this);
+		if(enemy.cType != CharacterType.GHOST_HUNTER){
+			stateList = new AIState[6];
+			stateList[(int)StateType.IDLE_STATE] = new IdleState(this);
+			stateList[(int)StateType.WANDER_STATE] = new WanderState(this);
+			stateList[(int)StateType.ENEMY_DETECTED_STATE] = new EnemyDetectedState(this);
+			stateList[(int)StateType.TALKING_STATE] = new TalkingState(this);
+			stateList[(int)StateType.SCARED_STATE] = new ScaredState(this);
+			stateList[(int)StateType.FLEE_STATE] = new FleeState(this);
+		} else {
+			stateList = new AIState[4];
+			stateList[(int)StateType.IDLE_STATE] = new IdleState(this);
+			stateList[(int)StateType.WANDER_STATE] = new WanderState(this);
+			stateList[(int)StateType.FLEE_STATE] = new FleeState(this);
+			stateList[(int)StateType.HUNTING_ENEMY_STATE] = new HuntingEnemyState(this);
+		}
 	
 	}
 	

@@ -66,15 +66,18 @@ public class FieldOfView : MonoBehaviour {
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))&& player.canBeSeen()){
 			Character ch = npc.GetComponent<Character>();
-			ch.EnemyDetected = true;
+			ch.enemyDetected = true;
+			ch.stateMachine.changeState(StateType.ENEMY_DETECTED_STATE);
 		}
 		if(other.gameObject.GetComponent<Character>()!=null){
 			Character thisNpc = npc.GetComponent<Character>();
 			Character otherNpc = other.gameObject.GetComponent<Character>();
-			thisNpc.npcDetected =true;
-			otherNpc.npcDetected = true;
-			thisNpc.chatPartner = otherNpc;
-			otherNpc.chatPartner = thisNpc;
+			if(thisNpc.readyToTalk && otherNpc.readyToTalk){
+				thisNpc.chatPartner = otherNpc;
+				otherNpc.chatPartner = thisNpc;
+				thisNpc.stateMachine.changeState(StateType.TALKING_STATE);
+				otherNpc.stateMachine.changeState(StateType.TALKING_STATE);
+			}
 		}
 		
 	}
@@ -82,13 +85,11 @@ public class FieldOfView : MonoBehaviour {
 	void OnTriggerExit(Collider other){
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
 			Character ch = npc.GetComponent<Character>();
-			ch.EnemyDetected = false;
+			ch.enemyDetected = false;
 		}
 		if(other.gameObject.GetComponent<Character>()!=null){
 			Character thisNpc = npc.GetComponent<Character>();
 			Character otherNpc = other.gameObject.GetComponent<Character>();
-			thisNpc.npcDetected =false;
-			otherNpc.npcDetected = false;
 			thisNpc.chatPartner = null;
 			otherNpc.chatPartner = null;
 		}

@@ -20,6 +20,8 @@ public class FleeState : AIState
 		movingComponent = stateMachine.Enemy.getMovingComponent();
 		movingComponent.deactivateLerp();
 		stateMachine.Enemy.setCharacterPath(fleeSpot);
+		stateMachine.Enemy.readyToTalk = false;
+		stateMachine.Enemy.dialogueTime = 0.0f;
 	}
 	
 	public override void updateAI ()

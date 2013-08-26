@@ -5,6 +5,11 @@ using System.Xml;
 public class Character : MonoBehaviour
 {
 	public string name;
+	public CharacterType cType;
+	
+	//Ghost Hunter Timer
+	private float hunterTimer;
+	private const float MAX_HUNTING_TIME = 60.0f;
 	
 	public StateMachine stateMachine{get;set;}
 	Moving movingComponent;
@@ -15,17 +20,15 @@ public class Character : MonoBehaviour
 	public float [] objectOfInterestValues;
 	public GameObject[] characterPath;
 	
+	public bool enemyDetected;
 	
-	private bool enemyDetected;
-	public bool EnemyDetected{get;set;}
-	
-	public float maxScareLevel = 5;
+	public float maxScareLevel = 100.0f;
 	public float scareLevel;				// Aktuelles Erschreckfortschritt
 	public float superstitionFactor;		// Aberglaube Faktor (von 0 bis 2)
 	
 	public bool readyToTalk;
 	public bool talking;
-	public bool npcDetected;
+
  	string[] currentThingsToSay;
 	public Character chatPartner;
 	XmlDocument xml;
@@ -83,17 +86,25 @@ public class Character : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(scareLevel>=maxScareLevel && stateMachine.getState() != StateType.FLEE_STATE){
-			stateMachine.changeState(StateType.FLEE_STATE);	
-		}
 		stateMachine.stateUpdate();
-		updateObjectOfInterestList();
-		dialogueTime += Time.deltaTime;
-		if(dialogueTime >20.0f){
-			if(stateMachine.getState() != StateType.SCARED_STATE)
-				readyToTalk = true;	
-			else
-				readyToTalk = false;
+		if(cType == CharacterType.GHOST_HUNTER){
+			hunterTimer += Time.deltaTime;
+			if(hunterTimer>=MAX_HUNTING_TIME){
+				stateMachine.changeState(StateType.FLEE_STATE);
+			}
+		} else {
+			if(scareLevel>=maxScareLevel && stateMachine.getState() != StateType.FLEE_STATE){
+				stateMachine.changeState(StateType.FLEE_STATE);	
+			}
+
+			updateObjectOfInterestList();
+			dialogueTime += Time.deltaTime;
+			if(dialogueTime >20.0f){
+				if(stateMachine.getState() != StateType.SCARED_STATE)
+					readyToTalk = true;	
+				else
+					readyToTalk = false;
+			}
 		}
 	}
 	
@@ -102,10 +113,10 @@ public class Character : MonoBehaviour
 	}
 	
 	public string getDialogue(){
-		if(scareLevel < 2.5f){
+		if(scareLevel < maxScareLevel*0.25){
 			return currentThingsToSay[0];
 		} 
-		if(scareLevel < 7.5f){
+		if(scareLevel < maxScareLevel*0.75){
 			return currentThingsToSay[1];
 		}
 		return currentThingsToSay[2];
