@@ -23,7 +23,11 @@ public class WanderState : AIState
 	public override void updateAI(){
 		
 			if(stateMachine.Enemy.getCharacterPath().Length == 0){
-				stateMachine.changeState(StateType.IDLE_STATE);
+				if(stateMachine.Enemy.cType == CharacterType.NORMAL){
+					stateMachine.changeState(StateType.IDLE_STATE);
+				} else {
+					stateMachine.changeState(StateType.SEARCHING_ENEMY_STATE);
+				}
 				return;
 			}
 			else{	

@@ -18,9 +18,9 @@ public class StateMachine
 		currentState = new IdleState(this);
 		currentStateType = StateType.IDLE_STATE;
 		currentState.enterState();
-		
+		Debug.Log((int)StateType.SCARED_STATE);
 		if(enemy.cType != CharacterType.GHOST_HUNTER){
-			stateList = new AIState[6];
+			stateList = new AIState[8];
 			stateList[(int)StateType.IDLE_STATE] = new IdleState(this);
 			stateList[(int)StateType.WANDER_STATE] = new WanderState(this);
 			stateList[(int)StateType.ENEMY_DETECTED_STATE] = new EnemyDetectedState(this);
@@ -28,11 +28,12 @@ public class StateMachine
 			stateList[(int)StateType.SCARED_STATE] = new ScaredState(this);
 			stateList[(int)StateType.FLEE_STATE] = new FleeState(this);
 		} else {
-			stateList = new AIState[4];
+			stateList = new AIState[5];
 			stateList[(int)StateType.IDLE_STATE] = new IdleState(this);
 			stateList[(int)StateType.WANDER_STATE] = new WanderState(this);
 			stateList[(int)StateType.FLEE_STATE] = new FleeState(this);
 			stateList[(int)StateType.HUNTING_ENEMY_STATE] = new HuntingEnemyState(this);
+			stateList[(int)StateType.SEARCHING_ENEMY_STATE] = new SearchingEnemyState(this);
 		}
 	
 	}

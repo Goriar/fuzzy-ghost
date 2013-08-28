@@ -54,20 +54,27 @@ public class FieldOfView : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other){
 		Item item = other.GetComponent<Item>();
+		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if(item != null){
 			if(item.scareFactor>0){
 				Character ch = npc.GetComponent<Character>();
 				ch.stateMachine.changeState(StateType.SCARED_STATE);
 				ch.scare(item.getScaryness());
+				player.raiseAttention(item.getAttentionFactor());
 				Debug.Log("SCAAAAARED!");
 				return;
 			}
 		}
-		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))&& player.canBeSeen()){
+		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
 			Character ch = npc.GetComponent<Character>();
-			ch.enemyDetected = true;
-			ch.stateMachine.changeState(StateType.ENEMY_DETECTED_STATE);
+			if(ch.cType == CharacterType.NORMAL && player.canBeSeen()){
+				ch.enemyDetected = true;
+				ch.stateMachine.changeState(StateType.ENEMY_DETECTED_STATE);
+			}
+			if(ch.cType == CharacterType.GHOST_HUNTER){
+				ch.enemyDetected = true;
+				ch.stateMachine.changeState(StateType.HUNTING_ENEMY_STATE);
+			}
 		}
 		if(other.gameObject.GetComponent<Character>()!=null){
 			Character thisNpc = npc.GetComponent<Character>();

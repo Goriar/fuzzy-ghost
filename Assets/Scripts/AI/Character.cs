@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
 	//Ghost Hunter Timer
 	private float hunterTimer;
 	private const float MAX_HUNTING_TIME = 60.0f;
+	private bool trapActive;
+	public GameObject trapPrefab;
 	
 	public StateMachine stateMachine{get;set;}
 	Moving movingComponent;
@@ -80,13 +82,16 @@ public class Character : MonoBehaviour
 			currentThingsToSay[i] = node.ChildNodes[i].InnerText;
 		}
 		
-		
+		if(cType == CharacterType.GHOST_HUNTER){
+			trapActive = false;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		stateMachine.stateUpdate();
+		updateObjectOfInterestList();
 		if(cType == CharacterType.GHOST_HUNTER){
 			hunterTimer += Time.deltaTime;
 			if(hunterTimer>=MAX_HUNTING_TIME){
@@ -96,8 +101,6 @@ public class Character : MonoBehaviour
 			if(scareLevel>=maxScareLevel && stateMachine.getState() != StateType.FLEE_STATE){
 				stateMachine.changeState(StateType.FLEE_STATE);	
 			}
-
-			updateObjectOfInterestList();
 			dialogueTime += Time.deltaTime;
 			if(dialogueTime >20.0f){
 				if(stateMachine.getState() != StateType.SCARED_STATE)
@@ -106,6 +109,14 @@ public class Character : MonoBehaviour
 					readyToTalk = false;
 			}
 		}
+	}
+	
+	public bool isTrapActive(){
+		return trapActive;
+	}
+	
+	public void setTrapActive(bool val){
+			trapActive = val;
 	}
 	
 	public void scare (float scareAddition) {

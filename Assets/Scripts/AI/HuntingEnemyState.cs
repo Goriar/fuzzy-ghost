@@ -37,7 +37,7 @@ public class HuntingEnemyState : AIState
 		}
 		else{
 			//Sollte der Jäger dem Geist durch die Tür hinterher laufen?
-			stateMachine.changeState(StateType.IDLE_STATE);
+			stateMachine.changeState(StateType.SEARCHING_ENEMY_STATE);
 		}
 		
 	}

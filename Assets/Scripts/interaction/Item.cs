@@ -10,7 +10,8 @@ public class Item : MonoBehaviour {
 	public bool wasTaken;							// gibt an, ob der Gegenstand genommen wurde, oder ob er an original Position liegt
 	public float scareFactor = 0;					// Erschreckfaktor als eigentlicher Gegenstand
 	public float combineScareFactor = 0;			// Erschrekfaktor, wenn er an anderen Gegenstand hängt
-	
+	public float attentionFactor = 0;
+	public float combineAttentionFactor = 0;
 	public Item[] combinableItems;
 	private Item[] combinedItems;
 	
@@ -36,6 +37,22 @@ public class Item : MonoBehaviour {
 			val+=combineScareFactor;	
 		} else {
 			val+=scareFactor;
+		}
+		return val;
+		
+	}
+	
+	public float getAttentionFactor(){
+		float val = 0.0f;
+		foreach(Item i in combinedItems){
+			if(i != null){
+				val += i.combineAttentionFactor;	
+			}
+		}
+		if(val > 0.0f){
+			val+=combineAttentionFactor;	
+		} else {
+			val+=attentionFactor;
 		}
 		return val;
 		

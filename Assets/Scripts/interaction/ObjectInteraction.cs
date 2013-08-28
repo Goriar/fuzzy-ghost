@@ -20,7 +20,7 @@ public class ObjectInteraction : MonoBehaviour {
 	// Use this for initialization
 	void Start (){ 
 		count = 0.5f;  			//0.5 Sekunden bis das Menü gezeigt wird
-
+		buttons = new GameObject[0];
 	}
 	
 	// Update is called once per frame
