@@ -20,9 +20,9 @@ public class EnemyDetectedState : AIState
 	
 	public override void updateAI()
 	{
-		if(npc.EnemyDetected)
+		if(npc.enemyDetected)
 		{
-			player.health -= 5 * Time.deltaTime;
+			player.applyDamage(2.0f*Time.deltaTime);
 			Debug.Log("Enemy Detected!");
 		}
 		else{

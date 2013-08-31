@@ -6,6 +6,10 @@ public class Player : MonoBehaviour
 
 	public float health;
 	private bool visible;
+	
+	private float attentionToPlayer;
+	private const float MAX_ATTENTION = 100.0f;
+	private GameObject ghostHunter;
 
 	public RoomInventory currentLocation;
 
@@ -14,8 +18,17 @@ public class Player : MonoBehaviour
 	void Start ()
 	{
 		health = 100f;
+		ghostHunter = GameObject.FindGameObjectWithTag("ghost_hunter");
+		ghostHunter.SetActive(false);
 	}
 	
+	void Update ()
+	{
+		if(attentionToPlayer>=MAX_ATTENTION && !ghostHunter.activeSelf){
+			ghostHunter.SetActive(true);
+			ghostHunter.GetComponent<Character>().stateMachine.changeState(StateType.WANDER_STATE);
+		}
+	}
 	/// 
 	/// Macht Spieler sichtbar
 	///
@@ -48,6 +61,23 @@ public class Player : MonoBehaviour
 		health -= Mathf.Abs(damage);
 		Debug.Log("Damage applied. New HP: " + health);
 		// TODO: Sende Event an GUI
+	}
+	
+	/// <summary>
+	/// Fügt Aufmerksamkeit auf den Spieler hinzu
+	/// </summary>
+	/// <param name='amount'>
+	/// Hinzugefügter Wert
+	/// </param>
+	public void raiseAttention(float amount){
+		attentionToPlayer += amount;	
+	}
+	
+	/// <summary>
+	/// Resets the attention.
+	/// </summary>
+	public void resetAttention(){
+		attentionToPlayer = 0.0f;
 	}
 	
 }

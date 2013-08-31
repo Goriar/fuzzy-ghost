@@ -20,6 +20,8 @@ public class FleeState : AIState
 		movingComponent = stateMachine.Enemy.getMovingComponent();
 		movingComponent.deactivateLerp();
 		stateMachine.Enemy.setCharacterPath(fleeSpot);
+		stateMachine.Enemy.readyToTalk = false;
+		stateMachine.Enemy.dialogueTime = 0.0f;
 	}
 	
 	public override void updateAI ()
@@ -29,7 +31,7 @@ public class FleeState : AIState
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
 			Vector3 distance = stateMachine.Enemy.transform.position-fleeSpot.transform.position;
 			if(distance.magnitude<=0.5f){
-				stateMachine.Enemy.gameObject.SetActive(false);
+				stateMachine.changeState(StateType.IDLE_STATE);
 			}
 		} 
 		//Charakter bewegt sich zu einem Ort
@@ -79,7 +81,10 @@ public class FleeState : AIState
 	
 	public override void exitState ()
 	{
-		//GameObject inactive
+		if(stateMachine.Enemy.cType == CharacterType.GHOST_HUNTER){
+			stateMachine.Player.resetAttention();
+		}
+		stateMachine.Enemy.gameObject.SetActive(false);
 	}
 }
 

@@ -8,6 +8,7 @@ public class ScaredState : AIState
 	bool movingToTransition;
 	private GameObject nextTarget;
 	private GameObject[] panicSpots;
+	private GameObject finalTarget;
 	
 	public ScaredState (StateMachine sm) : base(sm)
 	{
@@ -17,29 +18,31 @@ public class ScaredState : AIState
 	} 
 	
 	public override void enterState(){
-		GameObject target = null;
+		finalTarget = null;
 		float bestDistance = 0f;
 		stateMachine.Enemy.getMovingComponent().deactivateLerp();
 		foreach(GameObject g in panicSpots){
 			Vector3 v = g.transform.position - stateMachine.Enemy.gameObject.transform.position;
 			if(v.magnitude > bestDistance){
-				target = g;
+				finalTarget = g;
 				bestDistance = v.magnitude;
 			}
 		}
-		stateMachine.Enemy.setCharacterPath(target);
+		stateMachine.Enemy.setCharacterPath(finalTarget);
 		
 		movingComponent = stateMachine.Enemy.getMovingComponent();
 		idleTime = 0.0f;
 		movingToTransition = false;
+		stateMachine.Enemy.readyToTalk = false;
+		stateMachine.Enemy.dialogueTime = 0.0f;
 	}
 	
 	public override void updateAI(){
 		
 		//Charakter hat Ort erreicht
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
-			idleTime+=Time.deltaTime;
-			if(idleTime>5.0f){
+			Vector3 distance = stateMachine.Enemy.transform.position-finalTarget.transform.position;
+			if(distance.magnitude<=0.2f){
 				stateMachine.changeState(StateType.WANDER_STATE);
 			}	
 		} 

@@ -34,6 +34,7 @@ public class ObjectInteraction : MonoBehaviour {
 	// Use this for initialization
 	void Start (){ 
 		count = 0.5f;  			//0.5 Sekunden bis das Menü gezeigt wird
+<<<<<<< HEAD
 		activeButtonIndex = -1;
 	}
 	
@@ -70,6 +71,9 @@ public class ObjectInteraction : MonoBehaviour {
 		}
 		
 		
+=======
+		buttons = new GameObject[0];
+>>>>>>> 5ecedb2d34f31e1c6c89abc6b9c33dd014f916f6
 	}
 	
 	// Update is called once per frame
