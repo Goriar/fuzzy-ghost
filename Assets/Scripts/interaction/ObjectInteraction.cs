@@ -1,9 +1,17 @@
 using UnityEngine;
 using System.Collections;
 
+public struct MenuButton {
+	public float x, y;
+	public float tweenToX, tweenToY;
+	public string name;
+	public int arrayPos;
+	public float offset;
+}
+
 public class ObjectInteraction : MonoBehaviour {
 	
-	private float posX,posY,posZ; 	//Geben die Position der Maus im Moment des Klicks an
+	private float posX,posY; 	//Geben die Position der Maus im Moment des Klicks an
 	
 	private GameObject target;	//Das ausgewählte Objekt
 	
@@ -14,93 +22,122 @@ public class ObjectInteraction : MonoBehaviour {
 	private float count;		//Zählvariable, welche die vergangene Zeit seit dem die Maus gedrückt wurde zählt 
 								//und ob diese weiterhin gedrückt ist
 	
+	public Texture menuTexture;	
+	
 	public GameObject interactionButtonPrefab; 
-	private GameObject[] buttons;
+	private MenuButton[] buttons;
+	private int activeButtonIndex;
+	
+	private Interactable interact;
+	
 	
 	// Use this for initialization
 	void Start (){ 
 		count = 0.5f;  			//0.5 Sekunden bis das Menü gezeigt wird
-
+		activeButtonIndex = -1;
+	}
+	
+	
+	void OnGUI () {
+	
+		if (menuOpen) {
+			
+			float spriteWidth = menuTexture.width;
+			float spriteHeight = menuTexture.height;
+			float spriteCropWidth = menuTexture.width*0.1f;
+			float spriteCropHeight = menuTexture.height*0.5f;
+			
+			for (int i = 0; i < buttons.Length; i++) {
+				// Update der X und Y Position der Buttons
+				buttons[i].x = iTween.FloatUpdate(buttons[i].x, buttons[i].tweenToX, 10f);
+				buttons[i].y = iTween.FloatUpdate(buttons[i].y, buttons[i].tweenToY, 10f);
+		
+				bool insideButtonX = (Input.mousePosition.x >= buttons[i].x-spriteCropWidth*0.5f && Input.mousePosition.x <= buttons[i].x+spriteCropWidth*0.5f);
+				bool insideButtonY = ((Screen.height - Input.mousePosition.y) >= buttons[i].y-spriteCropHeight*0.5f && (Screen.height - Input.mousePosition.y) <= buttons[i].y+spriteCropHeight*0.5f);
+				
+				float yOffset = 0f;
+				
+				if (insideButtonX && insideButtonY) {
+					yOffset = 0.5f;
+					activeButtonIndex = i;
+				}
+				
+				// zeichnet die Buttons mit crop
+				GUI.BeginGroup( new Rect( buttons[i].x-spriteCropWidth*0.5f, buttons[i].y-spriteCropHeight*0.5f, spriteCropWidth, spriteCropHeight ) );		
+				GUI.DrawTexture(new Rect(-spriteWidth*buttons[i].offset, -spriteHeight*yOffset, spriteWidth, spriteHeight), menuTexture, ScaleMode.StretchToFill, true);
+				GUI.EndGroup();
+			}
+		}
+		
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 		//Prüft ob die Maus gedrückt wurde und zählt dann count runter. Wenn lang genug gedrückt wurde,
 		//wird ein Raycast geschickt mit dem das Objekt indetifiziert wird
 		
+		
 		if(Input.GetMouseButtonDown(0)){
-			Debug.Log ("Mouse Down");
 			mouseDown = true;
 			mouseDownStart = Time.time;
 		} else if (Input.GetMouseButtonUp(0)) {
 			mouseDown = false;
 			menuOpen = false;
-			for (int i = 0; i < buttons.Length; i++) {
-				Destroy(buttons[i]);
+			buttons = null;
+			
+			if (activeButtonIndex >= 0 && interact != null) {
+				interact.doSomething(activeButtonIndex);
+				
 			}
+			
+			interact = null;
+			activeButtonIndex = -1;
 		}
 		
 		if (mouseDown && (Time.time - mouseDownStart) > count) {
+			
 			
 			RaycastHit hit = new RaycastHit();
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 			if(Physics.Raycast(ray,out hit)){
 				target = hit.collider.gameObject;
-				posX = hit.point.x;
-				posY = hit.point.y;
-				posZ = hit.point.z;
+				posX = Input.mousePosition.x;
+				posY = Screen.height - Input.mousePosition.y;
 			}
-			
+						
 			if(!menuOpen && target != null && target.GetComponent("Interactable") != null && target.GetComponent<Interactable>().enabled){
 				menuOpen = true;
-				Interactable interact = (Interactable)target.GetComponent("Interactable");
-				Debug.Log("opened menu");
-				Transform playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-					
+				
+				interact = (Interactable)target.GetComponent("Interactable");
+				
 				string[] buttonTexts = interact.getButtonTexts();
 				float[] buttonOffsets = interact.getButtonOffsets();
-				buttons = new GameObject[buttonTexts.Length];
-				float buttonRadius = 0.06f*buttons.Length;
+				buttons = new MenuButton[buttonTexts.Length];
+				
+				float buttonRadius = 20f*buttons.Length;
+				if (buttons.Length == 1)
+					buttonRadius = 0f;
 				if (buttons.Length == 2)
-					buttonRadius = 0.18f;
+					buttonRadius = 60f;
 				else if (buttons.Length == 3)
-					buttonRadius = 0.2f;
+					buttonRadius = 75f;
 				for(int i=0; i<buttons.Length; i++){
-					Debug.Log (buttonOffsets[i]);
-					buttons[i] = GameObject.Instantiate (interactionButtonPrefab, new Vector3(posX, posY, posZ), playerPos.rotation) as GameObject;
-					buttons[i].renderer.material.mainTextureOffset = new Vector2 (buttonOffsets[i],0.5f);
-					Debug.Log(buttons[i].renderer.material.mainTextureOffset);
 					
-					if (buttons.Length > 1) {
-						float tweenPosX = posX + Mathf.Cos((2*Mathf.PI/buttons.Length)*i)*buttonRadius;
-						float tweenPosY = posY + Mathf.Sin((2*Mathf.PI/buttons.Length)*i)*buttonRadius;
+					buttons[i] = new MenuButton();
+					buttons[i].x = posX;
+					buttons[i].y = posY;
+					buttons[i].name = buttonTexts[i];
+					buttons[i].offset = buttonOffsets[i];
+					
+					buttons[i].tweenToX = posX + Mathf.Cos((2*Mathf.PI/buttons.Length)*i)*buttonRadius;
+					buttons[i].tweenToY = posY + Mathf.Sin((2*Mathf.PI/buttons.Length)*i)*buttonRadius;
 						
-						
-						Hashtable ht = new Hashtable();
-						ht.Add("time", 0.3f);
-						ht.Add("x", tweenPosX);
-						ht.Add ("y", tweenPosY);
-						ht.Add("easetype", "easeInOutSine");
-						ht.Add("oncomplete", "stopLayerSwitch");
-						iTween.MoveTo(buttons[i].gameObject, ht);
-					}
 				}
-				/*
-				string[] buttons = interact.getButtonTexts();
-				GUI.Box(new Rect(posX,posY,100,150),"Test");
-				for(int i=0; i<buttons.Length; i++){
-					if(GUI.Button(new Rect(posX+5,posY+25+i*25,90,30),buttons[i])){
-						interact.doSomething(i);
-						showMenu = false;
-						count = 0.5f;
-					
-					}
-				}*/
 				
 			}
 		}
-				
+			
 	}
 }
