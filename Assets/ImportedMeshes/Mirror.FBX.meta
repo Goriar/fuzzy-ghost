@@ -1,30 +1,13 @@
 fileFormatVersion: 2
-guid: fdae65a0004c4e14d90a878a0e497cad
+guid: 876bab0c3539b194bb287e8e20333475
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: KitchenSink
-    100002: //RootNode
-    100004: KitchenUnit
-    100006: KitchenUnitStove
-    100008: KitchenUnitWork
-    400000: KitchenSink
-    400002: //RootNode
-    400004: KitchenUnit
-    400006: KitchenUnitStove
-    400008: KitchenUnitWork
-    2300000: KitchenSink
-    2300002: KitchenUnit
-    2300004: KitchenUnitStove
-    2300006: KitchenUnitWork
-    3300000: KitchenSink
-    3300002: KitchenUnit
-    3300004: KitchenUnitStove
-    3300006: KitchenUnitWork
-    4300000: KitchenUnit
-    4300002: KitchenUnitWork
-    4300004: KitchenSink
-    4300006: KitchenUnitStove
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Mirror
     9500000: //RootNode
   materials:
     importMaterials: 1
