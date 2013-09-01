@@ -34,7 +34,6 @@ public class ObjectInteraction : MonoBehaviour {
 	// Use this for initialization
 	void Start (){ 
 		count = 0.5f;  			//0.5 Sekunden bis das Menü gezeigt wird
-<<<<<<< HEAD
 		activeButtonIndex = -1;
 	}
 	
@@ -43,10 +42,10 @@ public class ObjectInteraction : MonoBehaviour {
 	
 		if (menuOpen) {
 			
-			float spriteWidth = menuTexture.width;
-			float spriteHeight = menuTexture.height;
-			float spriteCropWidth = menuTexture.width*0.1f;
-			float spriteCropHeight = menuTexture.height*0.5f;
+			float spriteWidth = 2760f*0.4f;
+			float spriteHeight = 552f*0.4f;
+			float spriteCropWidth = spriteWidth*0.1f;
+			float spriteCropHeight = spriteHeight*0.5f;
 			
 			for (int i = 0; i < buttons.Length; i++) {
 				// Update der X und Y Position der Buttons
@@ -70,10 +69,6 @@ public class ObjectInteraction : MonoBehaviour {
 			}
 		}
 		
-		
-=======
-		buttons = new GameObject[0];
->>>>>>> 5ecedb2d34f31e1c6c89abc6b9c33dd014f916f6
 	}
 	
 	// Update is called once per frame
