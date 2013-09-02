@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
 	public float health;
 	private bool visible;
 	
-	private float attentionToPlayer;
-	private const float MAX_ATTENTION = 100.0f;
+	public float attentionToPlayer;
+	public const float MAX_ATTENTION = 100.0f;
 	private GameObject ghostHunter;
 
 	public RoomInventory currentLocation;

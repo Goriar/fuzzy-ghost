@@ -4,6 +4,8 @@ using System.Collections;
 public class Gui : MonoBehaviour {
 	
 	public Texture heartTexture;
+	public Texture barBorderTexture;
+	public Texture barTexture;
 	
 	private Vector2 spriteSize, heartSize, position;
 	private float heartSpace;
@@ -12,9 +14,9 @@ public class Gui : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		guiScale = 0.7f;
-		spriteSize = new Vector2 (305f*guiScale, 56f*guiScale);
-		heartSize = new Vector2(61f*guiScale, 56f*guiScale);
-		position = new Vector2(30f*guiScale, 30f*guiScale);
+		spriteSize = new Vector2 (305f, 56f);
+		heartSize = new Vector2(61f, 56f);
+		position = new Vector2(30f, 30f);
 		heartSpace = 5f;
 	}
 	
@@ -44,6 +46,13 @@ public class Gui : MonoBehaviour {
 			// Zeichne Herz
 			drawHeart(i*(heartSize.x+heartSpace), textureOffset);
 		}
+		
+		float playerAttention = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().attentionToPlayer;
+		float maxAttention = Player.MAX_ATTENTION;
+		GUI.DrawTexture(new Rect(30, 95, 259, 20), barBorderTexture, ScaleMode.StretchToFill, true);
+		GUI.DrawTexture(new Rect(32, 97, 255*playerAttention/maxAttention, 16), barTexture, ScaleMode.StretchToFill, true);
+		
+		
 	}
 	
 	void drawHeart (float offset, float textureOffset) {
