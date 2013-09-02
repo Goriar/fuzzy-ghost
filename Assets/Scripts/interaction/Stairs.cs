@@ -146,6 +146,20 @@ public class Stairs : MonoBehaviour{
 
 		iTween.MoveTo(npc,iTween.Hash("path",path,"time",3.0f,"oncomplete","finishAction","oncompletetarget",gameObject,"oncompleteparams",movComp, "easetype","easeoutsine"));
 	}
+	
+	public void ladderUp(){
+		GameObject player = GameObject.Find("Player");
+		
+		Transform[] path1 = {GameObject.Find("LadderBottom").transform, GameObject.Find("LadderTop").transform};
+		iTween.MoveTo(player,iTween.Hash("path",path1,"time",1.5f,"oncomplete","execMoveLeft","easetype","easeoutsine"));
+	}
+	
+	public void ladderDown(){
+		GameObject player = GameObject.Find("Player");
+		
+		Transform[] path1 = {GameObject.Find("LadderTop").transform, GameObject.Find("LadderBottom").transform};
+		iTween.MoveTo(player,iTween.Hash("path",path1,"time",1.5f,"oncomplete","execMoveLeft","easetype","easeoutsine"));
+	}
 
 	public void finishAction(Moving movComp){
 			movComp.finishedAction = true;
