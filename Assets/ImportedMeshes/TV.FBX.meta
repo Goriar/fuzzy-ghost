@@ -6,15 +6,20 @@ ModelImporter:
     100000: Regal
     100002: //RootNode
     100004: TV
+    100006: TVScreen
     400000: Regal
     400002: //RootNode
     400004: TV
+    400006: TVScreen
     2300000: Regal
     2300002: TV
+    2300004: TVScreen
     3300000: Regal
     3300002: TV
+    3300004: TVScreen
     4300000: TV
     4300002: Regal
+    4300004: TVScreen
     9500000: //RootNode
   materials:
     importMaterials: 1
