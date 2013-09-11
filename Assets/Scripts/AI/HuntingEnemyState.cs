@@ -33,11 +33,13 @@ public class HuntingEnemyState : AIState
 				extraDamage = 10.0f;
 			}
 			player.applyDamage((5.0f+extraDamage)*Time.deltaTime);
+			player.showPlayer();
 			
 		}
 		else{
 			//Sollte der Jäger dem Geist durch die Tür hinterher laufen?
 			stateMachine.changeState(StateType.SEARCHING_ENEMY_STATE);
+			player.hidePlayer();
 		}
 		
 	}

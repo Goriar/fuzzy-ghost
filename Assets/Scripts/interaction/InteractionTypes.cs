@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractionTypes
 {
 	public enum Type{
-		NONE,USE,OPEN,TAKE,COMBINE,STAIRS_UP,STAIRS_DOWN
+		NONE,USE,OPEN,TAKE,COMBINE,STAIRS_UP,STAIRS_DOWN,LADDER_UP,LADDER_DOWN
 	}
 	
 	public struct TypeButton {
@@ -69,6 +69,20 @@ public class InteractionTypes
 			button.infoText = "Gehe nach unten";
 			button.iconPos = 1;
 			break;
+		case Type.LADDER_UP:
+			button = new TypeButton();
+			button.name = "ladder_up";
+			button.methodName = "ladderUp";
+			button.infoText = "Kletter nach oben";
+			button.iconPos = 1;
+			break;
+		case Type.LADDER_DOWN:
+		button = new TypeButton();
+		button.name = "ladder_down";
+		button.methodName = "ladderDown";
+		button.infoText = "Kletter nach unten";
+		button.iconPos = 1;
+		break;
 		default:
 			break;
 		}
