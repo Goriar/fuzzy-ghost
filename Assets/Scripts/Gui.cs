@@ -21,6 +21,7 @@ public class Gui : MonoBehaviour {
 	}
 	
 	void OnGUI () {
+		// Lebensanzeige
 		float playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().health;
 		for (int i = 0; i < 4; i++) {
 			float lowerThreshold = i*25;
@@ -47,10 +48,18 @@ public class Gui : MonoBehaviour {
 			drawHeart(i*(heartSize.x+heartSpace), textureOffset);
 		}
 		
+		// Attention Anzeige
 		float playerAttention = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().attentionToPlayer;
 		float maxAttention = Player.MAX_ATTENTION;
 		GUI.DrawTexture(new Rect(30, 95, 259, 20), barBorderTexture, ScaleMode.StretchToFill, true);
 		GUI.DrawTexture(new Rect(32, 97, 255*playerAttention/maxAttention, 16), barTexture, ScaleMode.StretchToFill, true);
+		
+		// Item Anzeige
+		Item playerItem = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().getItem();
+		if (playerItem != null) {
+			GUI.DrawTexture(new Rect(30, Screen.height-30-80, 80, 80), playerItem.getIcon(), ScaleMode.StretchToFill, true);
+		}
+		
 		
 		
 	}
@@ -64,6 +73,13 @@ public class Gui : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetMouseButton(0) && GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().getItem() != null) {
+			bool insideButtonX = (Input.mousePosition.x >= 30 && Input.mousePosition.x <= 110);
+			bool insideButtonY = (Input.mousePosition.y >= 30 && Input.mousePosition.y <= 110);
+			
+			if (insideButtonX && insideButtonY) {
+				GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().dropItem();
+			}
+		}
 	}
 }

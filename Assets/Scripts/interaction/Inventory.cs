@@ -40,7 +40,11 @@ public class Inventory : MonoBehaviour {
 	/// Gibt aktuelles Item zurück
 	///
 	public Item getItem() {
-		return currentItem.GetComponent<Item>();
+		if (currentItem != null) {
+			return currentItem.GetComponent<Item>();
+		} else {
+			return null;	
+		}
 	}
 	
 	///

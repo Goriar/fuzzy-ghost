@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Item : MonoBehaviour {
 	
+	public Texture icon;
 	public string internalName;						// Name des Gegenstands (für interne Verwendung)
 	public string name;								// sichtbarer Name des Gegenstands
 	public LayerEnum currentLayer;					// gibt aktuelle Layer des Objekts an
@@ -14,6 +15,8 @@ public class Item : MonoBehaviour {
 	public float combineAttentionFactor = 0;
 	public Item[] combinableItems;
 	private Item[] combinedItems;
+	
+
 	
 	// Use this for initialization
 	void Start () {
@@ -94,6 +97,10 @@ public class Item : MonoBehaviour {
 				}
 			}
 		}
+	}
+	
+	public Texture getIcon () {
+		return icon;
 	}
 	
 	// Update is called once per frame
