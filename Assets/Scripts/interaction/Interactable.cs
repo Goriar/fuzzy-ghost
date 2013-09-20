@@ -63,7 +63,7 @@ public class Interactable : MonoBehaviour
 	public string[] getButtonTexts(){
 		
 		string[] output = new string[types.Length];
-		for (int i = 0; i < types.Length; i++) {
+		for (int i = 0; i < interaction.Length; i++) {
 			output[i] = interaction[i].getButtonText();
 		}
 		return output;
@@ -73,7 +73,7 @@ public class Interactable : MonoBehaviour
 	public float[] getButtonOffsets(){
 		
 		float[] output = new float[types.Length];
-		for (int i = 0; i < types.Length; i++) {
+		for (int i = 0; i < interaction.Length; i++) {
 			output[i] = interaction[i].getButtonOffset();
 		}
 		return output;
@@ -82,11 +82,24 @@ public class Interactable : MonoBehaviour
 	
 	//Wird aufgerufen sobald eine Aktion ausgeführt werden soll
 	public void doSomething(int index){
-		if (index == types.Length) {
+		if (index == interaction.Length) {
 			return;
 		}
 		this.BroadcastMessage(interaction[index].getMethod(), GameObject.FindGameObjectWithTag("Player"));
 	}
 	
+	/*
+	public void removeInteraction(InteractionTypes.Type t){
+		int c = 0;
+		InteractionTypes[] newInteraction = new InteractionTypes[interaction.Length-1];
+		for(int i = 0; i < interaction.Length; ++i){
+			if(interaction[i].getInteractionType() != t){
+				newInteraction[c] = interaction[i];
+				c++;
+			}
+		}
+		interaction = newInteraction;
+	}
+	*/
 }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractionTypes
 {
 	public enum Type{
-		NONE,USE,OPEN,TAKE,COMBINE,STAIRS_UP,STAIRS_DOWN,LADDER_UP,LADDER_DOWN,START_GAME,QUIT_GAME
+		NONE,USE,OPEN,TAKE,COMBINE,STAIRS_UP,STAIRS_DOWN,LADDER_UP,LADDER_DOWN,START_GAME,QUIT_GAME,CURSE
 	}
 	
 	public struct TypeButton {
@@ -97,7 +97,15 @@ public class InteractionTypes
 			button.infoText = "Beende das Spiel";
 			button.iconPos = 0;
 			break;
-			default:
+		case Type.CURSE:
+			button = new TypeButton();
+			button.name = "curse_object";
+			button.methodName = "curseObject";
+			button.infoText = "Verfluche einen Gegenstand";
+			button.iconPos = 1;
+			break;
+			
+		default:
 			break;
 			
 		}
@@ -116,7 +124,10 @@ public class InteractionTypes
 		return button.methodName;
 	}
 
-		
+	public InteractionTypes.Type getInteractionType(){
+		return type;
+	}
+	
 }
 
 
