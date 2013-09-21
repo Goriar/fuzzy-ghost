@@ -24,7 +24,7 @@ public class Stairs : MonoBehaviour{
 	public void stairsUp(){
 		
 	 	Moving movingComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>();
-		 movingComp.goToCallback+= this.goUpstairs;
+		 movingComp.goToObject(GameObject.Find("StairsBottom"),goUpstairs);
 		/*
 		GameObject stairUp = null;
 		GameObject stairBot = null;
@@ -90,7 +90,7 @@ public class Stairs : MonoBehaviour{
 	public void stairsDown(){
 		
 		 Moving movingComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>();
-		 movingComp.goToCallback+= this.goDownstairs;
+		  movingComp.goToObject(GameObject.Find("StairsTop"),goDownstairs);
 		/*
 				GameObject stairUp = null;
 				GameObject stairBot = null;
