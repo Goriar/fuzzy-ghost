@@ -19,7 +19,8 @@ public class Player : MonoBehaviour
 	{
 		health = 100f;
 		ghostHunter = GameObject.FindGameObjectWithTag("ghost_hunter");
-		ghostHunter.SetActive(false);
+		if(ghostHunter!=null)
+			ghostHunter.SetActive(false);
 	}
 	
 	void Update ()

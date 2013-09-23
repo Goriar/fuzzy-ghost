@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractionTypes
 {
 	public enum Type{
-		NONE,USE,OPEN,TAKE,COMBINE,STAIRS_UP,STAIRS_DOWN,LADDER_UP,LADDER_DOWN
+		NONE,USE,OPEN,TAKE,COMBINE,STAIRS_UP,STAIRS_DOWN,LADDER_UP,LADDER_DOWN,START_GAME,QUIT_GAME
 	}
 	
 	public struct TypeButton {
@@ -77,14 +77,29 @@ public class InteractionTypes
 			button.iconPos = 1;
 			break;
 		case Type.LADDER_DOWN:
-		button = new TypeButton();
-		button.name = "ladder_down";
-		button.methodName = "ladderDown";
-		button.infoText = "Kletter nach unten";
-		button.iconPos = 1;
-		break;
-		default:
+			button = new TypeButton();
+			button.name = "ladder_down";
+			button.methodName = "ladderDown";
+			button.infoText = "Kletter nach unten";
+			button.iconPos = 1;
 			break;
+		case Type.START_GAME:
+			button = new TypeButton();
+			button.name = "start_game";
+			button.methodName = "startGame";
+			button.infoText = "Starte ein neues Spiel";
+			button.iconPos = 1;
+			break;
+		case Type.QUIT_GAME:
+			button = new TypeButton();
+			button.name = "quit_game";
+			button.methodName = "quitGame";
+			button.infoText = "Beende das Spiel";
+			button.iconPos = 0;
+			break;
+			default:
+			break;
+			
 		}
 	}
 	
