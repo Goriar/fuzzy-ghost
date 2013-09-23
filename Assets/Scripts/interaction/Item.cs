@@ -15,6 +15,7 @@ public class Item : MonoBehaviour {
 	public float combineAttentionFactor = 0;
 	public Item[] combinableItems;
 	private Item[] combinedItems;
+	private bool cursed;
 	
 
 	
@@ -23,6 +24,14 @@ public class Item : MonoBehaviour {
 		combinedItems = new Item[combinableItems.Length];
 		originalPosition = transform.position;
 		wasTaken = false;
+	}
+	
+	public bool isCursed(){
+		return cursed;
+	}
+	
+	public void curse(bool b){
+		cursed = b;	
 	}
 	
 	void take () {

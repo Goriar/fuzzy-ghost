@@ -16,7 +16,7 @@ public class Door : MonoBehaviour {
 	
 	void open () {		
 		Hashtable ht = new Hashtable();
-		ht.Add("y",270);
+		ht.Add("y",180);
 		ht.Add("Time", 1f);
 		int counter = 0;
 		foreach (Transform child in this.transform) {
@@ -26,7 +26,7 @@ public class Door : MonoBehaviour {
 	
 	public void close () {
 		Hashtable ht = new Hashtable();
-		ht.Add("y",180);
+		ht.Add("y",270);
 		ht.Add("Time", 1f);
 		
 		foreach (Transform child in this.transform) {

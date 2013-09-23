@@ -23,6 +23,7 @@ public class ObjectInteraction : MonoBehaviour {
 								//und ob diese weiterhin gedrückt ist
 	
 	public Texture menuTexture;	
+	public Font textFont;
 	
 	public GameObject interactionButtonPrefab; 
 	private MenuButton[] buttons;
