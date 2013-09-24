@@ -1,60 +1,30 @@
 fileFormatVersion: 2
-guid: cea2818bd81448241844288a6b51b912
+guid: de46dee2947f6324199875dda3c33233
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: BloodBig
-    100002: BloodSmall
-    100004: //RootNode
-    100006: BloodDroplet
-    100008: BloodWide
-    100010: Curtain
-    100012: Pipe
-    100014: Shower001
-    100016: ShowerBorder
-    100018: ShowerHead
-    100020: ShowerPipe
-    400000: BloodBig
-    400002: BloodSmall
-    400004: //RootNode
-    400006: BloodDroplet
-    400008: BloodWide
-    400010: Curtain
-    400012: Pipe
-    400014: Shower001
-    400016: ShowerBorder
-    400018: ShowerHead
-    400020: ShowerPipe
-    2300000: BloodBig
-    2300002: BloodSmall
-    2300004: BloodDroplet
-    2300006: BloodWide
-    2300008: Curtain
-    2300010: Pipe
-    2300012: Shower001
-    2300014: ShowerBorder
-    2300016: ShowerHead
-    2300018: ShowerPipe
-    3300000: BloodBig
-    3300002: BloodSmall
-    3300004: BloodDroplet
-    3300006: BloodWide
-    3300008: Curtain
-    3300010: Pipe
-    3300012: Shower001
-    3300014: ShowerBorder
-    3300016: ShowerHead
-    3300018: ShowerPipe
-    4300000: BloodBig
-    4300002: BloodSmall
-    4300004: Shower001
-    4300006: Pipe
-    4300008: Curtain
-    4300010: ShowerPipe
-    4300012: ShowerBorder
-    4300014: ShowerHead
-    4300016: BloodDroplet
-    4300018: BloodWide
+    100000: Body
+    100002: Hat
+    100004: Head
+    100006: //RootNode
+    100008: Uniform
+    400000: Body
+    400002: Hat
+    400004: Head
+    400006: //RootNode
+    400008: Uniform
+    2300000: Body
+    2300002: Hat
+    2300004: Head
+    2300006: Uniform
+    3300000: Body
+    3300002: Hat
+    3300004: Head
+    3300006: Uniform
+    4300000: Body
+    4300002: Head
+    4300004: Uniform
+    4300006: Hat
     9500000: //RootNode
   materials:
     importMaterials: 1
