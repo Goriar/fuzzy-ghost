@@ -16,14 +16,22 @@ public class Item : MonoBehaviour {
 	public Item[] combinableItems;
 	private Item[] combinedItems;
 	private bool cursed;
+	public bool used;
 	
-
+	private Vector3 spawnCoordinates;
 	
 	// Use this for initialization
 	void Start () {
 		combinedItems = new Item[combinableItems.Length];
 		originalPosition = transform.position;
 		wasTaken = false;
+		spawnCoordinates = this.transform.position;
+		used = false;
+		cursed =false;
+	}
+	
+	public Vector3 getSpawnCoordinates(){
+		return spawnCoordinates;
 	}
 	
 	public bool isCursed(){
