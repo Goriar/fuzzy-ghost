@@ -15,23 +15,26 @@ public class Item : MonoBehaviour {
 	public float combineAttentionFactor = 0;
 	public Item[] combinableItems;
 	private Item[] combinedItems;
+	public bool slotBased = true; 
+	public GameObject[] combineObjects;
+	private int combinationsApplied;
 	private bool cursed;
 	public bool used;
+	public AudioClip[] curseAudio = new AudioClip[3];
 	
-	private Vector3 spawnCoordinates;
 	
 	// Use this for initialization
 	void Start () {
 		combinedItems = new Item[combinableItems.Length];
 		originalPosition = transform.position;
 		wasTaken = false;
-		spawnCoordinates = this.transform.position;
 		used = false;
 		cursed =false;
+		combinationsApplied = 0;
 	}
 	
 	public Vector3 getSpawnCoordinates(){
-		return spawnCoordinates;
+		return originalPosition;
 	}
 	
 	public bool isCursed(){
@@ -92,6 +95,11 @@ public class Item : MonoBehaviour {
 	void combine () {
 		Inventory playerInv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
 		if(playerInv.hasItem()) {
+			if(!slotBased){
+				//...
+				combinationsApplied++;
+				return;
+			}
 			int combineSlot = -1;
 			// Iteriere durch alle kombinierbaren Gegenstände und schaue, ob getragener Gegenstand kombinierbar ist
 			for (int i = 0; i < combinableItems.Length; i++) {

@@ -20,10 +20,14 @@ public class Respawner : MonoBehaviour
 			float val = (float)respawnTimes[i];
 			val +=Time.deltaTime;
 			respawnTimes[i] = val;
-			if(val>=300.0f){
+			if(val>=10.0f){
 				GameObject g = (GameObject)respawnList[i];
 				g.SetActive(true);
 				g.transform.position = g.GetComponent<Item>().getSpawnCoordinates();
+				GameObject t = (GameObject)GameObject.Instantiate(g);
+				t.transform.parent = g.transform.parent;
+				t.transform.position = g.transform.position;
+				Destroy(g);
 				respawnList.RemoveAt(i);
 				respawnTimes.RemoveAt(i);
 				

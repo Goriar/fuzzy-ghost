@@ -11,6 +11,7 @@ public class Curse : MonoBehaviour
 	float completion;
 	GameObject player;
 	Moving movComp;
+	public AudioClip[] curseAudio = new AudioClip[3];
 	// Use this for initialization
 	void Start ()
 	{
@@ -34,9 +35,19 @@ public class Curse : MonoBehaviour
 				Animation anim = this.GetComponent<Animation>();
 				if(completion<40.0f){
 					anim.Play("Curse1");
+					if(curseAudio[0]!=null){
+						AudioSource audio = GetComponent<AudioSource>();
+						audio.clip = curseAudio[0];
+						audio.Play();
+					}
 				}
 				if(completion>=40.0f && completion <100.0f){
 					anim.Play("Curse2");
+					if(curseAudio[1]!=null){
+						AudioSource audio = GetComponent<AudioSource>();
+						audio.clip = curseAudio[1];
+						audio.Play();
+					}
 				}
 				player.GetComponent<Player>().hidePlayer();
 				completion = 0.0f;
@@ -50,6 +61,11 @@ public class Curse : MonoBehaviour
 				item.curse(true);
 				Animation anim = this.GetComponent<Animation>();
 				anim.Play("Curse3");
+				if(curseAudio[2]!=null){
+						AudioSource audio = GetComponent<AudioSource>();
+						audio.clip = curseAudio[2];
+						audio.Play();
+					}
 				isCursing = false;
 				completion = 0.0f;
 				player.GetComponent<Player>().hidePlayer();
@@ -64,8 +80,6 @@ public class Curse : MonoBehaviour
 	
 	void curse(){
 		BroadcastMessage("playAnimation", "curse");
-		
-		Item item = this.gameObject.GetComponent<Item>();
 		isCursing = true;
 		Interactable inter = this.gameObject.GetComponent<Interactable>();
 		inter.enabled = false;
