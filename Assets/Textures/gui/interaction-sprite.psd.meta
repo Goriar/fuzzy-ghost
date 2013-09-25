@@ -20,7 +20,11 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
+<<<<<<< HEAD
+  textureFormat: -3
+=======
   textureFormat: -1
+>>>>>>> 2dcd405139ad1cd7983ae767129ec7922a2e2e62
   maxTextureSize: 4096
   textureSettings:
     filterMode: -1
