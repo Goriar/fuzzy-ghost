@@ -6,15 +6,30 @@ ModelImporter:
     100000: //RootNode
     100002: Kamin
     100004: KaminWood
+    100006: FirePlane
+    100008: Wood
+    100010: WoodEnd
     400000: //RootNode
     400002: Kamin
     400004: KaminWood
+    400006: FirePlane
+    400008: Wood
+    400010: WoodEnd
     2300000: Kamin
     2300002: KaminWood
+    2300004: FirePlane
+    2300006: Wood
+    2300008: WoodEnd
     3300000: Kamin
     3300002: KaminWood
+    3300004: FirePlane
+    3300006: Wood
+    3300008: WoodEnd
     4300000: Kamin
     4300002: KaminWood
+    4300004: FirePlane
+    4300006: Wood
+    4300008: WoodEnd
     9500000: //RootNode
   materials:
     importMaterials: 1
