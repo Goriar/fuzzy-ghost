@@ -33,7 +33,12 @@ public class Hide : MonoBehaviour {
 	/// @param delay		Verzögerung des Sichtbarmachens
 	/// 
 	public void show (float duration, float delay) {
-		gameObject.SetActive(true);
+		foreach(MeshRenderer mr in gameObject.GetComponentsInChildren<MeshRenderer>()) {
+			mr.enabled = true;
+		}
+		foreach(BoxCollider bc in gameObject.GetComponentsInChildren<BoxCollider>()) {
+			bc.enabled = true;
+		}
 		makeTransparent(1f, duration, delay);
 	}
 		
@@ -70,7 +75,12 @@ public class Hide : MonoBehaviour {
 	}
 	
 	void deactivate () {
-		//gameObject.SetActive(false);
+		foreach(MeshRenderer mr in gameObject.GetComponentsInChildren<MeshRenderer>()) {
+			mr.enabled = false;
+		}
+		foreach(BoxCollider bc in gameObject.GetComponentsInChildren<BoxCollider>()) {
+			bc.enabled = false;
+		}
 	}
 	
 	/// 
