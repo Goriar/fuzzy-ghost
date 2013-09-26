@@ -39,6 +39,9 @@ public class Hide : MonoBehaviour {
 		foreach(BoxCollider bc in gameObject.GetComponentsInChildren<BoxCollider>()) {
 			bc.enabled = true;
 		}
+		foreach(MeshCollider mc in gameObject.GetComponentsInChildren<MeshCollider>()) {
+			mc.enabled = true;
+		}
 		makeTransparent(1f, duration, delay);
 	}
 		
@@ -80,6 +83,9 @@ public class Hide : MonoBehaviour {
 		}
 		foreach(BoxCollider bc in gameObject.GetComponentsInChildren<BoxCollider>()) {
 			bc.enabled = false;
+		}
+		foreach(MeshCollider mc in gameObject.GetComponentsInChildren<MeshCollider>()) {
+			mc.enabled = false;
 		}
 	}
 	

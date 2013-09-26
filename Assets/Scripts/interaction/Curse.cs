@@ -98,8 +98,6 @@ public class Curse : MonoBehaviour
 				200,
 				200)
 				,(int)completion+"%");
-			Debug.Log(Camera.mainCamera.WorldToScreenPoint(this.transform.position).x+" "+Camera.mainCamera.WorldToScreenPoint(this.transform.position).y);
-
 		}
 	}
 }

@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 1c258a3d102054fe7ad227b66ae873c4
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - otherSide: {instanceID: 0}
+  - doorAudio: {fileID: 8300000, guid: 5126da20ffa9d204d9f446fd0205dbad, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

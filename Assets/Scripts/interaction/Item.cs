@@ -20,6 +20,7 @@ public class Item : MonoBehaviour {
 	private int combinationsApplied;
 	private bool cursed;
 	public bool used;
+	public AudioClip takeAudio;
 	
 	
 	// Use this for initialization
@@ -46,6 +47,9 @@ public class Item : MonoBehaviour {
 	
 	void take () {
 		this.take (GameObject.FindGameObjectWithTag("Player"));
+		AudioSource audio = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+		audio.clip = takeAudio;
+		audio.Play();
 	}
 	
 	public float getScaryness(){

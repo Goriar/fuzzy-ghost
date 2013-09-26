@@ -36,6 +36,7 @@ public class Character : MonoBehaviour
 	XmlDocument xml;
 	
 	public float dialogueTime;
+	public AudioClip screamAudio;
 	
 	
 	

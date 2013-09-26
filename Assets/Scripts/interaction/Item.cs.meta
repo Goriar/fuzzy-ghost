@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: f2e1a43fe21864680ab9d7b40d28d795
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - icon: {fileID: 2800000, guid: 92c30fe6948314c63a091b6e075aa24c, type: 3}
+  - takeAudio: {fileID: 8300000, guid: cc879ecc9f15ebd4794099f88df5aeb2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -10,14 +10,12 @@ public class ScaredState : AIState
 	private GameObject[] panicSpots;
 	private GameObject finalTarget;
 	
-	private float timer;
 	
 	public ScaredState (StateMachine sm) : base(sm)
 	{
 		movingComponent = stateMachine.Enemy.getMovingComponent();
 		nextTarget = null;
 		panicSpots = GameObject.FindGameObjectsWithTag("panic_spot");
-		timer = 0.0f;
 	} 
 	
 	public override void enterState(){
@@ -38,13 +36,12 @@ public class ScaredState : AIState
 		movingToTransition = false;
 		stateMachine.Enemy.readyToTalk = false;
 		stateMachine.Enemy.dialogueTime = 0.0f;
-		timer = 0.0f;
+		AudioSource audio = stateMachine.Enemy.gameObject.GetComponent<AudioSource>();
+		audio.clip = stateMachine.Enemy.screamAudio;
+		audio.Play();
 	}
 	
 	public override void updateAI(){
-		timer+=Time.deltaTime;
-		if(timer<5.0f)
-			return;
 		
 		//Charakter hat Ort erreicht
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
@@ -101,7 +98,6 @@ public class ScaredState : AIState
 	public override void exitState(){
 		stateMachine.Enemy.resetCurrentValue();
 		idleTime =0.0f;
-		timer = 0.0f;
 	}
 }
 

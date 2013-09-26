@@ -7,6 +7,7 @@ public class Door : MonoBehaviour {
 	public LayerEnum switchTo;
 	public Door otherSide;
 	public RoomInventory[] connectedRooms = new RoomInventory[2];
+	public AudioClip doorAudio;
 	
 	void interact (string action) {
 		if (action == "Use") {
@@ -40,6 +41,9 @@ public class Door : MonoBehaviour {
 		if (otherSide != null) {
 			movingComp.goToCallback += otherSide.open;
 		}
+		AudioSource audio = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+		audio.clip = doorAudio;
+		audio.Play();
 		movingComp.startLayerSwitch(this);
 	}
 	
@@ -49,6 +53,9 @@ public class Door : MonoBehaviour {
 		if (otherSide != null) {
 			otherSide.open();
 		}
+		AudioSource audio = movingComp.gameObject.GetComponent<AudioSource>();
+		audio.clip = doorAudio;
+		audio.Play();
 		movingComp.startLayerSwitch(this);
 	}
 	

@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: 9eba4db6a6e504641896f0fcb23544e5
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - trapPrefab: {instanceID: 0}
+  - currentLocation: {instanceID: 0}
+  - currentObjectOfInterest: {instanceID: 0}
+  - chatPartner: {instanceID: 0}
+  - screamAudio: {fileID: 8300000, guid: ff38df2df43bb08438f1aded821d3f33, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
