@@ -12,6 +12,7 @@ public class Curse : MonoBehaviour
 	GameObject player;
 	Moving movComp;
 	public AudioClip[] curseAudio = new AudioClip[3];
+	public AudioClip curseSound;
 	// Use this for initialization
 	void Start ()
 	{
@@ -80,6 +81,8 @@ public class Curse : MonoBehaviour
 	
 	void curse(){
 		BroadcastMessage("playAnimation", "curse");
+		player.GetComponent<AudioSource>().clip = curseSound;
+		player.GetComponent<AudioSource>().Play();
 		isCursing = true;
 		Interactable inter = this.gameObject.GetComponent<Interactable>();
 		inter.enabled = false;

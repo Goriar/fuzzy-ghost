@@ -20,7 +20,6 @@ public class Item : MonoBehaviour {
 	private int combinationsApplied;
 	private bool cursed;
 	public bool used;
-	public AudioClip[] curseAudio = new AudioClip[3];
 	
 	
 	// Use this for initialization
