@@ -72,7 +72,7 @@ public class FieldOfView : MonoBehaviour {
 		Item item = other.GetComponent<Item>();
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if(item != null){
-			if(item.scareFactor>0 && !item.used){
+			if(item.getScaryness()>0 && !item.used){
 				Character ch = npc.GetComponent<Character>();
 				ch.stateMachine.changeState(StateType.SCARED_STATE);
 				ch.scare(item.getScaryness());

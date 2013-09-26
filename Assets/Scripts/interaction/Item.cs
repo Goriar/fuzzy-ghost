@@ -98,10 +98,18 @@ public class Item : MonoBehaviour {
 	void combine () {
 		Inventory playerInv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
 		if(playerInv.hasItem()) {
-			if(!slotBased){
-				//...
-				combinationsApplied++;
-				return;
+			for (int i = 0; i < combinableItems.Length; i++){
+				if(!slotBased && combinableItems[i].internalName == playerInv.getItem().internalName){
+					combineObjects[combinationsApplied].SetActive(true);
+					if(combinationsApplied>0)
+						combineObjects[combinationsApplied-1].SetActive(false);
+					if(combinedItems[combinationsApplied] == null)
+						combinedItems[combinationsApplied] = playerInv.getItem();
+					combinationsApplied++;
+					gameObject.renderer.enabled = false;
+					playerInv.removeItem();
+					return;
+				}
 			}
 			int combineSlot = -1;
 			// Iteriere durch alle kombinierbaren Gegenstände und schaue, ob getragener Gegenstand kombinierbar ist
