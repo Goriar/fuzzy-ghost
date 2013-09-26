@@ -60,7 +60,7 @@ public class LayerSwitch : MonoBehaviour {
 			if (transform.position.z == endPos.z) {
 				Moving moving = GetComponent<Moving>();
 				moving.layer = endLayer;
-				active = false; 
+				active = false;
 			}
 		}
 	}

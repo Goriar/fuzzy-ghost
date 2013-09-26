@@ -70,7 +70,7 @@ public class Hide : MonoBehaviour {
 	}
 	
 	void deactivate () {
-		gameObject.SetActive(false);
+		//gameObject.SetActive(false);
 	}
 	
 	/// 

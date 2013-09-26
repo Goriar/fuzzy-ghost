@@ -9,6 +9,9 @@ public class FieldOfView : MonoBehaviour {
 	private float distance;
 	private float sizeDifference;
 	private Vector3 scale;
+	
+	private float timer;
+	private GameObject despawnObject;
 	// Use this for initialization
 	void Start () {
 		scale = this.gameObject.transform.localScale;
@@ -21,6 +24,8 @@ public class FieldOfView : MonoBehaviour {
 		sizeDifference = npc.transform.position.y - this.transform.position.y;
 		if(sizeDifference<0)
 			sizeDifference*=-1;
+		
+		timer = 0.0f;
 	}
 	
 	// Update is called once per frame
@@ -48,19 +53,33 @@ public class FieldOfView : MonoBehaviour {
 			
 				this.gameObject.transform.localScale = new Vector3(0,0,0);
 			}
-			
 		}
+		if(despawnObject!=null){
+				timer+=Time.deltaTime;
+				if(timer>=15.0f){
+					Respawner respawn = GameObject.FindWithTag("MainCamera").GetComponent<Respawner>();
+					respawn.addToRespawnList(despawnObject);
+					despawnObject.GetComponent<Interactable>().enabled=true;
+					despawnObject.GetComponent<Item>().used = false;
+					despawnObject.SetActive(false);
+					despawnObject = null;
+					timer = 0.0f;
+				}
+			}
 	}
 	
 	void OnTriggerEnter(Collider other){
 		Item item = other.GetComponent<Item>();
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if(item != null){
-			if(item.scareFactor>0){
+			if(item.scareFactor>0 && !item.used){
 				Character ch = npc.GetComponent<Character>();
 				ch.stateMachine.changeState(StateType.SCARED_STATE);
 				ch.scare(item.getScaryness());
+				item.curse(false);
+				item.used = true;
 				player.raiseAttention(item.getAttentionFactor());
+				despawnObject = other.gameObject;
 				Debug.Log("SCAAAAARED!");
 				return;
 			}

@@ -11,6 +11,8 @@ public class Curse : MonoBehaviour
 	float completion;
 	GameObject player;
 	Moving movComp;
+	public AudioClip[] curseAudio = new AudioClip[3];
+	public AudioClip curseSound;
 	// Use this for initialization
 	void Start ()
 	{
@@ -27,18 +29,44 @@ public class Curse : MonoBehaviour
 			player.GetComponent<Player>().showPlayer();
 			if(movComp.execMovement){
 				isCursing = false;
-				completion = 0.0f;
-				Interactable inter = this.gameObject.GetComponent<Interactable>();
-				inter.enabled = true;
+				Item item = this.gameObject.GetComponent<Item>();
+				item.scareFactor = cursedScareFactor*completion/100.0f;
+				item.attentionFactor = cursedAttentionFactor*completion/100.0f;
+				item.curse(true);
+				Animation anim = this.GetComponent<Animation>();
+				if(completion<40.0f){
+					anim.Play("Curse1");
+					if(curseAudio[0]!=null){
+						AudioSource audio = GetComponent<AudioSource>();
+						audio.clip = curseAudio[0];
+						audio.Play();
+					}
+				}
+				if(completion>=40.0f && completion <100.0f){
+					anim.Play("Curse2");
+					if(curseAudio[1]!=null){
+						AudioSource audio = GetComponent<AudioSource>();
+						audio.clip = curseAudio[1];
+						audio.Play();
+					}
+				}
 				player.GetComponent<Player>().hidePlayer();
+				completion = 0.0f;
 				return;
 			}
 			completion+=Time.deltaTime*7.0f;
-			if(completion>=101.0f){
+			if(completion>=100.0f){
 				Item item = this.gameObject.GetComponent<Item>();
 				item.scareFactor = cursedScareFactor;
 				item.attentionFactor = cursedAttentionFactor;
 				item.curse(true);
+				Animation anim = this.GetComponent<Animation>();
+				anim.Play("Curse3");
+				if(curseAudio[2]!=null){
+						AudioSource audio = GetComponent<AudioSource>();
+						audio.clip = curseAudio[2];
+						audio.Play();
+					}
 				isCursing = false;
 				completion = 0.0f;
 				player.GetComponent<Player>().hidePlayer();
@@ -53,11 +81,11 @@ public class Curse : MonoBehaviour
 	
 	void curse(){
 		BroadcastMessage("playAnimation", "curse");
-		
-		Item item = this.gameObject.GetComponent<Item>();
+		player.GetComponent<AudioSource>().clip = curseSound;
+		player.GetComponent<AudioSource>().Play();
 		isCursing = true;
 		Interactable inter = this.gameObject.GetComponent<Interactable>();
-			inter.enabled = false;
+		inter.enabled = false;
 		
 	}
 	

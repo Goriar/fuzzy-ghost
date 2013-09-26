@@ -1,0 +1,110 @@
+fileFormatVersion: 2
+guid: cea2818bd81448241844288a6b51b912
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: BloodBig
+    100002: BloodSmall
+    100004: //RootNode
+    100006: BloodDroplet
+    100008: BloodWide
+    100010: Curtain
+    100012: Pipe
+    100014: Shower001
+    100016: ShowerBorder
+    100018: ShowerHead
+    100020: ShowerPipe
+    400000: BloodBig
+    400002: BloodSmall
+    400004: //RootNode
+    400006: BloodDroplet
+    400008: BloodWide
+    400010: Curtain
+    400012: Pipe
+    400014: Shower001
+    400016: ShowerBorder
+    400018: ShowerHead
+    400020: ShowerPipe
+    2300000: BloodBig
+    2300002: BloodSmall
+    2300004: BloodDroplet
+    2300006: BloodWide
+    2300008: Curtain
+    2300010: Pipe
+    2300012: Shower001
+    2300014: ShowerBorder
+    2300016: ShowerHead
+    2300018: ShowerPipe
+    3300000: BloodBig
+    3300002: BloodSmall
+    3300004: BloodDroplet
+    3300006: BloodWide
+    3300008: Curtain
+    3300010: Pipe
+    3300012: Shower001
+    3300014: ShowerBorder
+    3300016: ShowerHead
+    3300018: ShowerPipe
+    4300000: BloodBig
+    4300002: BloodSmall
+    4300004: Shower001
+    4300006: Pipe
+    4300008: Curtain
+    4300010: ShowerPipe
+    4300012: ShowerBorder
+    4300014: ShowerHead
+    4300016: BloodDroplet
+    4300018: BloodWide
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 2
+  userData: 
