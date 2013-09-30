@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour {
 		if (currentItem != null) {
 			BroadcastMessage("hidePlayer");
 			currentItem = null;
-			Debug.Log("YEAHS");
+			Debug.Log ("Item removed");
 		}
 	}
 	

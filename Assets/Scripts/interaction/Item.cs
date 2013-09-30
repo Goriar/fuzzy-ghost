@@ -129,6 +129,17 @@ public class Item : MonoBehaviour {
 		}
 	}
 	
+	public bool isCombinable () {
+		Inventory playerInv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+		if(playerInv.hasItem()) {
+			for (int i = 0; i < combinableItems.Length; i++){
+				if (combinableItems[i].internalName == playerInv.getItem().internalName)
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	///
 	/// Kombiniert Objekte miteinander
 	///
@@ -148,7 +159,14 @@ public class Item : MonoBehaviour {
 					if(combinedItems[combinationsApplied] == null)
 						combinedItems[combinationsApplied] = playerInv.getItem();
 					combinationsApplied++;
-					gameObject.renderer.enabled = false;
+					if (gameObject.renderer != null) {
+						gameObject.renderer.enabled = false;
+					} else {
+						foreach (Renderer childRenderer in gameObject.GetComponentsInChildren<Renderer>()) {
+							childRenderer.enabled = false;
+						}
+					}
+					Debug.Log ("removing item");
 					playerInv.removeItem();
 					gameObject.GetComponent<Interactable>().enabled = false;
 					return;

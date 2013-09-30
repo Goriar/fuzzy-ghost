@@ -42,9 +42,15 @@ public class Interactable : MonoBehaviour
 	
 	//Ermittelt den Text der Buttons
 	public string[] getButtonTexts(){
-		
-		string[] output = new string[types.Length];
-		for (int i = 0; i < interaction.Length; i++) {
+		// arrayLength wird um 1 veringert, wenn kombinierItem nicht in Inventar ist
+		int arrayLength = types.Length;
+		if(this.hasCombination()) {
+			if (!gameObject.GetComponent<Item>().isCombinable()) {
+				arrayLength--; 
+			}
+		}
+		string[] output = new string[arrayLength];
+		for (int i = 0; i < arrayLength; i++) {
 			output[i] = interaction[i].getButtonText();
 		}
 		return output;
@@ -52,12 +58,26 @@ public class Interactable : MonoBehaviour
 	
 	//Ermittelt den Offset der Buttons
 	public float[] getButtonOffsets(){
-		
-		float[] output = new float[types.Length];
-		for (int i = 0; i < interaction.Length; i++) {
+		// arrayLength wird um 1 veringert, wenn kombinierItem nicht in Inventar ist
+		int arrayLength = types.Length;
+		if(this.hasCombination()) {
+			if (!gameObject.GetComponent<Item>().isCombinable()) {
+				arrayLength--; 
+			}
+		}
+		float[] output = new float[arrayLength];
+		for (int i = 0; i < arrayLength; i++) {
 			output[i] = interaction[i].getButtonOffset();
 		}
 		return output;
+	}
+	
+	private bool hasCombination () {
+		for (int i = 0; i < types.Length; i++) {
+			if (types[i] == InteractionTypes.Type.COMBINE)
+				return true;
+		}
+		return false;
 	}
 	
 	

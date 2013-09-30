@@ -10,7 +10,7 @@ public class Layer : MonoBehaviour {
 	private float hideDelay = 0.5f;
 	
 	// Transparenz der Türen
-	private float doorTransparency = 0.1f;
+	private float doorTransparency = 0.2f;
 	
 	
 	// Use this for initialization

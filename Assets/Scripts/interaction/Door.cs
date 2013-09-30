@@ -25,7 +25,12 @@ public class Door : MonoBehaviour {
 	///
 	/// Öffnet die Tür
 	///
-	void open () {		
+	void open () {	
+		// spiele Audio
+		AudioSource audio = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+		audio.clip = doorAudio;
+		audio.Play();
+		
 		// Hashtable für Animationsoptionen
 		Hashtable ht = new Hashtable();
 		ht.Add("y",180); // Rotation in Y Achse
@@ -78,11 +83,7 @@ public class Door : MonoBehaviour {
 			// Wenn Tür Gegenstück vorhanden, füge auch hier Callback hinzu
 			//movingComp.goToCallback += otherSide.open;
 		}
-		// spiele Audio
-		AudioSource audio = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
-		audio.clip = doorAudio;
-		audio.Play();
-
+	
 		// Initiiere Layer Switch
 
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
