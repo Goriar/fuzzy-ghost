@@ -150,6 +150,7 @@ public class Item : MonoBehaviour {
 					combinationsApplied++;
 					gameObject.renderer.enabled = false;
 					playerInv.removeItem();
+					gameObject.GetComponent<Interactable>().enabled = false;
 					return;
 				}
 			}
@@ -176,6 +177,7 @@ public class Item : MonoBehaviour {
 						}
 						playerInv.removeItem(); // Lösche Item aus Inventar
 					}
+					gameObject.GetComponent<Interactable>().enabled = false;
 					break;
 				}
 			}
