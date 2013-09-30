@@ -32,7 +32,7 @@ public class InteractionTypes
 			button.name = "use";
 			button.methodName = "use";
 			button.infoText = "Benutze Objekt";
-			button.iconPos = 1;
+			button.iconPos = 5;
 			break;
 		case Type.OPEN:
 			button = new TypeButton();
@@ -53,35 +53,35 @@ public class InteractionTypes
 			button.name = "combine";
 			button.methodName = "combine";
 			button.infoText = "Kombiniere Gegenstände";
-			button.iconPos = 1;
+			button.iconPos = 6;
 			break;
 		case Type.STAIRS_UP:
 			button = new TypeButton();
 			button.name = "stairs_up";
 			button.methodName = "stairsUp";
 			button.infoText = "Gehe nach oben";
-			button.iconPos = 1;
+			button.iconPos = 3;
 			break;
 		case Type.STAIRS_DOWN:
 			button = new TypeButton();
 			button.name = "stairs_down";
 			button.methodName = "stairsDown";
 			button.infoText = "Gehe nach unten";
-			button.iconPos = 1;
+			button.iconPos = 4;
 			break;
 		case Type.LADDER_UP:
 			button = new TypeButton();
 			button.name = "ladder_up";
 			button.methodName = "ladderUp";
 			button.infoText = "Kletter nach oben";
-			button.iconPos = 1;
+			button.iconPos = 3;
 			break;
 		case Type.LADDER_DOWN:
 			button = new TypeButton();
 			button.name = "ladder_down";
 			button.methodName = "ladderDown";
 			button.infoText = "Kletter nach unten";
-			button.iconPos = 1;
+			button.iconPos = 4;
 			break;
 		case Type.START_GAME:
 			button = new TypeButton();
@@ -102,7 +102,7 @@ public class InteractionTypes
 			button.name = "curse_object";
 			button.methodName = "curseObject";
 			button.infoText = "Verfluche einen Gegenstand";
-			button.iconPos = 1;
+			button.iconPos = 2;
 			break;
 			
 		default:

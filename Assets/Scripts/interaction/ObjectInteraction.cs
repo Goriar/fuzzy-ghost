@@ -50,6 +50,9 @@ public class ObjectInteraction : MonoBehaviour {
 			float spriteCropWidth = spriteWidth*0.1f;
 			float spriteCropHeight = spriteHeight*0.5f;
 			
+			// Temporäre Variable um zu schauen, ob überhaupt ein Element aktiv ist (zum späteren Reset des aktivIndex)
+			bool oneActive = false;
+			
 			// Durchgeht alle Buttons
 			for (int i = 0; i < buttons.Length; i++) {
 				// Update der X und Y Position der Buttons (Animation auf finale Position)
@@ -67,6 +70,7 @@ public class ObjectInteraction : MonoBehaviour {
 				// Wenn Maus in Button, dann setze aktiv
 				if (insideButtonX && insideButtonY) {
 					yOffset = 0.5f;
+					oneActive = true;
 					activeButtonIndex = i; // setze aktiven Button (für Aktion bei Loslassen) 
 				}
 				
@@ -75,6 +79,10 @@ public class ObjectInteraction : MonoBehaviour {
 				GUI.DrawTexture(new Rect(-spriteWidth*buttons[i].offset, -spriteHeight*yOffset, spriteWidth, spriteHeight), menuTexture, ScaleMode.StretchToFill, true);
 				GUI.EndGroup();
 			}
+			
+			// Reset auf -1, wenn kein Element aktiv ist (um Bug zu beheben, der eintritt, wenn ein Element aktiv war, bei mousebuttonup aber nicht mehr aktiv ist)
+			if (oneActive == false)
+				activeButtonIndex = -1;
 		}
 		
 	}
