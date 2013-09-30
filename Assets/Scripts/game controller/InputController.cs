@@ -29,7 +29,7 @@ public class InputController : MonoBehaviour {
 	
 	///
 	/// Entsperrt alle Eingaben wieder
-	////
+	///
 	public void unlockControls () {
 		locked = false;
 	}
@@ -96,15 +96,7 @@ public class InputController : MonoBehaviour {
 			if (Input.GetKey(KeyCode.I)) {
 				moving.GetComponent<Inventory>().dropItem();
 			}		
-			
-			// TESTCODE START
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				player.BroadcastMessage("show", 1);
-			} else if (Input.GetKeyUp  (KeyCode.Space)) {
-				player.BroadcastMessage("makeTransparent", 1);
-			}
-			// TESTCODE END
-			
+						
 			// Layer Switch nur, wenn Tür in Nähe ist
 			if (moving.usableDoor != null) {
 				// Layer Switch bei Pfeil nach oben

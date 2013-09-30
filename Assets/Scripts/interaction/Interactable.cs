@@ -31,26 +31,7 @@ public class Interactable : MonoBehaviour
 		if(Input.anyKey && !playerArrivedAtTarget){
 			action = -1;
 		}
-		/*
-		//Falls der Spieler nicht beim Objekt ist, wird er zu ihm bewegt. (Gegebenenfalls in Moving verschieben)
-		if(!playerArrivedAtTarget && action>=0){
-			GameObject player = GameObject.FindGameObjectWithTag("Player");
-			Vector3 playerPos = player.transform.position;
-			Vector3 ObjectPos = this.transform.position;
-			
-			if(playerPos.x > ObjectPos.x+0.4 || playerPos.x < ObjectPos.x-0.4){
-				if(ObjectPos.x > playerPos.x){
-					player.transform.Translate(Vector3.right * 2f *Time.deltaTime);
-				}
-				else{
-					player.transform.Translate(Vector3.left * 2f *Time.deltaTime);
-				}
-			}
-			else{
-				playerArrivedAtTarget = true;
-				startTime = Time.time;
-			}
-		}	*/
+
 		if(action >= 0 && playerArrivedAtTarget){
 		//interaction.doSomething(ref action,startTime);
 		}
@@ -87,19 +68,6 @@ public class Interactable : MonoBehaviour
 		}
 		this.BroadcastMessage(interaction[index].getMethod(), GameObject.FindGameObjectWithTag("Player"));
 	}
-	
-	/*
-	public void removeInteraction(InteractionTypes.Type t){
-		int c = 0;
-		InteractionTypes[] newInteraction = new InteractionTypes[interaction.Length-1];
-		for(int i = 0; i < interaction.Length; ++i){
-			if(interaction[i].getInteractionType() != t){
-				newInteraction[c] = interaction[i];
-				c++;
-			}
-		}
-		interaction = newInteraction;
-	}
-	*/
+
 }
 

@@ -24,14 +24,19 @@ public class CameraView : MonoBehaviour {
 		
 		setYOffset();
 	}
-		
-	// Setzt neue Position für die Kamera abhängig vom Target Objekt
+	
+	///	
+	/// Setzt neue Position für die Kamera abhängig vom Target Objekt
+	///
 	void setNewPos () {
 		Vector3 pos = target.transform.position; // Aktuelle Target Position
 		Vector3 camPos = new Vector3(pos.x, pos.y + yDistance, pos.z + zDistance); // neu berechnete Kamera Position
 		transform.position = camPos;
 	}
 	
+	///
+	/// Setzt Y-Offset der Kamera (Verschiebung nach oben)
+	///
 	void setYOffset () {
 		transform.position = new Vector3(transform.position.x, (transform.position.y + yOffset), transform.position.z);
 	}

@@ -77,13 +77,19 @@ public class Hide : MonoBehaviour {
 		iTween.FadeTo(gameObject, ht);
 	}
 	
+	/// 
+	/// Deaktiviert Elemente
+	/// 
 	void deactivate () {
+		// Deaktiviere alle Mesh Renderer in Ebene
 		foreach(MeshRenderer mr in gameObject.GetComponentsInChildren<MeshRenderer>()) {
 			mr.enabled = false;
 		}
+		// Deaktiviere alle BoxCollider in Ebene
 		foreach(BoxCollider bc in gameObject.GetComponentsInChildren<BoxCollider>()) {
 			bc.enabled = false;
 		}
+		// Deaktiviere alle MeshCollider in Ebene
 		foreach(MeshCollider mc in gameObject.GetComponentsInChildren<MeshCollider>()) {
 			mc.enabled = false;
 		}
