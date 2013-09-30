@@ -13,6 +13,7 @@ using UnityEngine;
 		
 		public override void enterState(){
 			idleTime = 0.0f;
+			stateMachine.Enemy.BroadcastMessage("playAnimation", "work");
 		}
 		
 		public override void updateAI(){
