@@ -70,10 +70,17 @@ public class FieldOfView : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other){
 		Item item = other.GetComponent<Item>();
+		Character ch = npc.GetComponent<Character>();
+		Item testForRoom = null;
+		for(int i = 0; i<ch.currentLocation.objects.Length; ++i){
+			if(item == ch.currentLocation.objects[i].GetComponent<Item>()){
+				testForRoom = item;
+			}
+		}
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		if(item != null){
+		if(item != null && testForRoom !=null){
 			if(item.getScaryness()>0 && !item.used){
-				Character ch = npc.GetComponent<Character>();
+				ch = npc.GetComponent<Character>();
 				ch.stateMachine.changeState(StateType.SCARED_STATE);
 				ch.scare(item.getScaryness());
 				item.curse(false);
@@ -84,8 +91,9 @@ public class FieldOfView : MonoBehaviour {
 				return;
 			}
 		}
-		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
-			Character ch = npc.GetComponent<Character>();
+		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))
+			&& GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().currentLocation == ch.currentLocation){
+			ch = npc.GetComponent<Character>();
 			if(ch.cType == CharacterType.NORMAL && player.canBeSeen()){
 				ch.enemyDetected = true;
 				ch.stateMachine.changeState(StateType.ENEMY_DETECTED_STATE);
@@ -95,7 +103,8 @@ public class FieldOfView : MonoBehaviour {
 				ch.stateMachine.changeState(StateType.HUNTING_ENEMY_STATE);
 			}
 		}
-		if(other.gameObject.GetComponent<Character>()!=null){
+		if(other.gameObject.GetComponent<Character>()!=null 
+			&& other.gameObject.GetComponent<Character>().currentLocation == ch.currentLocation){
 			Character thisNpc = npc.GetComponent<Character>();
 			Character otherNpc = other.gameObject.GetComponent<Character>();
 			if(thisNpc.readyToTalk && otherNpc.readyToTalk){

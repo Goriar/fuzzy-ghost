@@ -42,6 +42,7 @@ ModelImporter:
     4300012: Mouth
     7400000: Curse3
     9500000: //RootNode
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -59,7 +60,7 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 0
       lastFrame: 100
-      wrapMode: 0
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
@@ -113,5 +114,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   additionalBone: 1
-  animationType: 2
+  animationType: 1
   userData: 
