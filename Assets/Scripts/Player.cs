@@ -61,7 +61,6 @@ public class Player : MonoBehaviour
 	public void applyDamage (float damage) {
 		health -= Mathf.Abs(damage);
 		Debug.Log("Damage applied. New HP: " + health);
-		// TODO: Sende Event an GUI
 	}
 	
 	/// <summary>

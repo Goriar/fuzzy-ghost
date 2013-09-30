@@ -5,6 +5,10 @@ public class LayerSwitchTrigger : MonoBehaviour {
 
 	public Door door;
 	
+	///
+	/// Wenn Charakter oder Spieler Trigger betritt...
+	/// @param other anderes Collider Objekt
+	///
 	void OnTriggerEnter(Collider other) {
 		// Ändert Wechselrichtung und Ebene des Objekts
 		if(other.gameObject.GetComponent<Moving>()!=null && other.gameObject.tag == "Player"){
@@ -12,6 +16,10 @@ public class LayerSwitchTrigger : MonoBehaviour {
 		}
 	}
 	
+	///
+	/// Wenn Charakter oder Spieler Trigger verlässt...
+	/// @param other anderes Collider Objekt
+	///
 	void OnTriggerExit(Collider other) {
 		// Ändert Wechselrichtung auf NONE, wenn Wechselrichtung immer noch die selbe ist (beim Wechsel betritt Objekt automatisch neuen Trigger, der wohl in andere Richtung geht)
 		if(other.gameObject.GetComponent<Moving>()!=null && other.gameObject.tag == "Player"){
