@@ -9,6 +9,9 @@ public class Door : MonoBehaviour {
 	public RoomInventory[] connectedRooms = new RoomInventory[2];			// Räume, die mittels Tür miteinander verbunden werden
 	public AudioClip doorAudio;																			// Tür Geräusch
 	
+	// Anzahl der grade ausgeführten Öffnungen (inkl. Durchgänge)
+	private int openCount = 0;
+	
 	///
 	/// Interaktion durch GUI Eingabe
 	/// @param action			Aktion, die ausgefürt werden soll
@@ -27,11 +30,15 @@ public class Door : MonoBehaviour {
 		Hashtable ht = new Hashtable();
 		ht.Add("y",180); // Rotation in Y Achse
 		ht.Add("Time", 1f); // Zeit für Animation
-		int counter = 0;
+		
+		// Erhöhe Durchgang
+		openCount++;
+		
 		// Rotiere alle Kindobjekte mit übergebenen Eigenschaften
 		foreach (Transform child in this.transform) {
 			iTween.RotateTo(child.gameObject, ht); 
 		}
+		
 	}
 	
 	///
@@ -43,8 +50,14 @@ public class Door : MonoBehaviour {
 		ht.Add("y",270);
 		ht.Add("Time", 1f);
 		
-		foreach (Transform child in this.transform) {
-			iTween.RotateTo(child.gameObject, ht);
+		// Veringere Anzahl der Charaktere, die aktuell die Tür nutzen
+		openCount--;
+		
+		// Wenn alle Charaktere durch sind, schließe
+		if (openCount == 0) {
+			foreach (Transform child in this.transform) {
+				iTween.RotateTo(child.gameObject, ht);
+			}
 		}
 	}
 	
