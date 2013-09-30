@@ -82,10 +82,13 @@ public class Stairs : MonoBehaviour{
 		Moving movComp = npc.GetComponent<Moving>();
 		movComp.finishedAction = false;
 		npc.BroadcastMessage("playAnimation","move");
-		Transform[] path = {GameObject.Find("StairsBottom").transform, GameObject.Find("StairsMid1").transform,
-							GameObject.Find("StairsMid2").transform,GameObject.Find("StairsTop").transform};
+		Transform[] path1 = {GameObject.Find("StairsBottom").transform, GameObject.Find("StairsMid1").transform};
+		Transform[] path2 =	{GameObject.Find("StairsMid2").transform,GameObject.Find("StairsTop").transform};
+		
+		iTween.MoveTo(npc,iTween.Hash("path",path1,"time",1.5f,"oncomplete","execMoveLeft","easetype","easeoutsine"));
 
-		iTween.MoveTo(npc,iTween.Hash("path",path,"time",3.0f,"oncomplete","finishAction","oncompletetarget",gameObject,"oncompleteparams",movComp,"easetype","easeoutsine"));
+		iTween.MoveTo(npc,iTween.Hash("path",path2,"time",1.5f,"delay",1.6f,"easetype","easeinoutsine","oncomplete","finishAction","oncompletetarget",gameObject,"oncompleteparams",movComp));
+		
 	}
 	
 	//Selbe wie oben, nur dass die Wegpunkte anders rum sind
@@ -146,10 +149,13 @@ public class Stairs : MonoBehaviour{
 		Moving movComp = npc.GetComponent<Moving>();
 		movComp.finishedAction = false;
 		npc.BroadcastMessage("playAnimation","move");
-		Transform[] path = {GameObject.Find("StairsTop").transform, GameObject.Find("StairsMid2").transform,GameObject.Find("StairsMid1").transform,GameObject.Find("StairsBottom").transform};
-		
+		Transform[] path1 = {GameObject.Find("StairsTop").transform, GameObject.Find("StairsMid2").transform};
+		Transform[] path2 = {GameObject.Find("StairsMid1").transform,GameObject.Find("StairsBottom").transform};
+		iTween.MoveTo(npc,iTween.Hash("path",path1,"time",1.5f,"oncomplete","execMoveLeft","easetype","easeoutsine"));
 
-		iTween.MoveTo(npc,iTween.Hash("path",path,"time",3.0f,"oncomplete","finishAction","oncompletetarget",gameObject,"oncompleteparams",movComp, "easetype","easeoutsine"));
+		iTween.MoveTo(npc,iTween.Hash("path",path2,"time",1.5f,"delay",1.6f,"easetype","easeinoutsine","oncomplete","finishAction","oncompletetarget",gameObject,"oncompleteparams",movComp));
+
+		
 	}
 	
 	public void ladderUp(){
