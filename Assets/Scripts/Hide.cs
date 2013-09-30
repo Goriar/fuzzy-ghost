@@ -81,6 +81,7 @@ public class Hide : MonoBehaviour {
 	/// Deaktiviert Elemente
 	/// 
 	void deactivate () {
+	
 		// Deaktiviere alle Mesh Renderer in Ebene
 		foreach(MeshRenderer mr in gameObject.GetComponentsInChildren<MeshRenderer>()) {
 			mr.enabled = false;

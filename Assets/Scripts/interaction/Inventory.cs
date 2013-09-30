@@ -54,6 +54,20 @@ public class Inventory : MonoBehaviour {
 	public void dropItem() {
 		if (currentItem != null) {
 			BroadcastMessage("hidePlayer");
+			LayerEnum playerLayer = gameObject.GetComponent<Moving>().layer;
+			switch (playerLayer) {
+				case LayerEnum.BACK: 
+					currentItem.transform.parent.parent = GameObject.FindGameObjectWithTag("layer_back").transform;
+					break;
+				case LayerEnum.MID: 
+					currentItem.transform.parent.parent = GameObject.FindGameObjectWithTag("layer_mid").transform;
+					break;
+				case LayerEnum.FRONT:
+					currentItem.transform.parent.parent = GameObject.FindGameObjectWithTag("layer_front").transform;
+					break;
+			}
+			currentItem.GetComponent<Hide>().show(0);
+			
 			currentItem.transform.position = gameObject.transform.position;
 			currentItem.GetComponent<Item>().currentLayer = gameObject.GetComponent<Moving>().layer;
 			currentItem.SetActive(true);

@@ -127,6 +127,8 @@ public class Moving : MonoBehaviour {
 			// Bewegung blockieren während Objekt Ebene wechselt
 			lockMovement();
 			
+			this.layer = layer;
+			
 			// Setzt die neue Z Position abhängig von layer
 			float zPos = transform.localPosition.z;
 			switch (layer) {

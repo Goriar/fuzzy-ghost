@@ -38,9 +38,7 @@ public class Door : MonoBehaviour {
 		
 		// Erhöhe Durchgang
 		openCount++;
-		
-		Debug.Log ("open door: " + openCount);
-		
+				
 		// Rotiere alle Kindobjekte mit übergebenen Eigenschaften
 		foreach (Transform child in this.transform) {
 			iTween.RotateTo(child.gameObject, ht); 
@@ -60,7 +58,6 @@ public class Door : MonoBehaviour {
 		// Veringere Anzahl der Charaktere, die aktuell die Tür nutzen
 		openCount--;
 		
-		Debug.Log ("close door:" + openCount);
 		// Wenn alle Charaktere durch sind, schließe
 		if (openCount <= 0) {
 			openCount = 0;
@@ -74,7 +71,6 @@ public class Door : MonoBehaviour {
 	/// Use Methode mit Player Moving Componente
 	///
 	public void use () {
-		Debug.Log("opening door");
 		// Moving Componente vom Spieler
 		Moving movingComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>();
 		// Fügt Callback zu Moving Componente hinzu
