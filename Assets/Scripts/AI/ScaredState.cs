@@ -39,6 +39,7 @@ public class ScaredState : AIState
 		AudioSource audio = stateMachine.Enemy.gameObject.GetComponent<AudioSource>();
 		audio.clip = stateMachine.Enemy.screamAudio;
 		audio.Play();
+		stateMachine.Enemy.BroadcastMessage("playAnimation", "scare");
 	}
 	
 	public override void updateAI(){

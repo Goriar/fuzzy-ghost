@@ -25,6 +25,7 @@ public class TalkingState : AIState
 			else
 				thisMov.faceLeft();
 		}
+		stateMachine.Enemy.BroadcastMessage("playAnimation", "work");
 	
 	}
 		
