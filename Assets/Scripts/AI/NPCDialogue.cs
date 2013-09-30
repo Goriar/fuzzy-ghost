@@ -17,7 +17,7 @@ public class NPCDialogue : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-		if(character.talking && player.currentLocation.Equals(character.currentLocation))
+		if(character.talking && player.currentLocation == character.currentLocation)
 			GUI.Label(new Rect(Camera.mainCamera.WorldToScreenPoint(this.transform.position).x,
 				Camera.mainCamera.WorldToScreenPoint(this.transform.position).y,
 				200,

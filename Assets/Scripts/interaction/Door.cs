@@ -64,7 +64,17 @@ public class Door : MonoBehaviour {
 		AudioSource audio = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
 		audio.clip = doorAudio;
 		audio.Play();
+
 		// Initiiere Layer Switch
+
+		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		for(int i = 0; i<connectedRooms.Length; ++i){
+			if(connectedRooms[i] != player.currentLocation){
+				player.currentLocation = connectedRooms[i];
+				break;
+			}
+		}
+
 		movingComp.startLayerSwitch(this);
 	}
 	

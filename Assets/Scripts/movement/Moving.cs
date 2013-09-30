@@ -184,6 +184,14 @@ public class Moving : MonoBehaviour {
 		BroadcastMessage("stopAnimation", "moveFore");
 		BroadcastMessage("stopAnimation", "moveBack");
 		finishedAction = true;
+		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		RoomInventory[] connectedRooms = usableDoor.otherSide.connectedRooms;
+		for(int i = 0; i<connectedRooms.Length; ++i){
+			if(connectedRooms[i] != player.currentLocation){
+				player.currentLocation = connectedRooms[i];
+				break;
+			}
+		}
 	}
 		
 	///

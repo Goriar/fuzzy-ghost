@@ -5,5 +5,30 @@
 		<scared> Kacka in die Hose machen!</scared>
 		<panicing>AAAAAWW SHIIIIIIII--</panicing>
 	</TestCharacter>
+	<Grandpa>
+		<normal> ZZZZzzzzZZZ Waaas?! Wie?!</normal>	
+		<scared> *Schnarsch* Obergefreiter Schneewittchen bereit! Uniform gemäß Vorschrift im Schrank!....Was?! Wo?!</scared>
+		<panicing>ZZZzzzZZZ JOHNNY!!! NEEEIIIIN! Wer? Wo?</panicing>
+	</Grandpa>
+	<Father>
+		<normal> Huddeli,Duddeli!</normal>	
+		<scared> Duddeli, der Kamin sollte mal wieder gereinigt werden. Er macht so komische Geräusche...</scared>
+		<panicing>HUDDELI! GEISTERLI, DUDDELI!</panicing>
+	</Father>
+	<Mother>
+		<normal> Bring den Müll raus!!</normal>	
+		<scared> Diese dämliche Gitarre macht viel zu viel Lärm!</scared>
+		<panicing> Dämonen aus der Hölle sind so unfreundlich, heut zu tage!</panicing>
+	</Mother>
+	<Goth>
+		<normal> SLAYER!!! ....Was?</normal>	
+		<scared> Hey, wäre echt cool wenn jemand etwas gegen dieses Poster meiner Schwester unternehmen würde...Nur so ne Idee!</scared>
+		<panicing> BAHAHAHA! GEISTER!! YAAAAAAAY!</panicing>
+	</Goth>
+	<Princess>
+		<normal> Kauf mir was!!</normal>	
+		<scared> Meine dämliche Schwester spielt wieder Streiche! Am Ende ist wieder überall Ketchup!</scared>
+		<panicing> GEISTER SIND SO UNCOOL!</panicing>
+	</Princess>
 
 </Dialogue>

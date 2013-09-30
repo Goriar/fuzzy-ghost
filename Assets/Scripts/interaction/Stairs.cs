@@ -67,6 +67,8 @@ public class Stairs : MonoBehaviour{
 		
 	GameObject player = GameObject.Find("Player");
 		
+		Player pComp = player.GetComponent<Player>();
+		pComp.currentLocation = upperMainFloor;
 		Transform[] path1 = {GameObject.Find("StairsBottom").transform, GameObject.Find("StairsMid1").transform};
 		Transform[] path2 = {GameObject.Find("StairsMid2").transform,GameObject.Find("StairsTop").transform};
 		
@@ -128,7 +130,8 @@ public class Stairs : MonoBehaviour{
 	
 	public void goDownstairs(){
 		GameObject player = GameObject.Find("Player");
-		
+		Player pComp = player.GetComponent<Player>();
+		pComp.currentLocation = lowerMainFloor;
 		Transform[] path1 = {GameObject.Find("StairsTop").transform, GameObject.Find("StairsMid2").transform};
 		Transform[] path2 = {GameObject.Find("StairsMid1").transform,GameObject.Find("StairsBottom").transform};
 		

@@ -22,6 +22,7 @@ public class SearchingEnemyState : AIState
 		movComp.deactivateLerp();
 		searchTimer = 0.0f;
 		turnTimer = 1.0f;
+		stateMachine.Enemy.gameObject.BroadcastMessage("playAnimation","work");
 	}
 	
 	public override void updateAI ()
