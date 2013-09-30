@@ -78,7 +78,7 @@ public class InputController : MonoBehaviour {
 	
 	void FixedUpdate () {
 		// Updates nur wenn nicht Eingabe nicht gesperrt!
-		if (!locked && player != null && moving != null) {
+		if (player != null && !player.GetComponent<Moving>().isMovementLocked() && moving != null) {
 			// Bewegung links bei Pfeil links
 			if (Input.GetKey(KeyCode.LeftArrow)) {
 				moving.execMoveLeft();
@@ -101,11 +101,13 @@ public class InputController : MonoBehaviour {
 			if (moving.usableDoor != null) {
 				// Layer Switch bei Pfeil nach oben
 				if (Input.GetKeyDown(KeyCode.UpArrow) && moving.usableDoor.switchDirection == DirectionEnum.BACK) {
+					Debug.Log("input open door up");
 					moving.usableDoor.use();
 				}
 				
 				// Layer Switch bei Pfeil nach unten
 				if (Input.GetKeyDown(KeyCode.DownArrow) && moving.usableDoor.switchDirection == DirectionEnum.FORE) {
+					Debug.Log("input open door down");
 					moving.usableDoor.use();
 				}
 			}

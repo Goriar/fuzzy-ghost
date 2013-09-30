@@ -175,9 +175,11 @@ public class Moving : MonoBehaviour {
 	}
 	
 	public void stopLayerSwitch () {
-		usableDoor.close();
-		if (usableDoor.otherSide != null) {
-			usableDoor.otherSide.close();
+		if (gameObject.GetComponent<Player>() == null) {
+			usableDoor.close();
+			if (usableDoor.otherSide != null) {
+				usableDoor.otherSide.close();
+			}
 		}
 		unlockMovement();
 		viewDirection = DirectionEnum.LEFT;
@@ -206,6 +208,10 @@ public class Moving : MonoBehaviour {
 	/// 
 	public void unlockMovement () {
 		locked = false;
+	}
+	
+	public bool isMovementLocked() {
+		return locked;
 	}
 		
 	public void deactivateLerp(){
