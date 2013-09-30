@@ -18,6 +18,7 @@ public class Moving : MonoBehaviour {
 	
 	public bool movementExecuted = true;			// gibt an, ob die Bewegung vollendet wurde
 	public bool finishedAction = true; 				// für AI
+	private bool currentlyMoving = false;			// gibt an, ob Objekt sich bewegt
 	
 	private bool locked;							// Bestimm, ob Bewegung ausgeführt werden kann
 	
@@ -72,6 +73,7 @@ public class Moving : MonoBehaviour {
 	///
 	public void execMoveRight () {
 		moveRight();
+		currentlyMoving = true;
 		execMovement = true;
 		activeLerp = false; // bricht automatisierte Bewegung ab
 	}	
@@ -92,6 +94,7 @@ public class Moving : MonoBehaviour {
 	/// 
 	public void stopMoving () {
 		if (!activeLerp) {
+			currentlyMoving = false;
 			execMovement = false;
 			moveDirection = DirectionEnum.NONE;
 			BroadcastMessage("stopAnimation", "move");
@@ -205,7 +208,12 @@ public class Moving : MonoBehaviour {
 	public bool isMovementLocked() {
 		return locked;
 	}
+	
+	public bool isMoving() {
+		return currentlyMoving;
+	}
 		
+	
 	public void deactivateLerp(){
 		activeLerp = false;
 				stopMoving();
@@ -222,7 +230,7 @@ public class Moving : MonoBehaviour {
 	/// @param x X-Achsen Position, auf die gegangen werden soll
 	/// 
 	public void goToX (float x) {
-		
+			currentlyMoving = true;
 			movementExecuted = false;
 			finishedAction = false;
 			// Wenn x links von Objekt, blicke links, wenn rechts von Objekt, rechts
@@ -271,6 +279,7 @@ public class Moving : MonoBehaviour {
 			// Deaktiviere Lerp, wenn Startpos = endpos	
 			if (transform.position.x == lerpTo.x && transform.position.y == lerpTo.y && transform.position.z == lerpTo.z) {
 				activeLerp = false;
+				currentlyMoving = false;
 				stopMoving();
 				finishedAction = true;
 				if (goToCallback != null) {

@@ -27,7 +27,7 @@ public class Curse : MonoBehaviour
 	{
 		if(isCursing){
 			player.GetComponent<Player>().showPlayer();
-			if(movComp.execMovement){
+			if(movComp.isMoving()){
 				isCursing = false;
 				Item item = this.gameObject.GetComponent<Item>();
 				item.scareFactor = cursedScareFactor*completion/100.0f;
