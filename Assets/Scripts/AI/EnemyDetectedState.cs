@@ -16,12 +16,21 @@ public class EnemyDetectedState : AIState
 	public override void enterState()
 	{
 		npc.GetComponent<Moving>().deactivateLerp();
+		stateMachine.Enemy.BroadcastMessage("playAnimation", "scare");
 	}
-	
 	public override void updateAI()
 	{
+		Moving movComp = npc.getMovingComponent();
 		if(npc.enemyDetected)
 		{
+			if(player.transform.position.x < npc.transform.position.x){
+				movComp.execMoveRight();	
+				movComp.deactivateLerp();
+			} else {
+				movComp.execMoveLeft();
+				movComp.deactivateLerp();
+			}
+			stateMachine.Enemy.BroadcastMessage("playAnimation", "scare");	
 			player.applyDamage(2.0f*Time.deltaTime);
 			Debug.Log("Enemy Detected!");
 		}

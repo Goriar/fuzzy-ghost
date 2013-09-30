@@ -92,7 +92,7 @@ public class FieldOfView : MonoBehaviour {
 			}
 		}
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))
-			&& GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().currentLocation == ch.currentLocation){
+			&& ch.gameObject.GetComponent<Character>().currentLocation == player.currentLocation){
 			ch = npc.GetComponent<Character>();
 			if(ch.cType == CharacterType.NORMAL && player.canBeSeen()){
 				ch.enemyDetected = true;
