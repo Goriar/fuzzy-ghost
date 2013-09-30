@@ -81,6 +81,7 @@ public class Stairs : MonoBehaviour{
 		
 		Moving movComp = npc.GetComponent<Moving>();
 		movComp.finishedAction = false;
+		npc.BroadcastMessage("playAnimation","move");
 		Transform[] path = {GameObject.Find("StairsBottom").transform, GameObject.Find("StairsMid1").transform,
 							GameObject.Find("StairsMid2").transform,GameObject.Find("StairsTop").transform};
 
@@ -144,6 +145,7 @@ public class Stairs : MonoBehaviour{
 		
 		Moving movComp = npc.GetComponent<Moving>();
 		movComp.finishedAction = false;
+		npc.BroadcastMessage("playAnimation","move");
 		Transform[] path = {GameObject.Find("StairsTop").transform, GameObject.Find("StairsMid2").transform,GameObject.Find("StairsMid1").transform,GameObject.Find("StairsBottom").transform};
 		
 
