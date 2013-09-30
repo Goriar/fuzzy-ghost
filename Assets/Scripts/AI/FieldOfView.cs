@@ -104,7 +104,8 @@ public class FieldOfView : MonoBehaviour {
 			}
 		}
 		if(other.gameObject.GetComponent<Character>()!=null 
-			&& other.gameObject.GetComponent<Character>().currentLocation == ch.currentLocation){
+			&& other.gameObject.GetComponent<Character>().currentLocation == ch.currentLocation
+			&& !ch.enemyDetected){
 			Character thisNpc = npc.GetComponent<Character>();
 			Character otherNpc = other.gameObject.GetComponent<Character>();
 			if(thisNpc.readyToTalk && otherNpc.readyToTalk){

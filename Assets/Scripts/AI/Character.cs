@@ -85,6 +85,7 @@ public class Character : MonoBehaviour
 		
 		if(cType == CharacterType.GHOST_HUNTER){
 			trapActive = false;
+			hunterTimer = 0.0f;
 		}
 	}
 	
@@ -97,6 +98,7 @@ public class Character : MonoBehaviour
 			hunterTimer += Time.deltaTime;
 			if(hunterTimer>=MAX_HUNTING_TIME){
 				stateMachine.changeState(StateType.FLEE_STATE);
+				hunterTimer = 0.0f;
 			}
 		} else {
 			if(scareLevel>=maxScareLevel && stateMachine.getState() != StateType.FLEE_STATE){
