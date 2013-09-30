@@ -3,14 +3,14 @@ using System.Collections;
 
 public class LayerSwitch : MonoBehaviour {
 	
-	public float speed = 2f;
+	public float speed = 2f;									// Geschwindigkeit der Animation
 	
-	private Vector3 startPos;
-	private Vector3 endPos;
-	private LayerEnum endLayer;
-	private bool active;
-	private float startTime;
-	private float journeyLength;
+	private Vector3 startPos;								// Startposition für Animation
+	private Vector3 endPos;									// Endposition für Animation
+	private LayerEnum endLayer;							// Ebene, in die animiert werden soll
+	private bool active;											// Animation aktiv
+	private float startTime;									// Startzeit der Animation
+	private float journeyLength;							// Dauer der Animation
 	
 	
 	// Use this for initialization
@@ -20,11 +20,16 @@ public class LayerSwitch : MonoBehaviour {
 		
 	}
 	
+	///
+	/// Aktiviere Layer Wechsel
+	/// @param layer Ebene, in die gewechselt werden soll
+	///
 	public void switchLayers (LayerEnum layer) {
+		// Startzeit und -position für den Lerp
 		startTime = Time.time;
 		startPos = transform.position;
 		
-		// Get Z position of the layer to switch to
+		// Erhalte Z-Position der Layer, in die gewechselt werden soll
 		float zPos = 0f; 
 		switch (layer) {
 		case LayerEnum.FRONT:
@@ -38,7 +43,7 @@ public class LayerSwitch : MonoBehaviour {
 			break;
 		}
 		
-		// set end position with current x,y position and new z position of layer
+		// Setze Enposition mit aktueller X und Y Position und neu erhaltenen Z-Position der Ebene
 		endPos = new Vector3(transform.position.x, transform.position.y, zPos);
 		endLayer = layer;
 		
@@ -51,15 +56,17 @@ public class LayerSwitch : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// Wenn Layer Wechsel aktiv
 		if (active) {
+			// berechne Lerp Parameter
 			float distCovered = (Time.time - startTime) * speed;
-        	float fracJourney = distCovered / journeyLength;
-        	transform.position = Vector3.Lerp(startPos, endPos, fracJourney);
+      	float fracJourney = distCovered / journeyLength;
+      	transform.position = Vector3.Lerp(startPos, endPos, fracJourney);
 			
-			// set active to false, if object reached end position	
+			// setze aktiv auf false, wenn Obejekt Endposition erreicht hat	
 			if (transform.position.z == endPos.z) {
 				Moving moving = GetComponent<Moving>();
-				moving.layer = endLayer;
+				moving.layer = endLayer; // setze layer, des aktuellen Spielers oder NPCs
 				active = false;
 			}
 		}
