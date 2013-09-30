@@ -21,9 +21,9 @@ public class TalkingState : AIState
 		
 		if(thisMov.viewDirection == partnerMov.viewDirection){
 			if(thisMov.viewDirection == DirectionEnum.LEFT)
-				thisMov.faceRight();
-			else
 				thisMov.faceLeft();
+			else
+				thisMov.faceRight();
 		}
 		stateMachine.Enemy.BroadcastMessage("playAnimation", "work");
 	
@@ -33,7 +33,7 @@ public class TalkingState : AIState
 	
 		idleTime+=Time.deltaTime;
 		if(idleTime > 5.0f){
-			this.stateMachine.changeState(StateType.WANDER_STATE);
+			this.stateMachine.changeState(StateType.IDLE_STATE);
 		}
 	}
 	
