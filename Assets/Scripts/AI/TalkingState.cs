@@ -17,7 +17,7 @@ public class TalkingState : AIState
 		chatPartner = stateMachine.Enemy.chatPartner;
 		Moving partnerMov = chatPartner.getMovingComponent();
 		Moving thisMov = stateMachine.Enemy.getMovingComponent();
-		thisMov.deactivateLerp();
+		thisMov.stopLerp();
 		
 		if(thisMov.viewDirection == partnerMov.viewDirection){
 			if(thisMov.viewDirection == DirectionEnum.LEFT)
@@ -33,7 +33,7 @@ public class TalkingState : AIState
 	
 		idleTime+=Time.deltaTime;
 		if(idleTime > 5.0f){
-			this.stateMachine.changeState(StateType.IDLE_STATE);
+			this.stateMachine.changeState(StateType.WANDER_STATE);
 		}
 	}
 	

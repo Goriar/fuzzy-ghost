@@ -60,7 +60,11 @@ public class FieldOfView : MonoBehaviour {
 					Respawner respawn = GameObject.FindWithTag("MainCamera").GetComponent<Respawner>();
 					respawn.addToRespawnList(despawnObject);
 					despawnObject.GetComponent<Interactable>().enabled=true;
-					despawnObject.GetComponent<Item>().used = false;
+					Item item = despawnObject.GetComponent<Item>();
+					item.used = false;
+					for(int i = 0; i<item.combineObjects.Length; ++i){
+						item.combineObjects[i].SetActive(false);
+					}
 					despawnObject.SetActive(false);
 					despawnObject = null;
 					timer = 0.0f;
@@ -72,10 +76,13 @@ public class FieldOfView : MonoBehaviour {
 		Item item = other.GetComponent<Item>();
 		Character ch = npc.GetComponent<Character>();
 		Item testForRoom = null;
-		for(int i = 0; i<ch.currentLocation.objects.Length; ++i){
-			if(item == ch.currentLocation.objects[i].GetComponent<Item>()){
+		for(int i = 0; i<ch.currentLocation.objects.Length; ++i){ 
+			if(item == ch.currentLocation.objects[i].GetComponent<Item>()
+				|| item == ch.currentLocation.objects[i].GetComponentInChildren<Item>()){
 				testForRoom = item;
+				break;
 			}
+			
 		}
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if(item != null && testForRoom !=null){
