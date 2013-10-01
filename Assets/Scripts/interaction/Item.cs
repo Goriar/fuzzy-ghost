@@ -73,9 +73,7 @@ public class Item : MonoBehaviour {
 		float val = 0.0f;
 		/// addiert Erschreckfaktoren der hinzugefügten Gegenstände
 		foreach(Item i in combinedItems){
-			Debug.Log("Adding " + i.combineScareFactor + "additional Scarefactor");
 			if(i != null){
-				Debug.Log("Adding " + i.combineScareFactor + "additional Scarefactor");
 				val += i.combineScareFactor;	
 			}
 		}

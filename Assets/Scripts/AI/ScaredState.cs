@@ -47,7 +47,7 @@ public class ScaredState : AIState
 		//Charakter hat Ort erreicht
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
 			Vector3 distance = stateMachine.Enemy.transform.position-finalTarget.transform.position;
-			if(distance.magnitude<=0.2f){
+			if(distance.magnitude<=0.5f){
 				stateMachine.changeState(StateType.WANDER_STATE);
 			}	
 		} 

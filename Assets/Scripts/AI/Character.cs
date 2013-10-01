@@ -69,7 +69,7 @@ public class Character : MonoBehaviour
 		dialogueTime = 0.0f;
 		
 		xml = new XmlDocument();
-		xml.Load(".\\Assets\\Scripts\\AI\\ThingsToSay.xml");
+		xml.Load("./Assets/Scripts/AI/ThingsToSay.xml");
 		XmlNode node;
 		XmlNodeList nlist = xml.GetElementsByTagName(name);
 		if(nlist.Count == 0){
@@ -229,55 +229,77 @@ public class Character : MonoBehaviour
 	public void setCharacterPath(GameObject specificObject)
 	{
 		characterPath = new GameObject[0];
+		// Wenn kein spezielles Objekt definiert wird, wird ein neues Objekt der Interesse hinzugefügt ...
 		if(specificObject == null){
 			assignNextObjectOfInterest();
 		}
+		// ... ansonsten wird spezifisch definiertes Objekt benutzt
 		else{
 			currentObjectOfInterest = specificObject;
 		}
-			
+		
+		// Wenn aktueller Raum das gesuchte Objekt beinhaltet, füge es zum Pfad hinzu ...
 		if(currentLocation.containsObject(currentObjectOfInterest))
 			addToPath(currentObjectOfInterest);
+		// ... ansonsten gehe durch andere Räume
 		else
 		{
 			RoomInventory mainFloor = null;
 			GameObject door = null;
+			// Wenn aktueller Raum nicht der Flur ist ...
 			if(!currentLocation.isMainFloor){
-				mainFloor = this.getMainFloorNeighbour();
+				// ... setze Flur auf aktuellem Stockwerk und erhalte die Tür zum Flur.
+				mainFloor = this.getMainFloorNeighbour(); // !!!
 				door = currentLocation.getDoorToRoom(mainFloor);
+				// Füge danach die Tür zum Pfad hinzu
 				addToPath(door);
 			}
+			// Wenn aktueller Raum der Flur ist, füge diesen als Flur hinzu
 			else{
 				mainFloor = currentLocation;	
 			}
 			
+			// Wenn Flur das gesuchte Objekt beinhaltet, füge es zum Pfad hinzu und beende Funktion
 			if(mainFloor.containsObject(currentObjectOfInterest))
 			{
 				addToPath(currentObjectOfInterest);
 				return;
 			}
-			
+	
 			RoomInventory nextRoom = null;
+			// Durchgehe alle Räume des Flures auf dem aktuellen Stockwerk ...
 			foreach(RoomInventory room in mainFloor.getNeighbouringRooms())
 			{
-				if(roomContainsObject(room,currentObjectOfInterest))
+				// ... und überprüfe, ob Objekt in Raum enthalten ist ...
+				if(roomContainsObject(room,currentObjectOfInterest)) {
+					// ... und setze nextRoom Variable mit diesem Raum und beende die Schleife
 					nextRoom = room;
+					break;
+				}
 			}
 			
+			// Wenn Objekt in keinem dieser Räume ist ...
 			if(nextRoom == null){
+				// ... benutze die Treppe in das andere Stockwerk
 				addToPath(mainFloor.stairs);
+				
+				// Erhalte Stairs Komponente
 				Stairs stairs = mainFloor.stairs.GetComponent<Stairs>();
+				// Wenn aktueller Flur dem unteren Flur entspricht, setzte Flur um auf den oberen ...
 				if(mainFloor.Equals(stairs.lowerMainFloor))
 					mainFloor = stairs.upperMainFloor;
+				// ... ansonsten auf den unteren
 				else
 					mainFloor = stairs.lowerMainFloor;
 				
+				// Wenn anderer Flur as Objekt der Interesse beinhaltet, füge zu Pfad hinzu und beende Funktion ...
 				if(mainFloor.containsObject(currentObjectOfInterest))
 				{
 					addToPath(currentObjectOfInterest);
 					return;
 				}
 				
+				// ... ansonsten durchgehe alle Räume, die an Flur angehangen sind nach dem Objekt und setzte nächsten Raum
 				foreach(RoomInventory room in mainFloor.getNeighbouringRooms())
 				{
 					if(roomContainsObject(room,currentObjectOfInterest))
@@ -285,8 +307,10 @@ public class Character : MonoBehaviour
 				}
 			}
 			
+			// Erhalte die TÜr zum nächsten Raum und füge sie zum Pfad hinzu
 			door = mainFloor.getDoorToRoom(nextRoom);
 			addToPath(door);
+			// Anschließend füge das Objekt der Interesse zum Pfad hinzu
 			addToPath(currentObjectOfInterest);
 		}
 	}
