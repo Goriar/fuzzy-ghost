@@ -14,9 +14,9 @@ public class WanderState : AIState
 	}
 	
 	public override void enterState(){
-		if(stateMachine.Enemy.getCharacterPath().Length == 0){
+
 			stateMachine.Enemy.setCharacterPath(null);
-		}
+
 		movingComoponent = stateMachine.Enemy.getMovingComponent();
 	}
 	

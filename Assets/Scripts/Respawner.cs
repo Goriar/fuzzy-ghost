@@ -27,6 +27,7 @@ public class Respawner : MonoBehaviour
 				GameObject t = (GameObject)GameObject.Instantiate(g);
 				t.transform.parent = g.transform.parent;
 				t.transform.position = g.transform.position;
+				//t.transform.rotation = new Quaternion(0,0,0,0);
 				g.SetActive(false);
 				respawnList.RemoveAt(i);
 				respawnTimes.RemoveAt(i);

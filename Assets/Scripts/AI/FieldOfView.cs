@@ -60,7 +60,11 @@ public class FieldOfView : MonoBehaviour {
 					Respawner respawn = GameObject.FindWithTag("MainCamera").GetComponent<Respawner>();
 					respawn.addToRespawnList(despawnObject);
 					despawnObject.GetComponent<Interactable>().enabled=true;
-					despawnObject.GetComponent<Item>().used = false;
+					Item item = despawnObject.GetComponent<Item>();
+					item.used = false;
+					for(int i = 0; i<item.combineObjects.Length; ++i){
+						item.combineObjects[i].SetActive(false);
+					}
 					despawnObject.SetActive(false);
 					despawnObject = null;
 					timer = 0.0f;

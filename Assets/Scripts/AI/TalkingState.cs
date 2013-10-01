@@ -33,7 +33,7 @@ public class TalkingState : AIState
 	
 		idleTime+=Time.deltaTime;
 		if(idleTime > 5.0f){
-			this.stateMachine.changeState(StateType.IDLE_STATE);
+			this.stateMachine.changeState(StateType.WANDER_STATE);
 		}
 	}
 	
