@@ -14,7 +14,7 @@ public class Item : MonoBehaviour {
 	public float attentionFactor = 0;						// Aufmerksamkeitsfaktor	als einzelnder Gegenstand
 	public float combineAttentionFactor = 0;			// Aufmerksamkeitsfaktor, wenn er an anderem Gegenstand hängt
 	public Item[] combinableItems;								// Liste mit kombinierbaren Gegenstanden
-	private Item[] combinedItems;								// Liste mit bereits kombinierten Gegenständen
+	public Item[] combinedItems;								// Liste mit bereits kombinierten Gegenständen
 	public bool slotBased = true; 								// gibt an, ob Items in Slots hinzugefügt werden sollen, oder Mesh geändert werden soll
 	public GameObject[] combineObjects;					// Liste mit Kombinierbaren Objekten, für nicht slotbasiertes Kombinieren
 	// COMMENT TODO: CHRIS
@@ -73,7 +73,9 @@ public class Item : MonoBehaviour {
 		float val = 0.0f;
 		/// addiert Erschreckfaktoren der hinzugefügten Gegenstände
 		foreach(Item i in combinedItems){
+			Debug.Log("Adding " + i.combineScareFactor + "additional Scarefactor");
 			if(i != null){
+				Debug.Log("Adding " + i.combineScareFactor + "additional Scarefactor");
 				val += i.combineScareFactor;	
 			}
 		}
@@ -86,6 +88,7 @@ public class Item : MonoBehaviour {
 			val+=scareFactor;
 		}
 		
+		Debug.Log ("Scariness: "+val);
 		return val;
 		
 	}
@@ -99,6 +102,7 @@ public class Item : MonoBehaviour {
 		/// addiert Aufmerksamkeitsfaktoren der hinzugefügten Gegenstände
 		foreach(Item i in combinedItems){
 			if(i != null){
+				
 				val += i.combineAttentionFactor;	
 			}
 		}
@@ -156,8 +160,10 @@ public class Item : MonoBehaviour {
 					combineObjects[combinationsApplied].SetActive(true);
 					if(combinationsApplied>0)
 						combineObjects[combinationsApplied-1].SetActive(false);
-					if(combinedItems[combinationsApplied] == null)
+					if(combinedItems[combinationsApplied] == null) {
+						Debug.Log("Slot Nummer"+combinationsApplied);
 						combinedItems[combinationsApplied] = playerInv.getItem();
+					}
 					combinationsApplied++;
 					if (gameObject.renderer != null) {
 						gameObject.renderer.enabled = false;
@@ -166,7 +172,6 @@ public class Item : MonoBehaviour {
 							childRenderer.enabled = false;
 						}
 					}
-					Debug.Log ("removing item");
 					playerInv.removeItem();
 					gameObject.GetComponent<Interactable>().enabled = false;
 					return;
