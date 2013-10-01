@@ -16,7 +16,7 @@ public class GameStart : MonoBehaviour
 	}
 	
 	void startGame(){
-		Application.LoadLevel("StefT2");
+		Application.LoadLevel("CFinish");
 	}
 	
 	void quitGame(){

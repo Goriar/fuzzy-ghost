@@ -42,7 +42,7 @@ public class WanderState : AIState
 							movingToTransition = true;
 						}
 						
-						movingComoponent.goToObject(nextTarget);;
+						movingComoponent.goToObject(nextTarget);
 					} 
 					else
 					{

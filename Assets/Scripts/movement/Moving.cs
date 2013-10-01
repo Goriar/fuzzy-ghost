@@ -227,6 +227,13 @@ public class Moving : MonoBehaviour {
 				}
 	}
 	
+	public void stopLerp(){
+		activeLerp = false;
+		stopMoving();
+		finishedAction = true;
+		goToCallback = null;
+		movementExecuted = true;
+	}
 	/// 
 	/// Bewegung zu Punkt x
 	/// @param x X-Achsen Position, auf die gegangen werden soll
