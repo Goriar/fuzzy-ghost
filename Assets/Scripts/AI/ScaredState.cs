@@ -21,7 +21,7 @@ public class ScaredState : AIState
 	public override void enterState(){
 		finalTarget = null;
 		float bestDistance = 0f;
-		stateMachine.Enemy.getMovingComponent().deactivateLerp();
+		stateMachine.Enemy.getMovingComponent().stopLerp();
 		foreach(GameObject g in panicSpots){
 			Vector3 v = g.transform.position - stateMachine.Enemy.gameObject.transform.position;
 			if(v.magnitude > bestDistance){

@@ -60,7 +60,6 @@ public class Player : MonoBehaviour
 	///
 	public void applyDamage (float damage) {
 		health -= Mathf.Abs(damage);
-		Debug.Log("Damage applied. New HP: " + health);
 	}
 	
 	/// <summary>
@@ -71,6 +70,8 @@ public class Player : MonoBehaviour
 	/// </param>
 	public void raiseAttention(float amount){
 		attentionToPlayer += amount;	
+		if (attentionToPlayer >= 100f)
+			attentionToPlayer = 100f;
 	}
 	
 	/// <summary>

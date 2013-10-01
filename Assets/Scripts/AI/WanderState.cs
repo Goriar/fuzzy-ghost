@@ -62,6 +62,9 @@ public class WanderState : AIState
 							{
 								// Wenn Raum nicht der Gleiche, ist es der Raum auf der anderen Seite der Tür
 								if(!door.connectedRooms[i].Equals(stateMachine.Enemy.currentLocation)){
+									if (stateMachine.Enemy.name.Equals("Father"))
+										Debug.Log("new LocationInfo for "+stateMachine.Enemy.name+": " + door.connectedRooms[i].getRoomName());
+									
 									// Setze anderen Raum auf aktuelle Location und beende die For Schleife 	
 									stateMachine.Enemy.currentLocation = door.connectedRooms[i];
 									break;

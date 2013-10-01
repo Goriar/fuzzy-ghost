@@ -86,7 +86,6 @@ public class Item : MonoBehaviour {
 			val+=scareFactor;
 		}
 		
-		Debug.Log ("Scariness: "+val);
 		return val;
 		
 	}
@@ -159,7 +158,6 @@ public class Item : MonoBehaviour {
 					if(combinationsApplied>0)
 						combineObjects[combinationsApplied-1].SetActive(false);
 					if(combinedItems[combinationsApplied] == null) {
-						Debug.Log("Slot Nummer"+combinationsApplied);
 						combinedItems[combinationsApplied] = playerInv.getItem();
 					}
 					combinationsApplied++;

@@ -12,8 +12,10 @@ public class TalkingState : AIState
 	}
 	
 	public override void enterState(){
+		
 		idleTime = 0.0f;
 		stateMachine.Enemy.talking = true;
+		stateMachine.Enemy.getMovingComponent().stopLerp();
 		chatPartner = stateMachine.Enemy.chatPartner;
 		Moving partnerMov = chatPartner.getMovingComponent();
 		Moving thisMov = stateMachine.Enemy.getMovingComponent();

@@ -94,7 +94,6 @@ public class FieldOfView : MonoBehaviour {
 				item.used = true;
 				player.raiseAttention(item.getAttentionFactor());
 				despawnObject = other.gameObject;
-				Debug.Log("SCAAAAARED!");
 				return;
 			}
 		}

@@ -32,7 +32,6 @@ public class EnemyDetectedState : AIState
 			}
 			stateMachine.Enemy.BroadcastMessage("playAnimation", "scare");	
 			player.applyDamage(10.0f*Time.deltaTime);
-			Debug.Log("Enemy Detected!");
 		}
 		else{
 			stateMachine.changeState(StateType.IDLE_STATE);

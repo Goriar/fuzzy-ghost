@@ -18,7 +18,6 @@ public class StateMachine
 		currentState = new IdleState(this);
 		currentStateType = StateType.IDLE_STATE;
 		currentState.enterState();
-		Debug.Log((int)StateType.SCARED_STATE);
 		if(enemy.cType != CharacterType.GHOST_HUNTER){
 			stateList = new AIState[8];
 			stateList[(int)StateType.IDLE_STATE] = new IdleState(this);

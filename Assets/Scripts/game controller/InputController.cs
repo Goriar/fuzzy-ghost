@@ -101,13 +101,11 @@ public class InputController : MonoBehaviour {
 			if (moving.usableDoor != null) {
 				// Layer Switch bei Pfeil nach oben
 				if (Input.GetKeyDown(KeyCode.UpArrow) && moving.usableDoor.switchDirection == DirectionEnum.BACK) {
-					Debug.Log("input open door up");
 					moving.usableDoor.use();
 				}
 				
 				// Layer Switch bei Pfeil nach unten
 				if (Input.GetKeyDown(KeyCode.DownArrow) && moving.usableDoor.switchDirection == DirectionEnum.FORE) {
-					Debug.Log("input open door down");
 					moving.usableDoor.use();
 				}
 			}
