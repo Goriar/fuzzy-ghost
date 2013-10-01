@@ -31,7 +31,7 @@ public class EnemyDetectedState : AIState
 				movComp.deactivateLerp();
 			}
 			stateMachine.Enemy.BroadcastMessage("playAnimation", "scare");	
-			player.applyDamage(2.0f*Time.deltaTime);
+			player.applyDamage(10.0f*Time.deltaTime);
 			Debug.Log("Enemy Detected!");
 		}
 		else{
