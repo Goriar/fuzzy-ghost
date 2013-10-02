@@ -57,20 +57,7 @@ public class WanderState : AIState
 							// ... setze temp. Variable Tür und benutze Tür
 							Door door = nextTarget.GetComponent<Door>();
 							door.use(movingComoponent);
-							// Gehe Array mit durch Tür verbundenen Räumen durch
-							for(int i = 0; i<door.connectedRooms.Length; ++i)
-							{
-								// Wenn Raum nicht der Gleiche, ist es der Raum auf der anderen Seite der Tür
-								if(!door.connectedRooms[i].Equals(stateMachine.Enemy.currentLocation)){
-									if (stateMachine.Enemy.name.Equals("Father"))
-										Debug.Log("new LocationInfo for "+stateMachine.Enemy.name+": " + door.connectedRooms[i].getRoomName());
-									
-									// Setze anderen Raum auf aktuelle Location und beende die For Schleife 	
-									stateMachine.Enemy.currentLocation = door.connectedRooms[i];
-									break;
-									
-								}
-							}
+						
 							// Keine Transition mehr
 							movingToTransition = false;
 						}
@@ -82,15 +69,11 @@ public class WanderState : AIState
 							if(stairs.level == 1){
 								// ... benutze Treppe nach oben ...
 								stairs.goUpstairs(stateMachine.Enemy.gameObject);
-								// ... und setze aktuelle Location neu
-								stateMachine.Enemy.currentLocation = stairs.upperMainFloor;
 							}
 							// Wenn Treppe zum ersten Stock ...
 							else{
 								// ... benutze Treppe nach unten ...
 								stairs.goDownstairs(stateMachine.Enemy.gameObject);
-								// ... und setze aktuelle Location neu
-								stateMachine.Enemy.currentLocation = stairs.lowerMainFloor;
 							}
 							// Keine Transition mehr
 							movingToTransition = false;

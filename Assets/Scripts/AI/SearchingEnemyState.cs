@@ -19,7 +19,7 @@ public class SearchingEnemyState : AIState
 	public override void enterState ()
 	{
 		movComp = ghostHunter.getMovingComponent();
-		movComp.deactivateLerp();
+		movComp.stopLerp();
 		searchTimer = 0.0f;
 		turnTimer = 1.0f;
 		stateMachine.Enemy.gameObject.BroadcastMessage("playAnimation","work");
@@ -41,10 +41,10 @@ public class SearchingEnemyState : AIState
 			if(turnTimer > 1.0f){
 				if(movComp.viewDirection == DirectionEnum.RIGHT){
 					movComp.execMoveLeft();	
-					movComp.deactivateLerp();
+					movComp.stopLerp();
 				} else {
 					movComp.execMoveRight();
-					movComp.deactivateLerp();
+					movComp.stopLerp();
 				}
 				turnTimer = 0.0f;
 			}

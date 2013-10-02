@@ -191,6 +191,33 @@ public class Moving : MonoBehaviour {
 		BroadcastMessage("stopAnimation", "moveFore");
 		BroadcastMessage("stopAnimation", "moveBack");
 		finishedAction = true;
+		
+		
+		// Erhalte Raumkomponente
+		Transform tempRoom = usableDoor.otherSide.transform;
+		RoomInventory roomComp = null;
+		while (true) {
+			// Oberstes Element in der Hierarchie erreicht => beende Loop
+			if (tempRoom.parent == null) {
+				break;
+			} else if (tempRoom.parent.GetComponent<RoomInventory>() != null) {
+				roomComp = tempRoom.parent.GetComponent<RoomInventory>();
+				break;
+			} else {
+				tempRoom = tempRoom.parent;
+			}
+		}
+		
+		// Wenn Objekt NPC ...
+		Character chara = gameObject.GetComponent<Character>();
+		Player player = gameObject.GetComponent<Player>();
+		if (chara != null) {
+			chara.setCurrentLocation(roomComp);
+			chara.setCharacterPath(chara.currentObjectOfInterest);
+		// Wenn Objekt Player ...
+		} else if (player != null) {
+			player.setCurrentLocation(roomComp);
+		}
 	}
 		
 	///

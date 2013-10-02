@@ -18,7 +18,7 @@ public class FleeState : AIState
 	public override void enterState ()
 	{
 		movingComponent = stateMachine.Enemy.getMovingComponent();
-		movingComponent.deactivateLerp();
+		movingComponent.stopLerp();
 		stateMachine.Enemy.setCharacterPath(fleeSpot);
 		stateMachine.Enemy.readyToTalk = false;
 		stateMachine.Enemy.dialogueTime = 0.0f;

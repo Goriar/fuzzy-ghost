@@ -81,7 +81,7 @@ public class Door : MonoBehaviour {
 		}
 	
 		// Initiiere Layer Switch
-
+		/*
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		for(int i = 0; i<connectedRooms.Length; ++i){
 			if(connectedRooms[i] != player.currentLocation){
@@ -89,7 +89,7 @@ public class Door : MonoBehaviour {
 				break;
 			}
 		}
-
+		*/
 		movingComp.startLayerSwitch(this);
 	}
 	

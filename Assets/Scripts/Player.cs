@@ -23,6 +23,10 @@ public class Player : MonoBehaviour
 			ghostHunter.SetActive(false);
 	}
 	
+	public void setCurrentLocation(RoomInventory location) {
+		currentLocation = location;
+	}
+	
 	void Update ()
 	{
 		if(attentionToPlayer>=MAX_ATTENTION && !ghostHunter.activeSelf){

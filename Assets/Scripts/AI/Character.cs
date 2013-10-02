@@ -141,6 +141,10 @@ public class Character : MonoBehaviour
 		return currentLocation;
 	}
 	
+	public void setCurrentLocation (RoomInventory location) {
+		currentLocation = location;
+	}
+	
 	RoomInventory getMainFloorNeighbour()
 	{
 		RoomInventory[] neighbours = currentLocation.getNeighbouringRooms();

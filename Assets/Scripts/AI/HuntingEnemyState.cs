@@ -17,7 +17,7 @@ public class HuntingEnemyState : AIState
 	public override void enterState ()
 	{
 		movComp = ghostHunter.getMovingComponent();
-		movComp.deactivateLerp();
+		movComp.stopLerp();
 		stateMachine.Enemy.gameObject.BroadcastMessage("playAnimation","findMove");
 	}
 	
