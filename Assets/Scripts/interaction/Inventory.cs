@@ -68,7 +68,8 @@ public class Inventory : MonoBehaviour {
 			}
 			currentItem.GetComponent<Hide>().show(0);
 			
-			currentItem.transform.position = gameObject.transform.position;
+			Vector3 tempPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z+0.5f);
+			currentItem.transform.position = tempPos;
 			currentItem.GetComponent<Item>().currentLayer = gameObject.GetComponent<Moving>().layer;
 			currentItem.SetActive(true);
 			currentItem = null;

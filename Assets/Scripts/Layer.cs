@@ -18,6 +18,10 @@ public class Layer : MonoBehaviour {
 		ObjectRegister.registerLayer(gameObject);
 	}
 	
+	void OnDestroy () {
+		ObjectRegister.unregisterLayer(gameObject);	
+	}
+	
 	///
 	/// Verstecke Layer
 	///

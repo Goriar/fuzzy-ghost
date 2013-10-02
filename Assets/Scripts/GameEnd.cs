@@ -16,7 +16,7 @@ public class GameEnd : MonoBehaviour
 	{
 		bool win = true;
 		for(int i = 0; i<characters.Length; ++i){
-			if(characters[i].gameObject.activeSelf){
+			if(characters[i].scareLevel < characters[i].maxScareLevel){
 				win = false;
 				break;
 			}

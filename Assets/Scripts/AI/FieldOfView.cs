@@ -100,9 +100,11 @@ public class FieldOfView : MonoBehaviour {
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))
 			&& ch.gameObject.GetComponent<Character>().currentLocation == player.currentLocation){
 			ch = npc.GetComponent<Character>();
-			if(ch.cType == CharacterType.NORMAL && player.canBeSeen()){
+			if(ch.cType == CharacterType.NORMAL && player.canBeSeen() && player.currentLocation.Equals(ch.getCurrentLocation())){
 				ch.enemyDetected = true;
 				ch.stateMachine.changeState(StateType.ENEMY_DETECTED_STATE);
+			} else {
+				ch.enemyDetected = false;
 			}
 			if(ch.cType == CharacterType.GHOST_HUNTER){
 				ch.enemyDetected = true;
