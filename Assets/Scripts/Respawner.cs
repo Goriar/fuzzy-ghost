@@ -25,6 +25,10 @@ public class Respawner : MonoBehaviour
 				g.SetActive(true);
 			
 				g.transform.position = g.GetComponent<Item>().getSpawnCoordinates();
+				if(g.GetComponent<Item>() == null) {
+					Debug.LogError("KEIN ORIGINAL OBJECT GESETZT!!");
+					return;
+				}
 				GameObject originalObject = g.GetComponent<Item>().originalObject;
 				GameObject t = (GameObject)GameObject.Instantiate(g);
 				t.transform.parent = g.transform.parent;
