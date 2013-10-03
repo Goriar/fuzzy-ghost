@@ -284,7 +284,7 @@ public class Character : MonoBehaviour
 			}
 			
 			// Wenn Objekt in keinem dieser Räume ist ...
-			if(nextRoom == null){
+			if(nextRoom == null || nextRoom.isMainFloor){
 				// ... benutze die Treppe in das andere Stockwerk
 				addToPath(mainFloor.stairs);
 				
