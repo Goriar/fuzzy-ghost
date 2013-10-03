@@ -16,8 +16,13 @@ public class GameStart : MonoBehaviour
 	}
 	
 	void startGame(){
+		GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFade>().StartFade(new Color(0,0,0,1),2f, this.loadLevel);
+	}
+	
+	void loadLevel() {
 		Application.LoadLevel("CFinish");
 	}
+	
 	
 	void quitGame(){
 		Application.Quit();

@@ -22,10 +22,18 @@ public class GameEnd : MonoBehaviour
 			}
 		}
 		if(win)
-			Application.LoadLevel("GameWon");
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFade>().StartFade(new Color(0,0,0,1),1f, this.loadWonLevel);
 		
 		if(player.health <= 0.0f)
-			Application.LoadLevel("GameLost");
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFade>().StartFade(new Color(0,0,0,1),1f, this.loadLostLevel);
+	}
+		
+	public void loadLostLevel() {
+		Application.LoadLevel("GameLost");
+	}
+	
+	public void loadWonLevel() {
+		Application.LoadLevel("GameWon");
 	}
 }
 

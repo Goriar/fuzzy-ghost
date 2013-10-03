@@ -14,6 +14,8 @@ public class CameraView : MonoBehaviour {
 	///
 	void Start () {
 		setNewPos();
+		GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFade>().SetScreenOverlayColor(new Color(0,0,0,1));
+		GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFade>().StartFade(new Color(0,0,0,0),4f);
 	}
 	
 	// Update is called once per frame
