@@ -23,6 +23,7 @@ public class Respawner : MonoBehaviour
 			if(val>=10.0f){
 				GameObject g = (GameObject)respawnList[i];
 				g.SetActive(true);
+			
 				g.transform.position = g.GetComponent<Item>().getSpawnCoordinates();
 				GameObject t = (GameObject)GameObject.Instantiate(g);
 				t.transform.parent = g.transform.parent;

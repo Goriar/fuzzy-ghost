@@ -27,6 +27,7 @@ public class SearchingEnemyState : AIState
 	
 	public override void updateAI ()
 	{
+		stateMachine.Enemy.gameObject.BroadcastMessage("playAnimation","work");
 		if(searchTimer>=5.0f){
 			stateMachine.changeState(StateType.WANDER_STATE);
 			if(!ghostHunter.isTrapActive()){

@@ -10,8 +10,9 @@ public class FieldOfView : MonoBehaviour {
 	private float sizeDifference;
 	private Vector3 scale;
 	
-	private float timer;
-	private GameObject despawnObject;
+	private float[] timer;
+	private GameObject[] despawnObjects;
+	private int index;
 	// Use this for initialization
 	void Start () {
 		scale = this.gameObject.transform.localScale;
@@ -25,7 +26,9 @@ public class FieldOfView : MonoBehaviour {
 		if(sizeDifference<0)
 			sizeDifference*=-1;
 		
-		timer = 0.0f;
+		timer = new float[8];
+		despawnObjects = new GameObject[8];
+		index = 0;
 	}
 	
 	// Update is called once per frame
@@ -54,21 +57,29 @@ public class FieldOfView : MonoBehaviour {
 				this.gameObject.transform.localScale = new Vector3(0,0,0);
 			}
 		}
-		if(despawnObject!=null){
-				timer+=Time.deltaTime;
-				if(timer>=15.0f){
+		for(int i = 0; i<index; ++i){
+				timer[i]+=Time.deltaTime;
+				if(timer[i]>=15.0f){
 					Respawner respawn = GameObject.FindWithTag("MainCamera").GetComponent<Respawner>();
-					respawn.addToRespawnList(despawnObject);
-					despawnObject.GetComponent<Interactable>().enabled=true;
-					Item item = despawnObject.GetComponent<Item>();
+					respawn.addToRespawnList(despawnObjects[i]);
+					despawnObjects[i].GetComponent<Interactable>().enabled=true;
+					Item item = despawnObjects[i].GetComponent<Item>();
 					item.used = false;
-					for(int i = 0; i<item.combineObjects.Length; ++i){
-						item.combineObjects[i].SetActive(false);
+					for(int j = 0; j<item.combineObjects.Length; ++j){
+						item.combineObjects[j].SetActive(false);
 					}
-					despawnObject.SetActive(false);
-					despawnObject = null;
-					timer = 0.0f;
+					Animation anim = despawnObjects[i].GetComponent<Animation>();
+					if(anim != null){
+						anim.Stop();
+						anim.Rewind();
+						anim.Sample();
+					}
+					despawnObjects[i].SetActive(false);
+					despawnObjects[i] = null;
+					timer[i] = 0.0f;
 				}
+			if(despawnObjects[index-1] == null)
+				index--;
 			}
 		
 		Character ch = npc.GetComponent<Character>();
@@ -78,6 +89,8 @@ public class FieldOfView : MonoBehaviour {
 		} else if(ch.enemyDetected && ch.cType == CharacterType.GHOST_HUNTER) {
 			ch.stateMachine.changeState(StateType.HUNTING_ENEMY_STATE);	
 		}	
+
+
 	}
 	
 	void OnTriggerEnter(Collider other){
@@ -101,7 +114,9 @@ public class FieldOfView : MonoBehaviour {
 				item.curse(false);
 				item.used = true;
 				player.raiseAttention(item.getAttentionFactor());
-				despawnObject = other.gameObject;
+				despawnObjects[index] = other.gameObject;
+				timer[index] = 0.0f;
+				index = index+1<= despawnObjects.Length ? index+1 : index;
 				return;
 			}
 		}
