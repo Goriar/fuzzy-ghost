@@ -192,9 +192,12 @@ public class Moving : MonoBehaviour {
 		BroadcastMessage("stopAnimation", "moveBack");
 		finishedAction = true;
 		
+		// Player und NPC Komponenten
+		Character chara = gameObject.GetComponent<Character>();
+		Player player = gameObject.GetComponent<Player>();
 		
 		// Erhalte Raumkomponente
-		Transform tempRoom = usableDoor.otherSide.transform;
+		Transform tempRoom = (chara != null) ? usableDoor.otherSide.transform : usableDoor.transform;
 		RoomInventory roomComp = null;
 		while (true) {
 			// Oberstes Element in der Hierarchie erreicht => beende Loop
@@ -209,14 +212,12 @@ public class Moving : MonoBehaviour {
 		}
 		
 		// Wenn Objekt NPC ...
-		Character chara = gameObject.GetComponent<Character>();
-		Player player = gameObject.GetComponent<Player>();
 		if (chara != null) {
 			chara.setCurrentLocation(roomComp);
 			chara.setCharacterPath(chara.currentObjectOfInterest);
 		// Wenn Objekt Player ...
 		} else if (player != null) {
-			player.setCurrentLocation(roomComp);
+			player.currentLocation = roomComp;
 		}
 	}
 		
