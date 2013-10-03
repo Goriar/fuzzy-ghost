@@ -183,7 +183,6 @@ public class Stairs : MonoBehaviour{
 		Player player = movComp.GetComponent<Player>();
 		RoomInventory otherFloor = null;
 		if (chara != null) {
-			Debug.Log("Char " + chara.name + " wechselt durch Treppe von Raum " + chara.getCurrentLocation() + " in Raum " + roomComp);
 			chara.setCurrentLocation(roomComp);
 			chara.setCharacterPath(chara.currentObjectOfInterest);
 		// Wenn Objekt Player ...
