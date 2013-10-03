@@ -7,6 +7,7 @@ public class InputController : MonoBehaviour {
 	
 	private GameObject player;
 	private Moving moving;
+	public bool mouseMovement = false;
 	
 	private float lastMouseDown;
 	private float mousePressedTime;
@@ -54,13 +55,38 @@ public class InputController : MonoBehaviour {
 		
 		if (Input.GetMouseButton(0)) {
 			mousePressedTime = Time.time - lastMouseDown;
+			
+			if (mousePressedTime > 0.6f && !GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ObjectInteraction>().clickOnInteractable) {
+				mouseMovement = true;
+				// Ray Cast von Kamera aus zur Mausposition
+				RaycastHit hit = new RaycastHit();
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				
+				if(Physics.Raycast(ray,out hit)){
+					if (hit.point.x > moving.transform.position.x + 0.35f)
+						moving.execMoveLeft();
+					else if (hit.point.x < moving.transform.position.x - 0.35f) {
+						moving.execMoveRight();
+					} else {
+						moving.stopMoving();
+					}
+				}
+			}
+			
 		}
 		
 		if(Input.GetMouseButton(0) && mousePressedTime > 0.5f) {
 			// Debug.Log("maus lange gedrückt");
 		}
 		
+		if (Input.GetMouseButtonDown(0)) {
+			// Ray Cast von Kamera aus zur Mausposition
+				RaycastHit hit = new RaycastHit();
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		}
+		
 		if (Input.GetMouseButtonUp(0)) {
+			mouseMovement = false;
 			// Gehe nur, wenn Klick (down+up unter 0.5 Sek.)
 			if (mousePressedTime < 0.5f) {
 				// Ray Cast von Kamera aus zur Mausposition
@@ -88,7 +114,7 @@ public class InputController : MonoBehaviour {
 				moving.execMoveRight();
 			} 
 			// Stopt Bewegung, wenn keine Pfeiltasten gedrückt wurden
-			else {
+			else if (!mouseMovement) {
 				moving.stopMoving();
 			}
 			

@@ -19,6 +19,7 @@ public class ObjectInteraction : MonoBehaviour {
 	private bool mouseDown = false;								// Maus wurde gedrückt
 	private float mouseDownStart;									// Startzeitpunkt, an dem die Maus gedrückt wurde
 	private bool menuOpen = false;									// Menü wurde geöffnet
+	public bool clickOnInteractable = false;						// Klick über einem interagierbaren Element
 	
 	private float count;														// Zählvariable, welche die vergangene Zeit seit dem die Maus gedrückt wurde zählt 
 																								// und ob diese weiterhin gedrückt ist
@@ -102,6 +103,7 @@ public class ObjectInteraction : MonoBehaviour {
 			mouseDown = false;
 			menuOpen = false;
 			buttons = null;
+			clickOnInteractable = false;
 			
 			// Wenn aktiver Button und aktion vorhanden, führe diese aus
 			if (activeButtonIndex >= 0 && interact != null) {
@@ -114,58 +116,65 @@ public class ObjectInteraction : MonoBehaviour {
 			activeButtonIndex = -1;
 		}
 		
-		// Wenn Maus gedrückt und Zeit für Menüerscheinen überschritten...
-		if (mouseDown && (Time.time - mouseDownStart) > count) {
+		// Führe Raycast auf Mausposition aus
+		RaycastHit hit = new RaycastHit();
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		
+		// Wenn Objekt getroffen, setze Werte von Objekt in Variable
+		if(Physics.Raycast(ray,out hit)){
+			target = hit.collider.gameObject;
+			posX = Input.mousePosition.x;
+			posY = Screen.height - Input.mousePosition.y;
+		}
+				
+		if (mouseDown && !GameObject.FindGameObjectWithTag("Player").GetComponent<InputController>().mouseMovement && target != null && target.GetComponent("Interactable") != null && target.GetComponent<Interactable>().enabled) {
+		
+			clickOnInteractable = true;
 			
-			// Führe Raycast auf Mausposition aus
-			RaycastHit hit = new RaycastHit();
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			
-			// Wenn Objekt getroffen, setze Werte von Objekt in Variable
-			if(Physics.Raycast(ray,out hit)){
-				target = hit.collider.gameObject;
-				posX = Input.mousePosition.x;
-				posY = Screen.height - Input.mousePosition.y;
-			}
-			
-			// wenn Menü noch nich geöffnet und target vorhanden und Interagierbar
-			if(!menuOpen && target != null && target.GetComponent("Interactable") != null && target.GetComponent<Interactable>().enabled){
-				// Setze Menü geöffnet
-				menuOpen = true;
+			// Wenn Maus gedrückt und Zeit für Menüerscheinen überschritten...
+			if ((Time.time - mouseDownStart) > count) {
 				
-				// Setze interagierbares Objekt
-				interact = (Interactable)target.GetComponent("Interactable");
 				
-				// Erhalte Button Werte (Texte, Sprite Offsets, etc.)
-				string[] buttonTexts = interact.getButtonTexts();
-				float[] buttonOffsets = interact.getButtonOffsets();
-				// erstelle Array mit Anzahl der zu rendernden Buttons
-				buttons = new MenuButton[buttonTexts.Length];
 				
-				// Berechne Button Radius anhand der Anzahl der Buttons
-				float buttonRadius = 20f*buttons.Length;
-				// Sonderfälle für 1-3 Buttons
-				if (buttons.Length == 1)
-					buttonRadius = 0f;
-				if (buttons.Length == 2)
-					buttonRadius = 60f;
-				else if (buttons.Length == 3)
-					buttonRadius = 75f;
-				
-				// Durchgehe alle Buttons und setze deren Werte
-				for(int i=0; i<buttons.Length; i++){
+				// wenn Menü noch nich geöffnet und target vorhanden und Interagierbar
+				if(!menuOpen){
+					// Setze Menü geöffnet
+					menuOpen = true;
 					
-					buttons[i] = new MenuButton();
-					buttons[i].x = posX;
-					buttons[i].y = posY;
-					buttons[i].name = buttonTexts[i];
-					buttons[i].offset = buttonOffsets[i];
+					// Setze interagierbares Objekt
+					interact = (Interactable)target.GetComponent("Interactable");
 					
-					buttons[i].tweenToX = posX + Mathf.Cos((2*Mathf.PI/buttons.Length)*i)*buttonRadius;
-					buttons[i].tweenToY = posY + Mathf.Sin((2*Mathf.PI/buttons.Length)*i)*buttonRadius;
+					// Erhalte Button Werte (Texte, Sprite Offsets, etc.)
+					string[] buttonTexts = interact.getButtonTexts();
+					float[] buttonOffsets = interact.getButtonOffsets();
+					// erstelle Array mit Anzahl der zu rendernden Buttons
+					buttons = new MenuButton[buttonTexts.Length];
+					
+					// Berechne Button Radius anhand der Anzahl der Buttons
+					float buttonRadius = 20f*buttons.Length;
+					// Sonderfälle für 1-3 Buttons
+					if (buttons.Length == 1)
+						buttonRadius = 0f;
+					if (buttons.Length == 2)
+						buttonRadius = 60f;
+					else if (buttons.Length == 3)
+						buttonRadius = 75f;
+					
+					// Durchgehe alle Buttons und setze deren Werte
+					for(int i=0; i<buttons.Length; i++){
 						
+						buttons[i] = new MenuButton();
+						buttons[i].x = posX;
+						buttons[i].y = posY;
+						buttons[i].name = buttonTexts[i];
+						buttons[i].offset = buttonOffsets[i];
+						
+						buttons[i].tweenToX = posX + Mathf.Cos((2*Mathf.PI/buttons.Length)*i)*buttonRadius;
+						buttons[i].tweenToY = posY + Mathf.Sin((2*Mathf.PI/buttons.Length)*i)*buttonRadius;
+							
+					}
+					
 				}
-				
 			}
 		}
 			
