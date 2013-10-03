@@ -38,6 +38,7 @@ public class Character : MonoBehaviour
 	public float dialogueTime;
 	public AudioClip screamAudio;
 	
+	public Texture portrait;
 	
 	
 	// Use this for initialization

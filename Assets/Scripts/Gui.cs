@@ -7,19 +7,25 @@ public class Gui : MonoBehaviour {
 	public Texture barBorderTexture;
 	public Texture barTexture;
 	
-	private Vector2 spriteSize, heartSize, position;
+	private Vector2 spriteSize, heartSize, position, portraitSize, portraitPosition;
 	private float heartSpace;
 	private float guiScale;
-	
+		
 	///
 	/// Initialisierung
 	///
 	void Start () {
 		guiScale = 0.7f; // depricated! (eventuell noch von Verwendung)
-		// GUI Größen und Positionen
+		
+		// Heart Größen und Positionen
 		spriteSize = new Vector2 (305f, 56f);
 		heartSize = new Vector2(61f, 56f);
 		position = new Vector2(30f, 30f);
+		
+		// Portrait Größe und Position
+		portraitSize = new Vector2(80f, 80f);
+		portraitPosition = new Vector2(Screen.width-30f, 30f); 
+		
 		// Platz zwischen den Herzen
 		heartSpace = 5f;
 	}
@@ -72,6 +78,12 @@ public class Gui : MonoBehaviour {
 			GUI.DrawTexture(new Rect(30, Screen.height-30-80, 80, 80), playerItem.getIcon(), ScaleMode.StretchToFill, true);
 		}
 		
+		// NPC Portraits
+		Character[] characters = gameObject.GetComponent<GameEnd>().characters;
+		for(int i = 0; i<characters.Length; ++i){
+			var portraitOffset = (characters[i].scareLevel < characters[i].maxScareLevel) ? 0 : 0.5f;
+			drawPortrait(characters[i].portrait, (portraitSize.x+heartSpace)*(i+1), portraitOffset);
+		}
 		
 		
 	}
@@ -81,6 +93,14 @@ public class Gui : MonoBehaviour {
 		// zeichnet herz mit crop
 		GUI.BeginGroup( new Rect( position.x + offset, position.y, heartSize.x, heartSize.y ) );		
 		GUI.DrawTexture(new Rect(-spriteSize.x * textureOffset, 0, spriteSize.x, spriteSize.y), heartTexture, ScaleMode.StretchToFill, true);
+		GUI.EndGroup();
+	}
+	
+	// Zeichne Herz
+	void drawPortrait (Texture tex, float offset, float textureOffset) {
+		// zeichnet herz mit crop
+		GUI.BeginGroup( new Rect( portraitPosition.x - offset, portraitPosition.y, portraitSize.x, portraitSize.y ) );		
+		GUI.DrawTexture(new Rect( 0, -portraitSize.y * 2 * textureOffset, portraitSize.x, portraitSize.y*2), tex, ScaleMode.StretchToFill, true);
 		GUI.EndGroup();
 	}
 	
