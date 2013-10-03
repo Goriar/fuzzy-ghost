@@ -80,7 +80,7 @@ public class Curse : MonoBehaviour
 	}
 	
 	void curse(){
-		BroadcastMessage("playAnimation", "curse");
+		player.BroadcastMessage("playAnimation", "curse");
 		player.GetComponent<AudioSource>().clip = curseSound;
 		player.GetComponent<AudioSource>().Play();
 		isCursing = true;
