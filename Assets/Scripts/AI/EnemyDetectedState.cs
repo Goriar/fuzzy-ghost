@@ -20,9 +20,11 @@ public class EnemyDetectedState : AIState
 	}
 	public override void updateAI()
 	{
+		Debug.Log (player.canBeSeen());
 		Moving movComp = npc.getMovingComponent();
 		if(npc.enemyDetected && player.canBeSeen())
 		{
+			
 			if(player.transform.position.x < npc.transform.position.x){
 				movComp.execMoveRight();	
 				movComp.stopLerp();

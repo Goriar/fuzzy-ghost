@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 {
 
 	public float health;
-	private bool visible;
+	public bool visible;
 	
 	public float attentionToPlayer;
 	public const float MAX_ATTENTION = 100.0f;

@@ -70,6 +70,14 @@ public class FieldOfView : MonoBehaviour {
 					timer = 0.0f;
 				}
 			}
+		
+		Character ch = npc.GetComponent<Character>();
+		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		if (ch.enemyDetected && player.canBeSeen() && ch.cType == CharacterType.NORMAL) {
+			ch.stateMachine.changeState(StateType.ENEMY_DETECTED_STATE);
+		} else if(ch.enemyDetected && ch.cType == CharacterType.GHOST_HUNTER) {
+			ch.stateMachine.changeState(StateType.HUNTING_ENEMY_STATE);	
+		}	
 	}
 	
 	void OnTriggerEnter(Collider other){
@@ -100,16 +108,13 @@ public class FieldOfView : MonoBehaviour {
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))
 			&& ch.gameObject.GetComponent<Character>().currentLocation == player.currentLocation){
 			ch = npc.GetComponent<Character>();
-			if(ch.cType == CharacterType.NORMAL && player.currentLocation.Equals(ch.getCurrentLocation())){
+			if(player.currentLocation.Equals(ch.getCurrentLocation())){
 				ch.enemyDetected = true;
-				ch.stateMachine.changeState(StateType.ENEMY_DETECTED_STATE);
+				
 			} else {
 				ch.enemyDetected = false;
 			}
-			if(ch.cType == CharacterType.GHOST_HUNTER){
-				ch.enemyDetected = true;
-				ch.stateMachine.changeState(StateType.HUNTING_ENEMY_STATE);
-			}
+			
 		}
 		if(other.gameObject.GetComponent<Character>()!=null 
 			&& other.gameObject.GetComponent<Character>().currentLocation == ch.currentLocation
