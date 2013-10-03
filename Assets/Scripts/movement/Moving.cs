@@ -5,7 +5,7 @@ public class Moving : MonoBehaviour {
 	
 	public InputController controller = null;		// Controller, der Objekt bewegt (standardmäßig keiner)
 	
-	public float moveSpeed;							// Bewegungs-Geschwindigkeit des Objekts in m/s
+	public float moveSpeed = 2f;					// Bewegungs-Geschwindigkeit des Objekts in m/s
 	
 	public LayerEnum layer;							// Beinhaltet die Ebene, in der sich das Objekt befindet
 	public HouseLevelEnum houseLevel;				// Beinhaltet die Ebene, in der sich das Objekt befindet
@@ -41,7 +41,7 @@ public class Moving : MonoBehaviour {
 	/// Use this for initialization
 	/// 
 	void Start () {
-		moveSpeed = 2f; // 2 m/s Bewegungsgeschw.
+		//moveSpeed = 2f; // 2 m/s Bewegungsgeschw.
 		layer = LayerEnum.FRONT; // ist in vorderster Ebene
 		houseLevel = HouseLevelEnum.LOWER; // Erdgeschoss
 		viewDirection = DirectionEnum.LEFT; // schaut nach links

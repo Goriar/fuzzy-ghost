@@ -17,17 +17,19 @@ public class Gui : MonoBehaviour {
 	void Start () {
 		guiScale = 0.7f; // depricated! (eventuell noch von Verwendung)
 		
+		// Platz zwischen den Herzen und Portraits
+		heartSpace = 5f;
+		
 		// Heart Größen und Positionen
 		spriteSize = new Vector2 (305f, 56f);
 		heartSize = new Vector2(61f, 56f);
-		position = new Vector2(30f, 30f);
+		position = new Vector2(30f+3*(heartSize.x+heartSpace), 30f);
 		
 		// Portrait Größe und Position
 		portraitSize = new Vector2(80f, 80f);
 		portraitPosition = new Vector2(Screen.width-30f, 30f); 
 		
-		// Platz zwischen den Herzen
-		heartSpace = 5f;
+		
 	}
 	
 	void OnGUI () {
@@ -91,7 +93,7 @@ public class Gui : MonoBehaviour {
 	// Zeichne Herz
 	void drawHeart (float offset, float textureOffset) {
 		// zeichnet herz mit crop
-		GUI.BeginGroup( new Rect( position.x + offset, position.y, heartSize.x, heartSize.y ) );		
+		GUI.BeginGroup( new Rect( position.x - offset, position.y, heartSize.x, heartSize.y ) );		
 		GUI.DrawTexture(new Rect(-spriteSize.x * textureOffset, 0, spriteSize.x, spriteSize.y), heartTexture, ScaleMode.StretchToFill, true);
 		GUI.EndGroup();
 	}
