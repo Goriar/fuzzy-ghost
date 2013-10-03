@@ -22,7 +22,6 @@ public class Item : MonoBehaviour {
 	private bool cursed;
 	public bool used;
 	public AudioClip takeAudio;
-	public GameObject originalObject;
 	
 	// Use this for initialization
 	void Start () {

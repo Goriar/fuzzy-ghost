@@ -61,15 +61,20 @@ public class FieldOfView : MonoBehaviour {
 				timer[i]+=Time.deltaTime;
 				if(timer[i]>=15.0f){
 					Respawner respawn = GameObject.FindWithTag("MainCamera").GetComponent<Respawner>();
-					respawn.addToRespawnList(despawnObjects[i]);
-					despawnObjects[i].GetComponent<Interactable>().enabled=true;
-					Item item = despawnObjects[i].GetComponent<Item>();
+					
+					Animation anim = despawnObjects[i].GetComponent<Animation>();
+				if(anim !=null){
+					anim.wrapMode = WrapMode.Once;
+				}
+				AudioSource audio = despawnObjects[i].GetComponent<AudioSource>();
+				if(audio != null){
+					audio.Stop();
+				}
+				Item item = despawnObjects[i].GetComponent<Item>();
 					item.used = false;
-					for(int j = 0; j<item.combineObjects.Length; ++j){
-						item.combineObjects[j].SetActive(false);
-					}
-					despawnObjects[i].GetComponent<Item>().originalObject.SetActive(true);
-					despawnObjects[i].SetActive(false);
+				item.scareFactor = 0;
+				
+				respawn.addToRespawnList(despawnObjects[i]);
 					despawnObjects[i] = null;
 					timer[i] = 0.0f;
 				}

@@ -22,24 +22,12 @@ public class Respawner : MonoBehaviour
 			respawnTimes[i] = val;
 			if(val>=10.0f){
 				GameObject g = (GameObject)respawnList[i];
+					Animation anim = g.GetComponent<Animation>();
+				if(anim !=null){
+					anim.wrapMode = WrapMode.Loop;
+				}
+				g.GetComponent<Interactable>().enabled = true;
 				g.SetActive(true);
-			
-				g.transform.position = g.GetComponent<Item>().getSpawnCoordinates();
-				if(g.GetComponent<Item>() == null) {
-					Debug.LogError("KEIN ORIGINAL OBJECT GESETZT!!");
-					return;
-				}
-				GameObject originalObject = g.GetComponent<Item>().originalObject;
-				GameObject t = (GameObject)GameObject.Instantiate(g);
-				t.transform.parent = g.transform.parent;
-				t.transform.position = g.transform.position;
-				t.transform.rotation = originalObject.transform.rotation;
-				Renderer[] render = t.GetComponentsInChildren<Renderer>();
-				for(int j = 0; j<render.Length; ++j){
-					render[j].enabled = true;
-				}
-				g.SetActive(false);
-				originalObject.SetActive(false);
 				respawnList.RemoveAt(i);
 				respawnTimes.RemoveAt(i);
 				
