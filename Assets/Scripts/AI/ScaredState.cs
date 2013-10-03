@@ -43,7 +43,7 @@ public class ScaredState : AIState
 	}
 	
 	public override void updateAI(){
-		
+		stateMachine.Enemy.BroadcastMessage("playAnimation", "scare");
 		//Charakter hat Ort erreicht
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
 			Vector3 distance = stateMachine.Enemy.transform.position-finalTarget.transform.position;
