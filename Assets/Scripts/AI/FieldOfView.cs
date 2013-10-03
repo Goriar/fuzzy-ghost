@@ -64,7 +64,7 @@ public class FieldOfView : MonoBehaviour {
 					Animation anim = despawnObjects[i].GetComponent<Animation>();
 					if(anim != null){
 						anim.Stop();
-						anim.Rewind();
+						anim.Play("Idle");
 						anim.Sample();
 					}
 					respawn.addToRespawnList(despawnObjects[i]);
@@ -74,6 +74,7 @@ public class FieldOfView : MonoBehaviour {
 					for(int j = 0; j<item.combineObjects.Length; ++j){
 						item.combineObjects[j].SetActive(false);
 					}
+					despawnObjects[i].GetComponent<Item>().originalObject.SetActive(true);
 					despawnObjects[i].SetActive(false);
 					despawnObjects[i] = null;
 					timer[i] = 0.0f;
@@ -114,9 +115,12 @@ public class FieldOfView : MonoBehaviour {
 				item.curse(false);
 				item.used = true;
 				player.raiseAttention(item.getAttentionFactor());
-				despawnObjects[index] = other.gameObject;
-				timer[index] = 0.0f;
-				index = index+1<= despawnObjects.Length ? index+1 : index;
+				Curse curse = other.GetComponent<Curse>();
+				if(curse!=null){
+					despawnObjects[index] = other.gameObject;
+					timer[index] = 0.0f;
+					index = index+1<= despawnObjects.Length ? index+1 : index;
+				}
 				return;
 			}
 		}

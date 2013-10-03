@@ -25,11 +25,17 @@ public class Respawner : MonoBehaviour
 				g.SetActive(true);
 			
 				g.transform.position = g.GetComponent<Item>().getSpawnCoordinates();
+				GameObject originalObject = g.GetComponent<Item>().originalObject;
 				GameObject t = (GameObject)GameObject.Instantiate(g);
 				t.transform.parent = g.transform.parent;
 				t.transform.position = g.transform.position;
-				//t.transform.rotation = new Quaternion(0,0,0,0);
+				t.transform.rotation = originalObject.transform.rotation;
+				Renderer[] render = t.GetComponentsInChildren<Renderer>();
+				for(int j = 0; j<render.Length; ++j){
+					render[j].enabled = true;
+				}
 				g.SetActive(false);
+				originalObject.SetActive(false);
 				respawnList.RemoveAt(i);
 				respawnTimes.RemoveAt(i);
 				
