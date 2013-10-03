@@ -84,4 +84,13 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 	
+	void Update ()
+	{
+		if (currentItem != null && !gameObject.GetComponent<Player>().canBeSeen()) {
+			BroadcastMessage("showPlayer");
+		} else if (currentItem == null && gameObject.GetComponent<Player>().canBeSeen()) {
+			BroadcastMessage("hidePlayer");
+		}
+	}
+	
 }

@@ -72,6 +72,7 @@ public class Curse : MonoBehaviour
 				player.GetComponent<Player>().hidePlayer();
 			}
 		}
+		player.GetComponent<Player>().hidePlayer();
 	}
 	
 	void curseObject()
