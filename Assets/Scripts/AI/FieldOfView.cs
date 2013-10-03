@@ -3,16 +3,16 @@ using System.Collections;
 
 public class FieldOfView : MonoBehaviour {
 	
-	public GameObject npc;
-	private Moving npcMov;
-	private DirectionEnum viewDirection;
-	private float distance;
-	private float sizeDifference;
-	private Vector3 scale;
+	public GameObject npc; //Der zugehörige NPC
+	private Moving npcMov; //Die Moving Component des NPC
+	private DirectionEnum viewDirection; //Die Richtung in die er schaut
+	private float distance; //Die Distanz zwischen dem FOV und dem NPC
+	private float sizeDifference; //Der Größenunterschied zwischen NPC und FOV
+	private Vector3 scale; //Die skalierung die vom NPC übertragen wird
 	
-	private float[] timer;
-	private GameObject[] despawnObjects;
-	private int index;
+	private float[] timer; //Timer der Despawn Objekte
+	private GameObject[] despawnObjects; // Die Despawn Objekte
+	private int index; //Nächster Index fürs die Despawn Liste
 	// Use this for initialization
 	void Start () {
 		scale = this.gameObject.transform.localScale;
@@ -34,7 +34,7 @@ public class FieldOfView : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(viewDirection!=npcMov.viewDirection){
-		
+		//Das Field of View wird auf die andere Seite gesetzt wenn der NPC sich dreht
 			viewDirection = npcMov.viewDirection;
 			if(viewDirection == DirectionEnum.LEFT){
 				this.gameObject.transform.localScale = scale;
@@ -57,9 +57,11 @@ public class FieldOfView : MonoBehaviour {
 				this.gameObject.transform.localScale = new Vector3(0,0,0);
 			}
 		}
+		
+		//Objekte werden an den Respawner übergeben und zurück gesetzt
 		for(int i = 0; i<index; ++i){
 				timer[i]+=Time.deltaTime;
-				if(timer[i]>=15.0f){
+				if(timer[i]>=5.0f){
 					Respawner respawn = GameObject.FindWithTag("MainCamera").GetComponent<Respawner>();
 					
 					Animation anim = despawnObjects[i].GetComponent<Animation>();
@@ -82,6 +84,7 @@ public class FieldOfView : MonoBehaviour {
 				index--;
 			}
 		
+		//Wenn der Spieler gesehen wird, wird die entsprechnde State aktiviert
 		Character ch = npc.GetComponent<Character>();
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if (ch.enemyDetected && player.canBeSeen() && ch.cType == CharacterType.NORMAL) {
@@ -96,6 +99,7 @@ public class FieldOfView : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		Item item = other.GetComponent<Item>();
 		Character ch = npc.GetComponent<Character>();
+		//Testet in welchem Raum sich der NPC befindet
 		Item testForRoom = null;
 		for(int i = 0; i<ch.currentLocation.objects.Length; ++i){ 
 			if(item == ch.currentLocation.objects[i].GetComponent<Item>()
@@ -106,6 +110,7 @@ public class FieldOfView : MonoBehaviour {
 			
 		}
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		//Wenn ein gruseliger Gegenstand geshen wird, werden State und Werte entsprechend gesetzt
 		if(item != null && testForRoom !=null){
 			if(item.getScaryness()>0 && !item.used){
 				ch = npc.GetComponent<Character>();
@@ -123,6 +128,7 @@ public class FieldOfView : MonoBehaviour {
 				return;
 			}
 		}
+		//Prüft ob Spieler gesehen werden kann
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))
 			&& ch.gameObject.GetComponent<Character>().currentLocation == player.currentLocation){
 			ch = npc.GetComponent<Character>();
@@ -134,6 +140,7 @@ public class FieldOfView : MonoBehaviour {
 			}
 			
 		}
+		//Prüft ob der NPC reden möchte
 		if(other.gameObject.GetComponent<Character>()!=null 
 			&& other.gameObject.GetComponent<Character>().currentLocation == ch.currentLocation
 			&& !ch.enemyDetected){
@@ -150,6 +157,7 @@ public class FieldOfView : MonoBehaviour {
 	}
 	
 	void OnTriggerExit(Collider other){
+		//Wenn Spieler oder NPC das FOV verlassen wird zurückgesetzt
 		if(other.gameObject.Equals(GameObject.FindGameObjectWithTag("Player"))){
 			Character ch = npc.GetComponent<Character>();
 			ch.enemyDetected = false;

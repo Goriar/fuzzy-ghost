@@ -23,7 +23,9 @@ public class HuntingEnemyState : AIState
 	
 	public override void updateAI ()
 	{
-		
+		//Jagt den Spieler bis er ihn nicht mehr sieht
+		//Wenn er näher heran kommt verursacht er mehr schaden
+		//Er deckt den Spieler außerdem auf
 		if(ghostHunter.enemyDetected)
 		{
 			movComp.goToX(player.transform.position.x);
@@ -38,7 +40,7 @@ public class HuntingEnemyState : AIState
 			
 		}
 		else{
-			//Sollte der Jäger dem Geist durch die Tür hinterher laufen?
+			
 			stateMachine.changeState(StateType.SEARCHING_ENEMY_STATE);
 			player.hidePlayer();
 		}

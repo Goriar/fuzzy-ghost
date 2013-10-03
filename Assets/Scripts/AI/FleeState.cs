@@ -26,7 +26,7 @@ public class FleeState : AIState
 	
 	public override void updateAI ()
 	{
-		
+		//Das Selbe wie in der Wander State
 		//Charakter hat Ort erreicht
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
 			Vector3 distance = stateMachine.Enemy.transform.position-fleeSpot.transform.position;

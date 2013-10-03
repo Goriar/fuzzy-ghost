@@ -27,6 +27,8 @@ public class SearchingEnemyState : AIState
 	
 	public override void updateAI ()
 	{
+		//Bleibt an einer Stelle stehen und dreht sich mehrmals um, wechselt dann wieder in
+		//die Wander State und legt eine Falle, falls es noch keine gibt
 		stateMachine.Enemy.gameObject.BroadcastMessage("playAnimation","work");
 		if(searchTimer>=5.0f){
 			stateMachine.changeState(StateType.WANDER_STATE);

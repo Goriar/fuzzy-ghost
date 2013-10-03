@@ -12,7 +12,7 @@ public class TalkingState : AIState
 	}
 	
 	public override void enterState(){
-		
+		//Positioniert NPCs die miteinander reden
 		idleTime = 0.0f;
 		stateMachine.Enemy.talking = true;
 		stateMachine.Enemy.getMovingComponent().stopLerp();

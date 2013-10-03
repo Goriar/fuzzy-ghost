@@ -4,15 +4,15 @@ using System.Collections;
 public class Curse : MonoBehaviour
 {
 
-	public float cursedScareFactor;
-	public float cursedAttentionFactor;
-	public Font font;
-	bool isCursing;
-	float completion;
-	GameObject player;
-	Moving movComp;
-	public AudioClip[] curseAudio = new AudioClip[3];
-	public AudioClip curseSound;
+	public float cursedScareFactor;  //Maximaler Erschreckwert des Fluchs
+	public float cursedAttentionFactor; // Maximale Aufmerksamkeit des Fluchs
+	public Font font;  //Font der für die Anzeige benutzt wird
+	bool isCursing;    //Verflucht der Spieler gerade?
+	float completion;  // Wie weit ist der Flcuh vorangeschritten
+	GameObject player;  //Gamobjekt des Spielers
+	Moving movComp;		//Die Moving Component
+	public AudioClip[] curseAudio = new AudioClip[3];  //Audioclips für die Animationen
+	public AudioClip curseSound;  //Audioclip der beim verfluchen spielt
 	// Use this for initialization
 	void Start ()
 	{
@@ -25,14 +25,16 @@ public class Curse : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(isCursing){
+		if(isCursing){  //Wenn der Spieler das Objekt verflucht...
 			player.GetComponent<Player>().showPlayer();
-			if(movComp.isMoving()){
+			//wird der Fluch abgebrochen, sobald er sich bewegt und die Erschreck Werte berechnet
+			if(movComp.isMoving()){ 
 				isCursing = false;
 				Item item = this.gameObject.GetComponent<Item>();
 				item.scareFactor = cursedScareFactor*completion/100.0f;
 				item.attentionFactor = cursedAttentionFactor*completion/100.0f;
 				item.curse(true);
+				//Je nachdem wie weit der Fluch kam, wird eine Animation abgespielt
 				Animation anim = this.GetComponent<Animation>();
 				if(completion<40.0f){
 					anim.Play("Curse1");
@@ -54,6 +56,7 @@ public class Curse : MonoBehaviour
 				completion = 0.0f;
 				return;
 			}
+			//Das gleiche passiert wenn der Gegenstand zu 100% verflucht wurde, mit der letzen Animation
 			completion+=Time.deltaTime*7.0f;
 			if(completion>=100.0f){
 				Item item = this.gameObject.GetComponent<Item>();
@@ -80,6 +83,7 @@ public class Curse : MonoBehaviour
 	}
 	
 	void curse(){
+		//Leitet den Fluch ein und spielt passende Audio Datei ab
 		player.BroadcastMessage("playAnimation", "curse");
 		player.GetComponent<AudioSource>().clip = curseSound;
 		player.GetComponent<AudioSource>().Play();
@@ -91,6 +95,7 @@ public class Curse : MonoBehaviour
 	
 	void OnGUI(){
 		if(isCursing){
+			//Grafische Textrepräsentation als Prozentzahl
 			GUI.skin.font = font;
 			GUI.color = Color.red;
 			GUI.Label(new Rect(Camera.mainCamera.WorldToScreenPoint(player.transform.position).x,

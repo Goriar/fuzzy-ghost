@@ -4,41 +4,41 @@ using System.Xml;
 
 public class Character : MonoBehaviour
 {
-	public string name;
-	public CharacterType cType;
+	public string name; // Name des NPC
+	public CharacterType cType; //Typ des Characters
 	
 	//Ghost Hunter Timer
-	private float hunterTimer;
-	private const float MAX_HUNTING_TIME = 60.0f;
-	private bool trapActive;
-	public GameObject trapPrefab;
+	private float hunterTimer; //Wie lange der Geisterjäger bisher da ist
+	private const float MAX_HUNTING_TIME = 60.0f; //Maximale JAgdzeit
+	private bool trapActive; //Ist schon eine Falle aktiv?
+	public GameObject trapPrefab; //Prefab für die Falle
 	
-	public StateMachine stateMachine{get;set;}
-	Moving movingComponent;
-	public RoomInventory currentLocation;
-	public GameObject[] objectsOfInterest;
-	public GameObject currentObjectOfInterest;
-	public float currentValue;
-	public float [] objectOfInterestValues;
-	public GameObject[] characterPath;
+	public StateMachine stateMachine{get;set;} //Die Statemachine
+	Moving movingComponent; 
+	public RoomInventory currentLocation; //Wo der NPC sich gerade aufhält
+	public GameObject[] objectsOfInterest; //Wo der NPC hinlaufen wird
+	public GameObject currentObjectOfInterest; // Nächstes Objekt, das er ansteuert
+	public float currentValue; //Momentan bester Wert
+	public float [] objectOfInterestValues; //Werte die angeben welches Objekt als ncähstes angesteuert wird
+	public GameObject[] characterPath; //Der Aktuelle Pfad zum Objekt
 	
 	public bool enemyDetected;
 	
-	public float maxScareLevel = 100.0f;
+	public float maxScareLevel = 100.0f;	// Wann ein Npc fleiht
 	public float scareLevel;				// Aktuelles Erschreckfortschritt
 	public float superstitionFactor;		// Aberglaube Faktor (von 0 bis 2)
 	
-	public bool readyToTalk;
-	public bool talking;
+	public bool readyToTalk; // Will der NPC reden?
+	public bool talking;	//redet der NPC?
 
- 	string[] currentThingsToSay;
-	public Character chatPartner;
-	XmlDocument xml;
+ 	string[] currentThingsToSay;	//Was er sagen will
+	public Character chatPartner;	//Mit wem er redet
+	XmlDocument xml;				//Dokument in dem steht was die CHaractere sagen
 	
-	public float dialogueTime;
-	public AudioClip screamAudio;
+	public float dialogueTime;		//Wie lange sie schon reden
+	public AudioClip screamAudio;	//Welche Audiodatei wird beim erschrecken gespielt
 	
-	public Texture portrait;
+	public Texture portrait;		
 	
 	
 	// Use this for initialization

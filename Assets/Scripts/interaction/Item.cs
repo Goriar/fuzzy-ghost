@@ -17,11 +17,10 @@ public class Item : MonoBehaviour {
 	public Item[] combinedItems;								// Liste mit bereits kombinierten Gegenständen
 	public bool slotBased = true; 								// gibt an, ob Items in Slots hinzugefügt werden sollen, oder Mesh geändert werden soll
 	public GameObject[] combineObjects;					// Liste mit Kombinierbaren Objekten, für nicht slotbasiertes Kombinieren
-	// COMMENT TODO: CHRIS
-	private int combinationsApplied;
-	private bool cursed;
-	public bool used;
-	public AudioClip takeAudio;
+	private int combinationsApplied;  //Zähler wie viele Kombinationen schon auf dem Objekt vorhanden sind
+	private bool cursed;			  //Ist das Objekt verflucht?
+	public bool used;				  //Wurde das Objekt benutzt?
+	public AudioClip takeAudio;		  //Audio Datei, die abgespielt wird, wen das Objekt aufgenommen wird
 	
 	// Use this for initialization
 	void Start () {

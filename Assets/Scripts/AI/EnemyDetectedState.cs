@@ -20,6 +20,7 @@ public class EnemyDetectedState : AIState
 	}
 	public override void updateAI()
 	{
+		//Wenn der SPieler gesehen wird, bleibt der NPC stehen und dreht sich zu ihm
 		Debug.Log (player.canBeSeen());
 		Moving movComp = npc.getMovingComponent();
 		if(npc.enemyDetected && player.canBeSeen())

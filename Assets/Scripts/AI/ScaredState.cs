@@ -22,6 +22,7 @@ public class ScaredState : AIState
 		finalTarget = null;
 		float bestDistance = 0f;
 		stateMachine.Enemy.getMovingComponent().stopLerp();
+		//Findet den nächstgelegenen Panic Spot und setzt einen Pfad um ihn zu erreichen
 		foreach(GameObject g in panicSpots){
 			Vector3 v = g.transform.position - stateMachine.Enemy.gameObject.transform.position;
 			if(v.magnitude > bestDistance){
@@ -31,6 +32,7 @@ public class ScaredState : AIState
 		}
 		stateMachine.Enemy.setCharacterPath(finalTarget);
 		
+		//Resettet ein ppar Werte des Characters und spielt eine AudioDatei ab
 		movingComponent = stateMachine.Enemy.getMovingComponent();
 		idleTime = 0.0f;
 		movingToTransition = false;
@@ -43,6 +45,7 @@ public class ScaredState : AIState
 	}
 	
 	public override void updateAI(){
+		//Wegfindung. Das selbe wie in der Wander State
 		stateMachine.Enemy.BroadcastMessage("playAnimation", "scare");
 		//Charakter hat Ort erreicht
 		if(stateMachine.Enemy.getCharacterPath().Length == 0){
