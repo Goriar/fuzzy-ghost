@@ -13,6 +13,7 @@ public class LayerSwitchTrigger : MonoBehaviour {
 		// Ändert Wechselrichtung und Ebene des Objekts
 		if(other.gameObject.GetComponent<Moving>()!=null && other.gameObject.tag == "Player"){
 			other.gameObject.GetComponent<Moving>().usableDoor = door;
+			other.GetComponent<Inventory>().frontOfDoor = true;
 		}
 	}
 	
@@ -24,6 +25,7 @@ public class LayerSwitchTrigger : MonoBehaviour {
 		// Ändert Wechselrichtung auf NONE, wenn Wechselrichtung immer noch die selbe ist (beim Wechsel betritt Objekt automatisch neuen Trigger, der wohl in andere Richtung geht)
 		if(other.gameObject.GetComponent<Moving>()!=null && other.gameObject.tag == "Player"){
 			if (other.gameObject.GetComponent<Moving>().usableDoor == door) {
+				other.GetComponent<Inventory>().frontOfDoor = false;
 				other.gameObject.GetComponent<Moving>().usableDoor = null;
 			}
 		}

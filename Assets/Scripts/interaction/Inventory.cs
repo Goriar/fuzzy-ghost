@@ -5,6 +5,7 @@ public class Inventory : MonoBehaviour {
 
 	private GameObject currentItem; // Item the NPC/Player currently has
 	
+	public bool frontOfDoor = false;
 	///
 	/// Nehme Gegenstand
 	/// Nimmt Gegenstand, der übergeben wurde, wenn Inventar leer ist
@@ -68,7 +69,8 @@ public class Inventory : MonoBehaviour {
 			}
 			currentItem.GetComponent<Hide>().show(0);
 			
-			Vector3 tempPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z+0.5f);
+			float xOffset = (frontOfDoor) ? 0.5f : 0f;
+			Vector3 tempPos = new Vector3(gameObject.transform.position.x+xOffset, gameObject.transform.position.y, gameObject.transform.position.z+0.5f);
 			currentItem.transform.position = tempPos;
 			currentItem.GetComponent<Item>().currentLayer = gameObject.GetComponent<Moving>().layer;
 			currentItem.SetActive(true);
