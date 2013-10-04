@@ -103,6 +103,10 @@ public class InputController : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
+		
+		if (Input.GetKey(KeyCode.Escape)) {
+			Application.Quit();
+		}
 		// Updates nur wenn nicht Eingabe nicht gesperrt!
 		if (player != null && !player.GetComponent<Moving>().isMovementLocked() && !locked && moving != null) {
 			// Bewegung links bei Pfeil links
