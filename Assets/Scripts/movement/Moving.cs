@@ -42,8 +42,10 @@ public class Moving : MonoBehaviour {
 	/// 
 	void Start () {
 		//moveSpeed = 2f; // 2 m/s Bewegungsgeschw.
-		layer = LayerEnum.FRONT; // ist in vorderster Ebene
-		houseLevel = HouseLevelEnum.LOWER; // Erdgeschoss
+		if(gameObject.GetComponent<Character>() != null){
+		layer = LayerEnum.FRONT;
+			houseLevel = HouseLevelEnum.LOWER;
+		}
 		viewDirection = DirectionEnum.LEFT; // schaut nach links
 		moveDirection = DirectionEnum.NONE; // keine Bewegung am Anfang
 	}
@@ -133,13 +135,13 @@ public class Moving : MonoBehaviour {
 			float zPos = transform.localPosition.z;
 			switch (layer) {
 				case LayerEnum.FRONT:
-					zPos = ObjectRegister.getLayer("layer_front").transform.localPosition.z;	
+					zPos = GameObject.FindGameObjectWithTag("layer_front").transform.localPosition.z;	
 					break;
 				case LayerEnum.MID:
-					zPos = ObjectRegister.getLayer("layer_mid").transform.localPosition.z;		
+					zPos = GameObject.FindGameObjectWithTag("layer_mid").transform.localPosition.z;		
 					break;
 				case LayerEnum.BACK:
-					zPos = ObjectRegister.getLayer("layer_back").transform.localPosition.z;		
+					zPos = GameObject.FindGameObjectWithTag("layer_back").transform.localPosition.z;		
 					break;
 			}
 			
@@ -166,13 +168,13 @@ public class Moving : MonoBehaviour {
 			if (Camera.main.GetComponent<CameraView>().target == transform) {
 				switch (layer) {
 					case LayerEnum.FRONT:
-						ObjectRegister.getLayer("layer_front").GetComponent<Layer>().changeVisibilityByDependence();
+						GameObject.FindGameObjectWithTag("layer_front").GetComponent<Layer>().changeVisibilityByDependence();
 						break;
 					case LayerEnum.MID:
-						ObjectRegister.getLayer("layer_mid").GetComponent<Layer>().changeVisibilityByDependence();
+						GameObject.FindGameObjectWithTag("layer_mid").GetComponent<Layer>().changeVisibilityByDependence();
 						break;
 					case LayerEnum.BACK:
-						ObjectRegister.getLayer("layer_back").GetComponent<Layer>().changeVisibilityByDependence();
+						GameObject.FindGameObjectWithTag("layer_back").GetComponent<Layer>().changeVisibilityByDependence();
 						break;
 				}
 			}	

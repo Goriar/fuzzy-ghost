@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		GameObject.FindGameObjectWithTag("layer_mid").GetComponent<Layer>().changeVisibilityByDependence();
 		health = 100f;
 		ghostHunter = GameObject.FindGameObjectWithTag("ghost_hunter");
 		if(ghostHunter!=null)

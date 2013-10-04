@@ -60,16 +60,16 @@ public class Layer : MonoBehaviour {
 		showForegroundLayer();
 		// wenn vordere Layer
 		if (this.tag == "layer_front") {
-			ObjectRegister.getLayer("layer_mid").BroadcastMessage("showBackgroundLayer");
-			ObjectRegister.getLayer("layer_back").BroadcastMessage("showBackgroundLayer");
+			GameObject.FindGameObjectWithTag("layer_mid").BroadcastMessage("showBackgroundLayer");
+			GameObject.FindGameObjectWithTag("layer_back").BroadcastMessage("showBackgroundLayer");
 		// wenn mittlere Layer
 		} else if (this.tag == "layer_mid") {
-			ObjectRegister.getLayer("layer_front").BroadcastMessage("hideLayer");
-			ObjectRegister.getLayer("layer_back").BroadcastMessage("showBackgroundLayer");
+			GameObject.FindGameObjectWithTag("layer_front").BroadcastMessage("hideLayer");
+			GameObject.FindGameObjectWithTag("layer_back").BroadcastMessage("showBackgroundLayer");
 		// wenn hintere Layer
 		} else if (this.tag == "layer_back") {
-			ObjectRegister.getLayer("layer_front").BroadcastMessage("hideLayer");
-			ObjectRegister.getLayer("layer_mid").BroadcastMessage("hideLayer");
+			GameObject.FindGameObjectWithTag("layer_front").BroadcastMessage("hideLayer");
+			GameObject.FindGameObjectWithTag("layer_mid").BroadcastMessage("hideLayer");
 		}
 	}
 	
