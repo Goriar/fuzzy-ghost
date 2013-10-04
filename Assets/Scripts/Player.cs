@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 	private GameObject ghostHunter;
 
 	public RoomInventory currentLocation;
-
+	public bool usesStairs = false;
 
 	// Use this for initialization
 	void Start ()

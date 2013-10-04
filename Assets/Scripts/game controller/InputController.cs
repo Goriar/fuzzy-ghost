@@ -62,7 +62,7 @@ public class InputController : MonoBehaviour {
 				RaycastHit hit = new RaycastHit();
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				
-				if(Physics.Raycast(ray,out hit)){
+				if(Physics.Raycast(ray,out hit) && !locked){
 					if (hit.point.x > moving.transform.position.x + 0.35f)
 						moving.execMoveLeft();
 					else if (hit.point.x < moving.transform.position.x - 0.35f) {
@@ -104,7 +104,7 @@ public class InputController : MonoBehaviour {
 	
 	void FixedUpdate () {
 		// Updates nur wenn nicht Eingabe nicht gesperrt!
-		if (player != null && !player.GetComponent<Moving>().isMovementLocked() && moving != null) {
+		if (player != null && !player.GetComponent<Moving>().isMovementLocked() && !locked && moving != null) {
 			// Bewegung links bei Pfeil links
 			if (Input.GetKey(KeyCode.LeftArrow)) {
 				moving.execMoveLeft();
